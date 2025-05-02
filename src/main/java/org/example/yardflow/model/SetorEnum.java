@@ -1,0 +1,6 @@
+package org.example.yardflow.model;
+
+public enum SetorEnum {
+    PENDENCIA, REPAROS_SIMPLES, DANOS_GRAVES, MOTOR_DEFEITUOSO, MANUTENCAO,
+    DISPONIVEL_ALUGUEL, SEM_PLACA, MINHA_MOTTU
+}

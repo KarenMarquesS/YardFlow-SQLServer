@@ -14,11 +14,11 @@ import java.util.List;
 public class Patio {
 
     @Id
-    private long idPatio;
+    private int idPatio;
 
-    private LocalDate entrada_patio;
+    private String endereco;
 
-    private LocalDate saida_patio;
+    private int qtdVagas;
 
     @Enumerated(EnumType.STRING)
     private SetorEnum setor;

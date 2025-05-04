@@ -21,16 +21,13 @@ public class Cliente {
     @Column(name = "cpf", length = 11)
     private String cpf;
 
-    @Column(name = "cnh", length = 9)
-    private String cnh;
-    private String email;
-
     @Column(name = "telefone", length = 11)
     private String telefone;
 
+    @Enumerated(EnumType.STRING)
     private PlanoEnum plano;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<org.example.yardflow.model.Moto> motos = new ArrayList<Moto>();
+    private List<Moto> moto = new ArrayList<>();
 
 }

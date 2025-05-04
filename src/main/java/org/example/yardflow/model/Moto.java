@@ -5,6 +5,8 @@ import lombok.Data;
 import org.example.yardflow.model.ModeloEnum;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Data
@@ -14,17 +16,18 @@ public class Moto {
 
 
     @Id
-    private long idMoto;
+    private int idMoto;
 
     @Enumerated(EnumType.STRING)
     private ModeloEnum modelo;
-    private LocalDate ano_fabricacao;
+
+    private String anoFabricacao;
 
     @Column(length = 17)
     private String chassi;
 
     @Column(length = 17)
-    private String n_motor;
+    private String nMotor;
 
     @Column(length = 7)
     private String placa;
@@ -35,5 +38,8 @@ public class Moto {
     @ManyToOne
     @JoinColumn(name = "idCliente")
     private Cliente cliente;
+
+    @OneToMany(mappedBy = "moto", cascade = CascadeType.ALL)
+    private List<RegistroCheckIn_Out> registrosCheckInOut = new ArrayList<>();
 
 }

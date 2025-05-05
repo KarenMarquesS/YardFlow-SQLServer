@@ -1,5 +1,5 @@
 # YardFlow - Gestão Inteligente de Pátio de Motos 🏍️
-<img src="./assets/logo.png" alt="Logo do Projeto" width="100"/>
+<img src="./assets/logo.png" alt="Logo" width="100"/>
 
 O YardFlow é um sistema voltado para o controle de entrada, saída e localização de motos em pátios, ideal para empresas privadas que realizam manutenção ou armazenam motocicletas.
 
@@ -34,7 +34,7 @@ O YardFlow é um sistema voltado para o controle de entrada, saída e localizaç
 
 
 ## 🔧 Instalação
- - git clone https:
+ - git clone https://github.com/KarenMarquesS/YardFlow.git
  - cd yardflow
  - mvn clean install 
 

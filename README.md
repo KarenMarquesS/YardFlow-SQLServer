@@ -49,7 +49,36 @@ A aplicação conta com uma interface interativa gerada pelo Swagger, permitindo
 
 
 ## 🗂 Estrutura
-- YardFlow/
+```
+src
+└── main
+├── java
+│ └── org.example.yardflow
+│ ├── control
+│ │ ├── MotoController
+│ │ └── VagasControler
+│ ├── DTO
+│ │ ├── MotoDTO
+│ │ └── VagaDTO
+| | |__ PatioDTO
+│ ├── model
+│ │ ├── Cliente
+│ │ ├── ModeloEnum
+│ │ ├── Moto
+│ │ ├── Patio
+│ │ ├── PlanoEnum
+│ │ ├── RegistroCheckIn_Out
+│ │ ├── SetorEnum
+│ │ └── Vaga
+│ ├── repository
+│ │ ├── MotoRepositorio
+│ │ ├── PatioRepositorio.java
+│ │ └── VagasRepositorio
+│ └── YardFlowApplication
+└── resources
+├── application.properties
+└── import.sql
+```
 
 
 ## 🚧 Status da Aplicação 

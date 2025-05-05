@@ -1,4 +1,5 @@
 # YardFlow - Gestão Inteligente de Pátio de Motos 🏍️
+<img src="./assets/logo.png" alt="Logo do Projeto" width="100"/>
 
 O YardFlow é um sistema voltado para o controle de entrada, saída e localização de motos em pátios, ideal para empresas privadas que realizam manutenção ou armazenam motocicletas.
 
@@ -51,8 +52,12 @@ A aplicação conta com uma interface interativa gerada pelo Swagger, permitindo
 - YardFlow/
 
 
-## 🚧 Status da Aplicação 🚧
- - Aplicação em Desenvolvimento 
+## 🚧 Status da Aplicação 
+ - Aplicação em Desenvolvimento
+   - Cronograma de exceução
+     - 30% finalizado até 23/05/2025 (1° e 2° sprint)
+     - 30% finalizado até            (3° sprint)
+     - 40% finalizado em             (4° sprint)     
 
 
 ## 👥 Autores

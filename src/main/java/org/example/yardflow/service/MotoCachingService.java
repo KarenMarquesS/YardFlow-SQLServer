@@ -27,21 +27,28 @@ public class MotoCachingService {
                 moto.getNMotor(),
                 moto.getPlaca(),
                 moto.getHistorico(),
+                moto.isAtivo(),
                 moto.getCliente()
         );
     }
 
     // caching da busca por id da moto
-    @Cacheable(value = "buscarIdMoto", key ="#req")
-    public Optional<Moto> findById(int idMoto) {return repMt.findById(idMoto);}
+    @Cacheable(value = "buscarIdMoto", key ="#idMoto")
+    public Optional<Moto> findById(int idMoto) {
+        return repMt.findById(idMoto);
+    }
 
     // caching das páginas de motos
     @Cacheable(value = "HistoricoPaginado", key = "#req")
-    public Page<Moto> paginar(PageRequest req) {return repMt.findAll(req).map(this::converterParaDTO);}
+    public Page<MotoDTO> paginar(PageRequest req) {
+        return repMt.findAll(req).map(this::converterParaDTO);
+    }
 
     // caching de limpeza
     @CacheEvict(value = {"buscarIdMoto", "PaginaMoto"}, allEntries = true)
-    public void limparCache(){System.out.println(">> Removendo arquivos de cache! <<");}
+    public void limparCache(){
+        System.out.println(">> Removendo arquivos de cache! <<");
+    }
 
 
 }

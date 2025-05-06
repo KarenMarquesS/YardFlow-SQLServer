@@ -41,14 +41,13 @@ public class MotoController {
     }
 
     @GetMapping(value = "/historico")
-    public ResponseEntity<Page<MotoDTO>> HistoricoPaginado(
+    public ResponseEntity<Page<MotoDTO>> historicoPaginado(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "2") int size){
 
         PageRequest req = PageRequest.of(page, size);
-
-        Page<MotoDTO> HistoricoPaginado = servMt.paginar(req);
-        return ResponseEntity.ok(HistoricoPaginado);
+        Page<MotoDTO> historicoPaginado = servMt.paginar(req);
+        return ResponseEntity.ok(historicoPaginado);
     }
 
 
@@ -75,13 +74,17 @@ public class MotoController {
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("{/id}")
-    public ResponseEntity<Void> desativarMoto(@PathVariable int idMoto){
-        return repM.findById(idMoto).map(moto ->{
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> desativarMoto(@PathVariable int id) {
+        Optional<Moto> optionalMoto = repM.findById(id);
+        if (optionalMoto.isPresent()) {
+            Moto moto = optionalMoto.get();
             moto.setAtivo(false);
             repM.save(moto);
             return ResponseEntity.noContent().build();
-        }).orElseGet(() -> ResponseEntity.notFound().build());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }

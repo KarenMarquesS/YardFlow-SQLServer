@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 public class MotoDTO {
 
-    private long idMoto;
+    private int idMoto;
     private LocalDate anoFabricacao;
     private String chassi;
     private String nMotor;
@@ -20,7 +20,7 @@ public class MotoDTO {
     public MotoDTO() {
     }
 
-    public MotoDTO(long idMoto, LocalDate anoFabricacao, String chassi, String nMotor, String placa, String historico, boolean ativo, Cliente cliente) {
+    public MotoDTO(int idMoto, LocalDate anoFabricacao, String chassi, String nMotor, String placa, String historico, boolean ativo, Cliente cliente) {
         this.idMoto = idMoto;
         this.anoFabricacao = anoFabricacao;
         this.chassi = chassi;
@@ -31,24 +31,24 @@ public class MotoDTO {
         this.cliente = cliente;
     }
 
-    public MotoDTO(long idMoto, String chassi, String nMotor, String placa) {
+    public MotoDTO(int idMoto, String chassi, String nMotor, String placa) {
         this.idMoto = idMoto;
         this.chassi = chassi;
         this.nMotor = nMotor;
         this.placa = placa;
     }
 
-    public MotoDTO(long idMoto, String historico) {
+    public MotoDTO(int idMoto, String historico) {
         this.idMoto = idMoto;
         this.historico = historico;
     }
 
-    public MotoDTO(long idMoto, Cliente cliente) {
+    public MotoDTO(int idMoto, Cliente cliente) {
         this.idMoto = idMoto;
         this.cliente = cliente;
     }
 
-    public MotoDTO(long idMoto, boolean ativo) {
+    public MotoDTO(int idMoto, boolean ativo) {
         this.idMoto = idMoto;
         this.ativo = ativo;
     }

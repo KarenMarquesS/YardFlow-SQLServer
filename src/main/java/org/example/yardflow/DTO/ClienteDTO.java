@@ -1,6 +1,6 @@
 package org.example.yardflow.DTO;
 
-import jakarta.persistence.*;
+
 import org.example.yardflow.model.Cliente;
 import org.example.yardflow.model.Moto;
 import org.example.yardflow.model.PlanoEnum;

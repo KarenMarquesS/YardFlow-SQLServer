@@ -21,7 +21,7 @@ public class Moto {
     @Enumerated(EnumType.STRING)
     private ModeloEnum modelo;
 
-    private String anoFabricacao;
+    private LocalDate anoFabricacao;
 
     @Column(length = 17)
     private String chassi;
@@ -34,6 +34,9 @@ public class Moto {
 
     @Column(length = 1000)
     private String historico;
+
+    @Column(nullable = false)
+    private boolean ativo = true;
 
     @ManyToOne
     @JoinColumn(name = "idCliente")

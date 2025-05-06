@@ -1,97 +1,55 @@
 package org.example.yardflow.DTO;
 
-import org.example.parkflow.model.Cliente;
-import org.example.parkflow.model.ModeloEnum;
+import org.example.yardflow.model.Cliente;
 
 import java.time.LocalDate;
 
 public class MotoDTO {
 
     private long idMoto;
-    private ModeloEnum modelo;
-    private LocalDate ano_fabricacao;
+    private LocalDate anoFabricacao;
     private String chassi;
-    private String n_motor;
+    private String nMotor;
     private String placa;
     private String historico;
+    private boolean ativo;
     private Cliente cliente;
+
 
 
     public MotoDTO() {
     }
 
-    public MotoDTO(long idMoto, ModeloEnum modelo, LocalDate ano_fabricacao, String chassi, String n_motor, String placa, String historico, Cliente cliente) {
+    public MotoDTO(long idMoto, LocalDate anoFabricacao, String chassi, String nMotor, String placa, String historico, boolean ativo, Cliente cliente) {
         this.idMoto = idMoto;
-        this.modelo = modelo;
-        this.ano_fabricacao = ano_fabricacao;
+        this.anoFabricacao = anoFabricacao;
         this.chassi = chassi;
-        this.n_motor = n_motor;
+        this.nMotor = nMotor;
         this.placa = placa;
         this.historico = historico;
+        this.ativo = ativo;
         this.cliente = cliente;
     }
 
-    public long getIdMoto() {
-        return idMoto;
-    }
-
-    public void setIdMoto(long idMoto) {
+    public MotoDTO(long idMoto, String chassi, String nMotor, String placa) {
         this.idMoto = idMoto;
-    }
-
-    public ModeloEnum getModelo() {
-        return modelo;
-    }
-
-    public void setModelo(ModeloEnum modelo) {
-        this.modelo = modelo;
-    }
-
-    public LocalDate getAno_fabricacao() {
-        return ano_fabricacao;
-    }
-
-    public void setAno_fabricacao(LocalDate ano_fabricacao) {
-        this.ano_fabricacao = ano_fabricacao;
-    }
-
-    public String getChassi() {
-        return chassi;
-    }
-
-    public void setChassi(String chassi) {
         this.chassi = chassi;
-    }
-
-    public String getN_motor() {
-        return n_motor;
-    }
-
-    public void setN_motor(String n_motor) {
-        this.n_motor = n_motor;
-    }
-
-    public String getPlaca() {
-        return placa;
-    }
-
-    public void setPlaca(String placa) {
+        this.nMotor = nMotor;
         this.placa = placa;
     }
 
-    public String getHistorico() {
-        return historico;
-    }
-
-    public void setHistorico(String historico) {
+    public MotoDTO(long idMoto, String historico) {
+        this.idMoto = idMoto;
         this.historico = historico;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public MotoDTO(long idMoto, Cliente cliente) {
+        this.idMoto = idMoto;
+        this.cliente = cliente;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public MotoDTO(long idMoto, boolean ativo) {
+        this.idMoto = idMoto;
+        this.ativo = ativo;
     }
 }

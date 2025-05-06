@@ -1,0 +1,47 @@
+package org.example.yardflow.service;
+
+
+import org.example.yardflow.DTO.MotoDTO;
+import org.example.yardflow.model.Moto;
+import org.example.yardflow.repository.MotoRepositorio;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+@Service
+public class MotoCachingService {
+
+    @Autowired
+    private MotoRepositorio repMt;
+
+    private MotoDTO converterParaDTO(Moto moto) {
+        return new MotoDTO(
+                moto.getIdMoto(),
+                moto.getAnoFabricacao(),
+                moto.getChassi(),
+                moto.getNMotor(),
+                moto.getPlaca(),
+                moto.getHistorico(),
+                moto.getCliente()
+        );
+    }
+
+    // caching da busca por id da moto
+    @Cacheable(value = "buscarIdMoto", key ="#req")
+    public Optional<Moto> findById(int idMoto) {return repMt.findById(idMoto);}
+
+    // caching das páginas de motos
+    @Cacheable(value = "HistoricoPaginado", key = "#req")
+    public Page<Moto> paginar(PageRequest req) {return repMt.findAll(req).map(this::converterParaDTO);}
+
+    // caching de limpeza
+    @CacheEvict(value = {"buscarIdMoto", "PaginaMoto"}, allEntries = true)
+    public void limparCache(){System.out.println(">> Removendo arquivos de cache! <<");}
+
+
+}

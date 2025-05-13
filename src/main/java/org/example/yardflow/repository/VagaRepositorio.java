@@ -12,14 +12,16 @@ import java.util.List;
 
 public interface VagaRepositorio extends JpaRepository<Vaga, String> {
 
-    // Busca todas vagas disponíveis por setor
+    // verifica se a vaga está ocupada
     @Query("from Vaga vG where vG.ocupada = :ocupado ")
-    public List<Vaga> findByVaga(@Param("ocupado") boolean ocupado);
+    public List<Vaga> vagaOcupada(@Param("ocupado") boolean ocupado);
 
+    // busca pelo IdVaga
     @Query("from Vaga vG where vG.idVaga = :idVaga")
-    public List<Vaga> findByIdVaga(@Param("idVaga") String idVaga);
+    public List<Vaga> buscarIdVaga(@Param("idVaga") String idVaga);
 
+    // Busca todas vagas por setor
     @Query("from Vaga vG where vG.setor = :setor")
-    public List<Vaga> findBySetor(@Param("setor") SetorEnum setor);
+    public List<Vaga> buscarVagaSetor(@Param("setor") SetorEnum setor);
 
 }

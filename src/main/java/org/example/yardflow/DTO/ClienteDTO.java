@@ -14,26 +14,40 @@ public class ClienteDTO {
     private String nome;
     private String cpf;
     private String telefone;
+    private boolean ativo;
     private PlanoEnum plano;
-    private List<Moto> moto = new ArrayList<>();
+    private Moto moto;
 
 
     public ClienteDTO() {
     }
 
-    public ClienteDTO(int idCliente, String nome, String cpf, String telefone, PlanoEnum plano, List<Moto> moto) {
+    public ClienteDTO(int idCliente, String nome, String cpf, String telefone, boolean ativo, PlanoEnum plano, Moto moto) {
         this.idCliente = idCliente;
         this.nome = nome;
         this.cpf = cpf;
         this.telefone = telefone;
+        this.ativo = ativo;
         this.plano = plano;
         this.moto = moto;
     }
 
     public ClienteDTO(Cliente cliente) {
         setIdCliente(cliente.getIdCliente());
+        setNome(cliente.getNome());
+        setCpf(cliente.getCpf());
+        setAtivo(cliente.isAtivo());
+        setPlano(cliente.getPlano());
         setMoto(cliente.getMoto());
     }
+
+    public boolean isAtivo() {return ativo;}
+
+    public void setAtivo(boolean ativo) {this.ativo = ativo;}
+
+    public Moto getMoto() {return moto;}
+
+    public void setMoto(Moto moto) {this.moto = moto;}
 
     public int getIdCliente() {
         return idCliente;
@@ -51,9 +65,7 @@ public class ClienteDTO {
         this.nome = nome;
     }
 
-    public String getCpf() {
-        return cpf;
-    }
+    public String getCpf() {return cpf;}
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
@@ -75,11 +87,7 @@ public class ClienteDTO {
         this.plano = plano;
     }
 
-    public List<Moto> getMoto() {
-        return moto;
-    }
 
-    public void setMoto(List<Moto> moto) {
-        this.moto = moto;
-    }
+
+
 }

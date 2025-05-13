@@ -1,4 +1,43 @@
 package org.example.yardflow.service;
 
+import org.example.yardflow.DTO.VagaDTO;
+import org.example.yardflow.model.SetorEnum;
+import org.example.yardflow.repository.VagaRepositorio;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+
+@Service
 public class VagaCachingService {
+
+    @Autowired
+    private VagaRepositorio vgRep;
+
+
+    @Cacheable(value="VagaOcupada", key = "#req")
+    public Page<VagaDTO> vagaOcupada(PageRequest req){
+        return vgRep.findAll(req).map(VagaDTO::new);
+    }
+
+    @Cacheable(value = "BuscaPorIdVaga", key="#idVaga")
+    public List<VagaDTO> buscarIdVaga(String idVaga){
+        return vgRep.buscarIdVaga(idVaga).stream().map(VagaDTO::new).collect(Collectors.toList());
+    }
+
+    @Cacheable(value = "VagasPorSetor", key = "#setor")
+    public List<VagaDTO> vagaSetor(SetorEnum setor){
+        return vgRep.buscarVagaSetor(setor).stream().map(VagaDTO::new).collect(Collectors.toList());
+    }
+
+    @CacheEvict(value = {"vagaOcupada", "BuscaPorIdVaga", "VagaPorSetor"}, allEntries = true)
+    public void limparCaheVaga(){
+        System.out.println(">> Removendo arquivos de cache da Vagas! <<");
+    }
 }

@@ -1,11 +1,12 @@
 package org.example.yardflow.DTO;
 
 import org.example.yardflow.model.Moto;
+import org.example.yardflow.model.RegistroCheckInOut;
 import org.example.yardflow.model.Vaga;
 
 import java.time.LocalDate;
 
-public class RegistroCheckIn_OutDTO {
+public class RegistroCheckInOutDTO {
 
     private int idRegistro;
     private LocalDate entradaPatio;
@@ -13,10 +14,10 @@ public class RegistroCheckIn_OutDTO {
     private Vaga vaga;
     private Moto idMoto;
 
-    public RegistroCheckIn_OutDTO() {
+    public RegistroCheckInOutDTO() {
     }
 
-    public RegistroCheckIn_OutDTO(int idRegistro, Vaga vaga, Moto idMoto, LocalDate entradaPatio, LocalDate saidaPatio) {
+    public RegistroCheckInOutDTO(int idRegistro, Vaga vaga, Moto idMoto, LocalDate entradaPatio, LocalDate saidaPatio) {
         this.idRegistro = idRegistro;
         this.vaga = vaga;
         this.idMoto = idMoto;
@@ -24,15 +25,16 @@ public class RegistroCheckIn_OutDTO {
         this.saidaPatio = saidaPatio;
     }
 
-    public RegistroCheckIn_OutDTO (RegistroCheckIn_OutDTO reg){
-        setIdRegistro(reg.getIdRegistro());
-        setVaga(reg.getVaga());
-        setIdMoto(reg.getIdMoto());
-
+    public RegistroCheckInOutDTO(RegistroCheckInOut registro) {
+        this.idRegistro = registro.getIdRegistro();
+        this.entradaPatio = registro.getEntradaPatio();
+        this.saidaPatio = registro.getSaidaPatio();
+        this.vaga = registro.getVaga();
+        this.idMoto = registro.getIdMoto();
     }
 
-    public static RegistroCheckIn_OutDTO fromPeriodo(LocalDate entrada, LocalDate saida) {
-        RegistroCheckIn_OutDTO regInOut = new RegistroCheckIn_OutDTO();
+    public static RegistroCheckInOutDTO fromPeriodo(LocalDate entrada, LocalDate saida) {
+        RegistroCheckInOutDTO regInOut = new RegistroCheckInOutDTO();
         regInOut.setEntradaPatio(entrada);
         regInOut.setSaidaPatio(saida);
         return regInOut;

@@ -25,7 +25,7 @@ public class MotoController {
     private MotoCachingService servMt;
 
 
-    @GetMapping("/{id}")
+    @GetMapping("/{idMoto}")
     public ResponseEntity<Moto> buscarIdMoto(@PathVariable int idMoto){
         Optional<Moto> moto = servMt.findById(idMoto);
         return moto.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
@@ -40,6 +40,8 @@ public class MotoController {
         return moto;
     }
 
+    @Operation(description = "Neste endpoint estará todo o historico de manuteção e reparos feitos na moto pela Mottu", tags="Historico"
+                , summary="Histórico da moto na Mottu"    )
     @GetMapping(value = "/historico")
     public ResponseEntity<Page<MotoDTO>> historicoPaginado(
             @RequestParam(value = "page", defaultValue = "0") int page,
@@ -54,11 +56,9 @@ public class MotoController {
     @PutMapping("{/id}")
     public ResponseEntity<Moto> atualizarMoto(@PathVariable int idMoto, @RequestBody Moto motoAtualizada){
         return repM.findById(idMoto).map(moto -> {
-            moto.setIdMoto(motoAtualizada.getIdMoto());
             moto.setModelo(motoAtualizada.getModelo());
             moto.setChassi(motoAtualizada.getChassi());
             moto.setPlaca(motoAtualizada.getPlaca());
-            moto.setNMotor(motoAtualizada.getNMotor());
             moto.setCliente(motoAtualizada.getCliente());
 
             return ResponseEntity.ok(repM.save(moto));

@@ -2,14 +2,10 @@ package org.example.yardflow.DTO;
 
 import org.example.yardflow.model.Cliente;
 
-import java.time.LocalDate;
-
 public class MotoDTO {
 
     private int idMoto;
-    private LocalDate anoFabricacao;
     private String chassi;
-    private String nMotor;
     private String placa;
     private String historico;
     private boolean ativo;
@@ -20,21 +16,18 @@ public class MotoDTO {
     public MotoDTO() {
     }
 
-    public MotoDTO(int idMoto, LocalDate anoFabricacao, String chassi, String nMotor, String placa, String historico, boolean ativo, Cliente cliente) {
+    public MotoDTO(int idMoto, String chassi, String placa, String historico, boolean ativo, Cliente cliente) {
         this.idMoto = idMoto;
-        this.anoFabricacao = anoFabricacao;
         this.chassi = chassi;
-        this.nMotor = nMotor;
         this.placa = placa;
         this.historico = historico;
         this.ativo = ativo;
         this.cliente = cliente;
     }
 
-    public MotoDTO(int idMoto, String chassi, String nMotor, String placa) {
+    public MotoDTO(int idMoto, String chassi,  String placa) {
         this.idMoto = idMoto;
         this.chassi = chassi;
-        this.nMotor = nMotor;
         this.placa = placa;
     }
 
@@ -51,5 +44,53 @@ public class MotoDTO {
     public MotoDTO(int idMoto, boolean ativo) {
         this.idMoto = idMoto;
         this.ativo = ativo;
+    }
+
+    public int getIdMoto() {
+        return idMoto;
+    }
+
+    public void setIdMoto(int idMoto) {
+        this.idMoto = idMoto;
+    }
+
+    public String getChassi() {
+        return chassi;
+    }
+
+    public void setChassi(String chassi) {
+        this.chassi = chassi;
+    }
+
+    public String getPlaca() {
+        return placa;
+    }
+
+    public void setPlaca(String placa) {
+        this.placa = placa;
+    }
+
+    public String getHistorico() {
+        return historico;
+    }
+
+    public void setHistorico(String historico) {
+        this.historico = historico;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 }

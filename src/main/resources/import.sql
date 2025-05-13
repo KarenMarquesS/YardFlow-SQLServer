@@ -122,22 +122,19 @@ INSERT INTO vaga (idVaga, ocupada, setor, idPatio) VALUES ('3-T', 'N', 'MINHA_MO
 
 INSERT INTO vaga (idVaga, ocupada, setor, idPatio) VALUES ('4-T', 'N', 'MINHA_MOTTU', 2);
 
+                                            /*
+                                            Legenda sobre as Vagas
+                                            | idVaga | Setor               | Letra |
+                                            | ------ | ------------------- | ----- |
+                                            | 1-P    | PENDENCIA           | P     |
+                                            | 1-R    | REPAROS\_SIMPLES    | R     |
+                                            | 1-D    | DANOS\_GRAVES       | D     |
+                                            | 1-M    | MOTOR\_DEFEITUOSO   | M     |
+                                            | 1-N    | MANUTENCAO          | N     |
+                                            | 1-A    | DISPONIVEL\_ALUGUEL | A     |
+                                            | 1-T    | MINHA\_MOTTU        | T     |
 
-/*
-Legenda sobre as Vagas
-| idVaga | Setor               | Letra |
-| ------ | ------------------- | ----- |
-| 1-P    | PENDENCIA           | P     |
-| 1-R    | REPAROS\_SIMPLES    | R     |
-| 1-D    | DANOS\_GRAVES       | D     |
-| 1-M    | MOTOR\_DEFEITUOSO   | M     |
-| 1-N    | MANUTENCAO          | N     |
-| 1-A    | DISPONIVEL\_ALUGUEL | A     |
-| 1-T    | MINHA\_MOTTU        | T     |
-
-*/
-
-
+                                            */
 
 --Registro CheckIn Out
 -- Assumindo pátio 1 e vagas existentes nele.

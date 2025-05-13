@@ -12,12 +12,15 @@ import java.util.List;
 public interface PatioRepositorio extends JpaRepository<Patio, Integer> {
 
     @Query("from Patio pT where pT.setor = :setor")
-    public Patio findBySetor(SetorEnum setor);
+    public Patio buscarPorSetor(@Param("setor") SetorEnum setor); // alterar para retornar todas as vagas de cada setor
 
-    @Query("from Patio pT where pT.vagas = :idVaga")
-    public Patio findByVagas(@Param("idVagas") int idVagas);
+    @Query("from Patio pT JOIN pT.vagas v where v.idVaga = :idVaga")
+    public Patio buscarPorIdVagas(@Param("idVagas") String idVagas);
 
-    @Query("from Patio pT where pT.qtdVagas = :qtdVaga")
+    @Query("SELECT pT from Patio pT where pT.qtdVagas = :qtdVaga")
     public List<Vaga> mostrarQtdVagas(@Param("idPatio")int qtdVaga);
+
+    @Query("SELECT pT.setor, COUNT(v) FROM Patio pT JOIN pT.vagas v WHERE v.ocupada = true GROUP BY pT.setor")
+    public List<SetorEnum> mostrarVagaOcupadaPorSetor();
 
 }

@@ -22,9 +22,7 @@ public class MotoCachingService {
     private MotoDTO converterParaDTO(Moto moto) {
         return new MotoDTO(
                 moto.getIdMoto(),
-                moto.getAnoFabricacao(),
                 moto.getChassi(),
-                moto.getNMotor(),
                 moto.getPlaca(),
                 moto.getHistorico(),
                 moto.isAtivo(),
@@ -45,9 +43,9 @@ public class MotoCachingService {
     }
 
     // caching de limpeza
-    @CacheEvict(value = {"buscarIdMoto", "PaginaMoto"}, allEntries = true)
+    @CacheEvict(value = {"buscarIdMoto", "PaginaMoto", "HistoricoPaginado"}, allEntries = true)
     public void limparCache(){
-        System.out.println(">> Removendo arquivos de cache! <<");
+        System.out.println(">> Removendo arquivos de cache de Motos! <<");
     }
 
 

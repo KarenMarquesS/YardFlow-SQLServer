@@ -6,7 +6,7 @@ import lombok.*;
 
 @Data
 @Entity
-@Table(name = "clienteMottu")
+@Table(name = "cliente")
 public class Cliente {
 
     @Id
@@ -27,7 +27,7 @@ public class Cliente {
     private PlanoEnum plano;
 
     @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Moto moto;
+    private Moto idMoto;
 
 
     public int getIdCliente() {
@@ -79,10 +79,10 @@ public class Cliente {
     }
 
     public Moto getMoto() {
-        return moto;
+        return idMoto;
     }
 
-    public void setMoto(Moto moto) {
-        this.moto = moto;
+    public void setMoto(Moto idMoto) {
+        this.idMoto = idMoto;
     }
 }

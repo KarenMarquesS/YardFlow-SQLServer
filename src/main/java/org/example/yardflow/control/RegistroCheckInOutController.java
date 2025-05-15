@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 
 @RestController
-@RequestMapping("/api/checkinout")
+@RequestMapping("/registrocheckinout")
 public class RegistroCheckInOutController {
 
     @Autowired
-    private RegistroCheckInOutCachingService regSer; // Corrigido: tipo adequado para service
+    private RegistroCheckInOutCachingService regSer;
 
 
-    @PostMapping("/registroentrada")
+    @PostMapping("/entrada/{idMoto}")
     public ResponseEntity<String> inserirDataEntrada(
             @RequestParam("data") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataEntrada) {
 
@@ -36,7 +36,7 @@ public class RegistroCheckInOutController {
     }
 
 
-    @PostMapping("/registrosaida")
+    @PostMapping("/saida/{idMoto}")
     public ResponseEntity<String> inserirDataSaida(
             @RequestParam("data") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataSaida) {
 
@@ -48,7 +48,7 @@ public class RegistroCheckInOutController {
         }
     }
 
-    @GetMapping("/permanencia")
+    @GetMapping("/permanencia/{idMoto}")
     public ResponseEntity<Page<PermanenciaPorSetorModeloDTO>> obterPermanenciasPorSetorModelo(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
@@ -58,7 +58,7 @@ public class RegistroCheckInOutController {
         return ResponseEntity.ok(resultado);
     }
 
-    @GetMapping("/entrada")
+    @GetMapping("/buscarentrada/{idMoto}")
     public ResponseEntity<RegistroCheckInOut> buscarEntradaPorData(
             @RequestParam("data") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataEntrada) {
 
@@ -69,7 +69,7 @@ public class RegistroCheckInOutController {
         return ResponseEntity.ok(registro);
     }
 
-    @GetMapping("/saida")
+    @GetMapping("/buscarsaida/{id}")
     public ResponseEntity<RegistroCheckInOut> buscarSaidaPorData(
             @RequestParam("data") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataSaida) {
 
@@ -80,7 +80,7 @@ public class RegistroCheckInOutController {
         return ResponseEntity.ok(registro);
     }
 
-    @PostMapping("/limpar-cache")
+    @DeleteMapping("/desativarregistro/{id}")
     public ResponseEntity<String> deletarRegistro() {
         regSer.deletarRegistro();
         return ResponseEntity.ok("Cache limpo com sucesso.");

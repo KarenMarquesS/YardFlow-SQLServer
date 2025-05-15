@@ -1,6 +1,6 @@
 package org.example.yardflow.control;
 
-import org.example.yardflow.DTO.ClienteDTO;
+import org.example.yardflow.dto.ClienteDTO;
 import org.example.yardflow.model.Cliente;
 import org.example.yardflow.model.Moto;
 import org.example.yardflow.repository.ClienteRepositorio;
@@ -24,13 +24,13 @@ public class ClienteController {
     @Autowired
     private ClienteCachingService srvCl;
 
-    @GetMapping("/{idCliente}")
+    @GetMapping("/buscar/{idCliente}")
     public ResponseEntity<Cliente> buscarCliente(@PathVariable int idCliente) {
         Optional<Cliente> cliente = srvCl.findById(idCliente);
         return cliente.map(ResponseEntity::ok).orElseGet(()-> ResponseEntity.notFound().build());
     }
 
-    @PutMapping("/{idCliente}")
+    @PutMapping("/atualizar/{idCliente}")
     public ResponseEntity<ClienteDTO> atualizarCliente(@PathVariable("idCliente") int idCliente, @RequestBody ClienteDTO clienteDTO) {
         return repCl.findById(idCliente).map(cliente -> {
             cliente.setMoto(clienteDTO.getMoto());
@@ -43,7 +43,7 @@ public class ClienteController {
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/paginaCliente")
+    @GetMapping("/paginas")
     public ResponseEntity<Page<ClienteDTO>> ClientesPaginado(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "5") int size
@@ -53,12 +53,12 @@ public class ClienteController {
         return ResponseEntity.ok(ClientesPaginado);
     }
 
-    @GetMapping("/{id}/cliente")
+    @GetMapping("/motoCliente/{idCliente}")
     public ResponseEntity<Moto> motoDoCliente(@PathVariable int idCliente) {
         return ResponseEntity.ok(srvCl.motoDoCliente(idCliente));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/desativar/{idCliente}")
     public ResponseEntity<Void> desativarCliente(@PathVariable int id) {
       Optional<Cliente> opCliente = srvCl.findById(id);
       if (opCliente.isPresent()) {

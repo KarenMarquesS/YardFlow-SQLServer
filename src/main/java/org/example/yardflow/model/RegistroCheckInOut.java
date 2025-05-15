@@ -30,11 +30,12 @@ public class RegistroCheckInOut {
 
     @ManyToOne
     @JoinColumn(name="idMoto")
-    private Moto moto;
+    private Moto idMoto;
 
+
+    // irá retornar Zero se a entrada e saida for no mesmo dia
     public void calcularPeriodoPermanencia(){
         if (entradaPatio != null && saidaPatio != null) {
-                        // irá retornar Zero se a entrada e saida for no mesmo dia
             long dias = ChronoUnit.DAYS.between(entradaPatio, saidaPatio);
             this.periodo = (int) (dias <= 0 ? 1 : dias ); // considerando o minimo de 1 dia
         }else{
@@ -84,10 +85,10 @@ public class RegistroCheckInOut {
     }
 
     public Moto getIdMoto() {
-        return moto;
+        return idMoto;
     }
 
     public void setIdMoto(Moto idMoto) {
-        this.moto = idMoto;
+        this.idMoto = idMoto;
     }
 }

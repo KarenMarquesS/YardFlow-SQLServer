@@ -15,7 +15,7 @@ public interface PatioRepositorio extends JpaRepository<Patio, Integer> {
     public Patio buscarPorSetor(@Param("setor") SetorEnum setor); // alterar para retornar todas as vagas de cada setor
 
     @Query("from Patio pT JOIN pT.vagas v where v.idVaga = :idVaga")
-    public Patio buscarPorIdVagas(@Param("idVagas") String idVagas);
+    public Patio buscarPorIdVagas(@Param("idVaga") String idVaga);
 
     @Query("SELECT pT from Patio pT where pT.qtdVagas = :qtdVaga")
     public List<Vaga> mostrarQtdVagas(@Param("idPatio")int qtdVaga);

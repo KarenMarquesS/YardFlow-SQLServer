@@ -1,6 +1,6 @@
 package org.example.yardflow.service;
 
-import org.example.yardflow.DTO.VagaDTO;
+import org.example.yardflow.dto.VagaDTO;
 import org.example.yardflow.model.SetorEnum;
 import org.example.yardflow.repository.VagaRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;

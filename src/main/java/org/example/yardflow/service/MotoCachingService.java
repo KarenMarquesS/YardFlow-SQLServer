@@ -1,7 +1,7 @@
 package org.example.yardflow.service;
 
 
-import org.example.yardflow.DTO.MotoDTO;
+import org.example.yardflow.dto.MotoDTO;
 import org.example.yardflow.model.Moto;
 import org.example.yardflow.repository.MotoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;

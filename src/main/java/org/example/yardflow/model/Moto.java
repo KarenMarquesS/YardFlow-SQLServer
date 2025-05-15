@@ -36,7 +36,7 @@ public class Moto {
     @JoinColumn(name = "idCliente")
     private Cliente cliente;
 
-    @OneToMany(mappedBy = "moto", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "idMoto", cascade = CascadeType.ALL)
     private List<RegistroCheckInOut> registrosCheckInOut;
 
 

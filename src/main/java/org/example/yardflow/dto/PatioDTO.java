@@ -1,4 +1,4 @@
-package org.example.yardflow.DTO;
+package org.example.yardflow.dto;
 
 import org.example.yardflow.model.Patio;
 import org.example.yardflow.model.SetorEnum;

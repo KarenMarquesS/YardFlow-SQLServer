@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/api/vaga")
+@RequestMapping(value = "/vaga")
 public class VagaController {
 
     @Autowired
@@ -22,7 +22,7 @@ public class VagaController {
     @Autowired
     private VagaCachingService vgCh;
 
-    @GetMapping("{/idVaga}")
+    @GetMapping("/buscar/{idVaga}")
     public ResponseEntity<Vaga> buscarIdVaga(@PathVariable String idVaga){
         Optional<Vaga> vaga = vgRep.findById(idVaga);
         return vaga.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());

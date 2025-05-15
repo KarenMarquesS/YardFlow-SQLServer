@@ -1,7 +1,7 @@
 package org.example.yardflow.control;
 
 
-import org.example.yardflow.DTO.MotoDTO;
+import org.example.yardflow.dto.MotoDTO;
 import org.example.yardflow.model.Moto;
 import io.swagger.v3.oas.annotations.Operation;
 import org.example.yardflow.repository.MotoRepositorio;
@@ -15,7 +15,7 @@ import org.springframework.data.domain.Page;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value="/api/moto")
+@RequestMapping(value="/moto")
 public class MotoController {
 
     @Autowired
@@ -25,7 +25,7 @@ public class MotoController {
     private MotoCachingService servMt;
 
 
-    @GetMapping("/{idMoto}")
+    @GetMapping("/buscar{idMoto}")
     public ResponseEntity<Moto> buscarIdMoto(@PathVariable int idMoto){
         Optional<Moto> moto = servMt.findById(idMoto);
         return moto.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
@@ -42,7 +42,7 @@ public class MotoController {
 
     @Operation(description = "Neste endpoint estará todo o historico de manuteção e reparos feitos na moto pela Mottu", tags="Historico"
                 , summary="Histórico da moto na Mottu"    )
-    @GetMapping(value = "/historico")
+    @GetMapping(value = "/historico/{idMoto}")
     public ResponseEntity<Page<MotoDTO>> historicoPaginado(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "2") int size){
@@ -53,7 +53,7 @@ public class MotoController {
     }
 
 
-    @PutMapping("{/id}")
+    @PutMapping("/atualizar/{id}")
     public ResponseEntity<Moto> atualizarMoto(@PathVariable int idMoto, @RequestBody Moto motoAtualizada){
         return repM.findById(idMoto).map(moto -> {
             moto.setModelo(motoAtualizada.getModelo());
@@ -65,7 +65,7 @@ public class MotoController {
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PatchMapping("{/id}/historico")
+    @PatchMapping("/atualizarhistorico/{id}")
     public ResponseEntity<Moto> atualizarHistoricoMoto(@PathVariable int idMoto, @RequestBody Moto motoHistoricoAtualizado){
         return repM.findById(idMoto).map(moto -> {
             moto.setHistorico(motoHistoricoAtualizado.getHistorico());
@@ -74,7 +74,7 @@ public class MotoController {
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/desativar/{id}")
     public ResponseEntity<Void> desativarMoto(@PathVariable int id) {
         Optional<Moto> optionalMoto = repM.findById(id);
         if (optionalMoto.isPresent()) {

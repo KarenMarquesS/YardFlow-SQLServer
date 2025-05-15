@@ -1,12 +1,9 @@
-package org.example.yardflow.DTO;
+package org.example.yardflow.dto;
 
 
 import org.example.yardflow.model.Cliente;
 import org.example.yardflow.model.Moto;
 import org.example.yardflow.model.PlanoEnum;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ClienteDTO {
 
@@ -36,6 +33,7 @@ public class ClienteDTO {
         setIdCliente(cliente.getIdCliente());
         setNome(cliente.getNome());
         setCpf(cliente.getCpf());
+        setTelefone(cliente.getTelefone());
         setAtivo(cliente.isAtivo());
         setPlano(cliente.getPlano());
         setMoto(cliente.getMoto());

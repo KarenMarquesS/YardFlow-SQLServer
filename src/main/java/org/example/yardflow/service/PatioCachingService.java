@@ -1,8 +1,7 @@
 package org.example.yardflow.service;
 
 
-import org.example.yardflow.DTO.PatioDTO;
-import org.example.yardflow.DTO.VagaDTO;
+
 import org.example.yardflow.model.Patio;
 import org.example.yardflow.model.SetorEnum;
 import org.example.yardflow.model.Vaga;
@@ -14,26 +13,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
 
 @Service
 public class PatioCachingService {
 
     @Autowired
     private PatioRepositorio repPt;
-
-    private PatioDTO converterParaDTO(Patio patio){
-
-        List<VagaDTO> vagaDTO = patio.getVagas().stream().map(VagaDTO::new).collect(Collectors.toList());
-
-        return new PatioDTO(
-          patio.getIdPatio(),
-          patio.getQtdVagas(),
-          patio.getEndereco(),
-          patio.getSetor(),
-          vagaDTO
-        );
-    }
 
     @Cacheable(value = "BuscarPorSetor", key = "setor")
     public Optional<Patio> buscarPorSetor(SetorEnum setor){
@@ -61,16 +47,7 @@ public class PatioCachingService {
     @CacheEvict(value = {"buscarPorSetor", "buscarPorIdVagas","mostrarQtdVagas", "mostrarVagaOcupadaPorSetor"}, allEntries = true)
     public void limparCache(){
         System.out.println(">> Removendo arquivos de cache de Patio! <<");
+
     }
-
-
-
-
-
-
-
-
-
-
 
 }

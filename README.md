@@ -1,5 +1,5 @@
 # YardFlow - Gestão Inteligente de Pátio de Motos 🏍️
-              >>> ORGANIZE | LOCALIZE | FLUA <<<
+                                              >>> ORGANIZE | LOCALIZE | FLUA <<<
 
 O YardFlow é um sistema voltado para o controle de entrada, saída e localização de motos em pátios, ideal para empresas privadas que realizam manutenção ou armazenam motocicletas.
 
@@ -24,13 +24,15 @@ O YardFlow é um sistema voltado para o controle de entrada, saída e localizaç
 
 
 ## 💻 Tecnologias
- - Java (v)
- - Maven (v)
- - Oracle SQL Developer (v)
+ - Java (v.17)
+ - Maven (v.17)
+ - SpringBoot (versão - 3.4.4)
+ - Oracle SQL Developer (v.12)
  - Idea Intellij IDEA
   
 
 ## 📋 Pré-requisitos
+- 
 
 
 ## 🔧 Instalação

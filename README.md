@@ -1,5 +1,5 @@
 # YardFlow - Gestão Inteligente de Pátio de Motos 🏍️
-                                              >>> ORGANIZE | LOCALIZE | FLUA <<<
+                                          >>> ORGANIZE | LOCALIZE | FLUA <<<
 
 O YardFlow é um sistema voltado para o controle de entrada, saída e localização de motos em pátios, ideal para empresas privadas que realizam manutenção ou armazenam motocicletas.
 

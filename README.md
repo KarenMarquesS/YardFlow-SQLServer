@@ -1,5 +1,5 @@
 # YardFlow - Gestão Inteligente de Pátio de Motos 🏍️
-<img src="./assets/logo.png" alt="Logo" width="100"/>
+              >>> ORGANIZE | LOCALIZE | FLUA <<<
 
 O YardFlow é um sistema voltado para o controle de entrada, saída e localização de motos em pátios, ideal para empresas privadas que realizam manutenção ou armazenam motocicletas.
 
@@ -54,26 +54,48 @@ src
 └── main
 ├── java
 │ └── org.example.yardflow
+│ ├── configuration
+| | ├──MapperConfig
 │ ├── control
+| | ├──ClienteController
 │ │ ├── MotoController
+| | ├── PatioController
+| | ├── Registro_in_outController
 │ │ └── VagasControler
-│ ├── DTO
-│ │ ├── MotoDTO
+│ ├── dto
+│ │ ├── ClienteDTO
+| | ├── MotoDTO
+| | ├── PatioDTO
+| | ├── Registro_in_outDTO
 │ │ └── VagaDTO
 | | |__ PatioDTO
+│ ├── exception
+| | ├──ExceptionGlobal
 │ ├── model
 │ │ ├── Cliente
 │ │ ├── ModeloEnum
 │ │ ├── Moto
 │ │ ├── Patio
 │ │ ├── PlanoEnum
-│ │ ├── RegistroCheckIn_Out
+│ │ ├── Registro_check_in_Out
 │ │ ├── SetorEnum
 │ │ └── Vaga
+│ ├── projection
+| | ├──PermanenciaPorSetor
 │ ├── repository
+│ │ ├── ClienteRepositorio
 │ │ ├── MotoRepositorio
-│ │ ├── PatioRepositorio.java
+│ │ ├── PatioRepositorio
+│ │ ├── Registro_check_in_OutRepositorio
 │ │ └── VagasRepositorio
+│ ├── service
+│ │ ├── ClienteCachingService
+│ │ ├── MotoCachingService
+│ │ ├── PatioCachingService
+│ │ ├── Registro_check_in_OutCachingService
+│ │ └── VagasCachingService
+│ ├── swagger
+│ │ ├── SwaggerConfig
 │ └── YardFlowApplication
 └── resources
 ├── application.properties

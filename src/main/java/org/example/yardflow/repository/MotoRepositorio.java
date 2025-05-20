@@ -13,15 +13,15 @@ public interface MotoRepositorio extends JpaRepository<Moto, Integer> {
     @Query("from Moto mT where mT.placa = :placa")
     public Moto findByPlaca(String placa);
 
-    // aqui irá localizar a moto com o numero do idMoto -> QRcode
-    @Query("from Moto mT where mT.idMoto = :idMoto")
-    public Moto findByIdMoto(int idMoto);
+    // aqui irá localizar a moto com o numero do id_moto -> QRcode
+    @Query("from Moto mT where mT.id_moto = :id_moto")
+    public Moto findByIdMoto(int id_moto);
 
     @Query("from Moto mT where mT.chassi = :chassi")
     public Moto findByChassi(String chassi);
 
-    @Query("from Moto mT where mT.historico = :idMoto")
-    public Moto mostrarHistoricoMoto(int idMoto);
+    @Query("from Moto mT where mT.historico = :id_moto")
+    public Moto mostrarHistoricoMoto(int id_moto);
 
 
 

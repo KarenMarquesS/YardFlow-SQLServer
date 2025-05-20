@@ -15,57 +15,17 @@ import java.util.List;
 public class Patio {
 
     @Id
-    private int idPatio;
+    private int id_patio;
 
     private String endereco;
 
-    private int qtdVagas;
+    private int qtd_vagas;
 
     @Enumerated(EnumType.STRING)
     private SetorEnum setor;
 
     @OneToMany(mappedBy = "patio", cascade = CascadeType.ALL)
-    private List<Vaga> vagas;
+    private List<Vaga> vaga;
 
-
-    public int getIdPatio() {
-        return idPatio;
-    }
-
-    public void setIdPatio(int idPatio) {
-        this.idPatio = idPatio;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-    public int getQtdVagas() {
-        return qtdVagas;
-    }
-
-    public void setQtdVagas(int qtdVagas) {
-        this.qtdVagas = qtdVagas;
-    }
-
-    public SetorEnum getSetor() {
-        return setor;
-    }
-
-    public void setSetor(SetorEnum setor) {
-        this.setor = setor;
-    }
-
-    public List<Vaga> getVagas() {
-        return vagas;
-    }
-
-    public void setVagas(List<Vaga> vagas) {
-        this.vagas = vagas;
-    }
 }
 

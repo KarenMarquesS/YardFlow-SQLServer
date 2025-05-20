@@ -1,8 +1,8 @@
 package org.example.yardflow.control;
 
 
-import org.example.yardflow.model.RegistroCheckInOut;
-import org.example.yardflow.service.RegistroCheckInOutCachingService;
+import org.example.yardflow.model.Registro_check_in_out;
+import org.example.yardflow.service.Registro_check_in_outCachingService;
 import org.example.yardflow.projection.PermanenciaPorSetorModeloDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,17 +17,17 @@ import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/registrocheckinout")
-public class RegistroCheckInOutController {
+public class Registro_check_in_outController {
 
     @Autowired
-    private RegistroCheckInOutCachingService regSer;
+    private Registro_check_in_outCachingService regSer;
 
 
-    @PostMapping("/entrada/{idMoto}")
+    @PostMapping("/entrada/{id_moto}")
     public ResponseEntity<String> inserirDataEntrada(
-            @RequestParam("data") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataEntrada) {
+            @RequestParam("data") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data_entrada) {
 
-        boolean inserido = regSer.inserirDataEntrada(dataEntrada);
+        boolean inserido = regSer.inserirDataEntrada(data_entrada);
         if (inserido) {
             return ResponseEntity.ok("Data de entrada registrada com sucesso.");
         } else {
@@ -36,11 +36,11 @@ public class RegistroCheckInOutController {
     }
 
 
-    @PostMapping("/saida/{idMoto}")
+    @PostMapping("/saida/{id_moto}")
     public ResponseEntity<String> inserirDataSaida(
-            @RequestParam("data") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataSaida) {
+            @RequestParam("data") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data_saida) {
 
-        boolean inserido = regSer.inserirDataSaida(dataSaida);
+        boolean inserido = regSer.inserirDataSaida(data_saida);
         if (inserido) {
             return ResponseEntity.ok("Data de saída registrada com sucesso.");
         } else {
@@ -48,7 +48,7 @@ public class RegistroCheckInOutController {
         }
     }
 
-    @GetMapping("/permanencia/{idMoto}")
+    @GetMapping("/permanencia/{id_moto}")
     public ResponseEntity<Page<PermanenciaPorSetorModeloDTO>> obterPermanenciasPorSetorModelo(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
@@ -58,11 +58,11 @@ public class RegistroCheckInOutController {
         return ResponseEntity.ok(resultado);
     }
 
-    @GetMapping("/buscarentrada/{idMoto}")
-    public ResponseEntity<RegistroCheckInOut> buscarEntradaPorData(
-            @RequestParam("data") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataEntrada) {
+    @GetMapping("/buscarentrada/{id_moto}")
+    public ResponseEntity<Registro_check_in_out> buscarEntradaPorData(
+            @RequestParam("data_entrada") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data_entrada) {
 
-        RegistroCheckInOut registro = regSer.buscarDataEntradaMoto(dataEntrada);
+        Registro_check_in_out registro = regSer.buscarDataEntradaMoto(data_entrada);
         if (registro == null) {
             return ResponseEntity.notFound().build();
         }
@@ -70,17 +70,17 @@ public class RegistroCheckInOutController {
     }
 
     @GetMapping("/buscarsaida/{id}")
-    public ResponseEntity<RegistroCheckInOut> buscarSaidaPorData(
-            @RequestParam("data") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataSaida) {
+    public ResponseEntity<Registro_check_in_out> buscarSaidaPorData(
+            @RequestParam("data_saida") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data_saida) {
 
-        RegistroCheckInOut registro = regSer.buscarDataSaidaMoto(dataSaida);
+        Registro_check_in_out registro = regSer.buscarDataSaidaMoto(data_saida);
         if (registro == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(registro);
     }
 
-    @DeleteMapping("/desativarregistro/{id}")
+    @DeleteMapping("/desativarregistro/{id_moto}")
     public ResponseEntity<String> deletarRegistro() {
         regSer.deletarRegistro();
         return ResponseEntity.ok("Cache limpo com sucesso.");

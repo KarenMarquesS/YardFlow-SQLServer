@@ -25,9 +25,9 @@ public class MotoController {
     private MotoCachingService servMt;
 
 
-    @GetMapping("/buscar{idMoto}")
-    public ResponseEntity<Moto> buscarIdMoto(@PathVariable int idMoto){
-        Optional<Moto> moto = servMt.findById(idMoto);
+    @GetMapping("/buscar{id_moto}")
+    public ResponseEntity<Moto> buscarIdMoto(@PathVariable int id_moto){
+        Optional<Moto> moto = servMt.findById(id_moto);
         return moto.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
@@ -42,20 +42,20 @@ public class MotoController {
 
     @Operation(description = "Neste endpoint estará todo o historico de manuteção e reparos feitos na moto pela Mottu", tags="Historico"
                 , summary="Histórico da moto na Mottu"    )
-    @GetMapping(value = "/historico/{idMoto}")
+    @GetMapping(value = "/historico/{id_moto}")
     public ResponseEntity<Page<MotoDTO>> historicoPaginado(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "2") int size){
 
         PageRequest req = PageRequest.of(page, size);
-        Page<MotoDTO> historicoPaginado = servMt.paginar(req);
+        Page<MotoDTO> historicoPaginado = servMt.getAllMotosPaginado(req);
         return ResponseEntity.ok(historicoPaginado);
     }
 
 
-    @PutMapping("/atualizar/{id}")
-    public ResponseEntity<Moto> atualizarMoto(@PathVariable int idMoto, @RequestBody Moto motoAtualizada){
-        return repM.findById(idMoto).map(moto -> {
+    @PutMapping("/atualizar/{id_moto}")
+    public ResponseEntity<Moto> atualizarMoto(@PathVariable int id_moto, @RequestBody Moto motoAtualizada){
+        return repM.findById(id_moto).map(moto -> {
             moto.setModelo(motoAtualizada.getModelo());
             moto.setChassi(motoAtualizada.getChassi());
             moto.setPlaca(motoAtualizada.getPlaca());
@@ -65,18 +65,18 @@ public class MotoController {
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PatchMapping("/atualizarhistorico/{id}")
-    public ResponseEntity<Moto> atualizarHistoricoMoto(@PathVariable int idMoto, @RequestBody Moto motoHistoricoAtualizado){
-        return repM.findById(idMoto).map(moto -> {
+    @PatchMapping("/atualizarhistorico/{id_moto}")
+    public ResponseEntity<Moto> atualizarHistoricoMoto(@PathVariable int id_moto, @RequestBody Moto motoHistoricoAtualizado){
+        return repM.findById(id_moto).map(moto -> {
             moto.setHistorico(motoHistoricoAtualizado.getHistorico());
 
             return ResponseEntity.ok(repM.save(moto));
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/desativar/{id}")
-    public ResponseEntity<Void> desativarMoto(@PathVariable int id) {
-        Optional<Moto> optionalMoto = repM.findById(id);
+    @DeleteMapping("/desativar/{id_moto}")
+    public ResponseEntity<Void> desativarMoto(@PathVariable int id_moto) {
+        Optional<Moto> optionalMoto = repM.findById(id_moto);
         if (optionalMoto.isPresent()) {
             Moto moto = optionalMoto.get();
             moto.setAtivo(false);

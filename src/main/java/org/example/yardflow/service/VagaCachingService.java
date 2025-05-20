@@ -26,9 +26,9 @@ public class VagaCachingService {
         return vgRep.findAll(req).map(VagaDTO::new);
     }
 
-    @Cacheable(value = "BuscaPorIdVaga", key="#idVaga")
-    public List<VagaDTO> buscarIdVaga(String idVaga){
-        return vgRep.buscarIdVaga(idVaga).stream().map(VagaDTO::new).collect(Collectors.toList());
+    @Cacheable(value = "BuscaPorId_vaga", key="#id_vaga")
+    public List<VagaDTO> buscarIdVaga(int id_vaga){
+        return vgRep.buscarIdVaga(id_vaga).stream().map(VagaDTO::new).collect(Collectors.toList());
     }
 
     @Cacheable(value = "VagasPorSetor", key = "#setor")
@@ -36,7 +36,7 @@ public class VagaCachingService {
         return vgRep.buscarVagaSetor(setor).stream().map(VagaDTO::new).collect(Collectors.toList());
     }
 
-    @CacheEvict(value = {"vagaOcupada", "BuscaPorIdVaga", "VagaPorSetor"}, allEntries = true)
+    @CacheEvict(value = {"vagaOcupada", "BuscaPorId_vaga", "VagaPorSetor"}, allEntries = true)
     public void limparCaheVaga(){
         System.out.println(">> Removendo arquivos de cache da Vagas! <<");
     }

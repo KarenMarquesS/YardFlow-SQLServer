@@ -11,7 +11,7 @@ public class Cliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idCliente;
+    private int id_cliente;
     private String nome;
 
     @Column(name = "cpf", length = 11)
@@ -27,62 +27,8 @@ public class Cliente {
     private PlanoEnum plano;
 
     @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Moto idMoto;
+    private Moto moto;
 
 
-    public int getIdCliente() {
-        return idCliente;
-    }
 
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public boolean isAtivo() {
-        return ativo;
-    }
-
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
-    }
-
-    public PlanoEnum getPlano() {
-        return plano;
-    }
-
-    public void setPlano(PlanoEnum plano) {
-        this.plano = plano;
-    }
-
-    public Moto getMoto() {
-        return idMoto;
-    }
-
-    public void setMoto(Moto idMoto) {
-        this.idMoto = idMoto;
-    }
 }

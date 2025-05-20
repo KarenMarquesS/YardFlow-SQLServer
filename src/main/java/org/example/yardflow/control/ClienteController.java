@@ -24,15 +24,15 @@ public class ClienteController {
     @Autowired
     private ClienteCachingService srvCl;
 
-    @GetMapping("/buscar/{idCliente}")
-    public ResponseEntity<Cliente> buscarCliente(@PathVariable int idCliente) {
-        Optional<Cliente> cliente = srvCl.findById(idCliente);
+    @GetMapping("/buscar/{id_cliente}")
+    public ResponseEntity<Cliente> buscarCliente(@PathVariable int id_cliente) {
+        Optional<Cliente> cliente = srvCl.findById(id_cliente);
         return cliente.map(ResponseEntity::ok).orElseGet(()-> ResponseEntity.notFound().build());
     }
 
-    @PutMapping("/atualizar/{idCliente}")
-    public ResponseEntity<ClienteDTO> atualizarCliente(@PathVariable("idCliente") int idCliente, @RequestBody ClienteDTO clienteDTO) {
-        return repCl.findById(idCliente).map(cliente -> {
+    @PutMapping("/atualizar/{id_cliente}")
+    public ResponseEntity<ClienteDTO> atualizarCliente(@PathVariable("id_cliente") int id_cliente, @RequestBody ClienteDTO clienteDTO) {
+        return repCl.findById(id_cliente).map(cliente -> {
             cliente.setMoto(clienteDTO.getMoto());
             cliente.setTelefone(clienteDTO.getTelefone());
             cliente.setPlano(clienteDTO.getPlano());
@@ -53,14 +53,14 @@ public class ClienteController {
         return ResponseEntity.ok(ClientesPaginado);
     }
 
-    @GetMapping("/motoCliente/{idCliente}")
-    public ResponseEntity<Moto> motoDoCliente(@PathVariable int idCliente) {
-        return ResponseEntity.ok(srvCl.motoDoCliente(idCliente));
+    @GetMapping("/motoCliente/{id_cliente}")
+    public ResponseEntity<Moto> motoDoCliente(@PathVariable int id_cliente) {
+        return ResponseEntity.ok(srvCl.motoDoCliente(id_cliente));
     }
 
-    @DeleteMapping("/desativar/{idCliente}")
-    public ResponseEntity<Void> desativarCliente(@PathVariable int id) {
-      Optional<Cliente> opCliente = srvCl.findById(id);
+    @DeleteMapping("/desativar/{id_cliente}")
+    public ResponseEntity<Void> desativarCliente(@PathVariable int id_cliente) {
+      Optional<Cliente> opCliente = srvCl.findById(id_cliente);
       if (opCliente.isPresent()) {
           Cliente cliente = opCliente.get();
           cliente.setAtivo(false);

@@ -22,28 +22,28 @@ public class VagaController {
     @Autowired
     private VagaCachingService vgCh;
 
-    @GetMapping("/buscar/{idVaga}")
-    public ResponseEntity<Vaga> buscarIdVaga(@PathVariable String idVaga){
-        Optional<Vaga> vaga = vgRep.findById(idVaga);
+    @GetMapping("/buscar/{id_vaga}")
+    public ResponseEntity<Vaga> buscarIdVaga(@PathVariable int id_vaga){
+        Optional<Vaga> vaga = vgRep.findById(id_vaga);
         return vaga.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping("/ocupada")
     public ResponseEntity<List<Vaga>> listaDeVagasOcupadas(@RequestParam boolean ocupada){
-        List<Vaga> vagas = vgRep.vagaOcupada(ocupada);
-        if (vagas.isEmpty()){
+        List<Vaga> vaga = vgRep.vagaOcupada(ocupada);
+        if (vaga.isEmpty()){
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok(vagas);
+        return ResponseEntity.ok(vaga);
     }
 
     @GetMapping("/setor")
     public ResponseEntity<List<Vaga>> buscaDeVagaSetor(@RequestParam SetorEnum setor){
-        List<Vaga> vagas = vgRep.buscarVagaSetor(setor);
-        if (vagas.isEmpty()){
+        List<Vaga> vaga = vgRep.buscarVagaSetor(setor);
+        if (vaga.isEmpty()){
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok(vagas);
+        return ResponseEntity.ok(vaga);
       }
 
 

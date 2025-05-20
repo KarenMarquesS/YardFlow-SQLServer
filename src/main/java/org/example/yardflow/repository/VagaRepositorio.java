@@ -17,8 +17,8 @@ public interface VagaRepositorio extends JpaRepository<Vaga, String> {
     public List<Vaga> vagaOcupada(@Param("ocupado") boolean ocupado);
 
     // busca pelo IdVaga
-    @Query("from Vaga vG where vG.idVaga = :idVaga")
-    public List<Vaga> buscarIdVaga(@Param("idVaga") String idVaga);
+    @Query("from Vaga vG where vG.id_vaga = :id_vaga")
+    public List<Vaga> buscarIdVaga(@Param("id_vaga") String id_vaga);
 
     // Busca todas vagas por setor
     @Query("from Vaga vG where vG.setor = :setor")

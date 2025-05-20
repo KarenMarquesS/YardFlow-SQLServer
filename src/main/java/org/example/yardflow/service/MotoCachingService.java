@@ -1,6 +1,7 @@
 package org.example.yardflow.service;
 
 
+import org.example.yardflow.dto.ModelMapper;
 import org.example.yardflow.dto.MotoDTO;
 import org.example.yardflow.model.Moto;
 import org.example.yardflow.repository.MotoRepositorio;
@@ -9,6 +10,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -19,27 +21,22 @@ public class MotoCachingService {
     @Autowired
     private MotoRepositorio repMt;
 
-    private MotoDTO converterParaDTO(Moto moto) {
-        return new MotoDTO(
-                moto.getIdMoto(),
-                moto.getChassi(),
-                moto.getPlaca(),
-                moto.getHistorico(),
-                moto.isAtivo(),
-                moto.getCliente()
-        );
-    }
+    @Autowired
+    private ModelMapper mM;
 
     // caching da busca por id da moto
-    @Cacheable(value = "buscarIdMoto", key ="#idMoto")
-    public Optional<Moto> findById(int idMoto) {
-        return repMt.findById(idMoto);
+    @Cacheable(value = "buscarIdMoto", key ="#id_moto")
+    public Optional<Moto> findById(int id_moto) {
+        return repMt.findById(id_moto);
     }
 
     // caching das páginas de motos
     @Cacheable(value = "HistoricoPaginado", key = "#req")
-    public Page<MotoDTO> paginar(PageRequest req) {
-        return repMt.findAll(req).map(this::converterParaDTO);
+    public Page<MotoDTO> getAllMotosPaginado(int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Moto> motoPage = repMt.findAll(pageable);
+
+        return motoPage.map(moto -> mM.map(moto, MotoDTO.class));
     }
 
     // caching de limpeza

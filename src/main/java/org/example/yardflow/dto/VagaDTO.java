@@ -10,18 +10,18 @@ import java.util.stream.Collectors;
 
 public class VagaDTO {
 
-    private String idVaga;
+    private String id_vaga;
     private SetorEnum setor;
     private boolean ocupada;
     private Patio patio;
-    private List<RegistroCheckInOutDTO> registro;
+    private List<Registro_check_in_outDTO> registro;
 
 
     public VagaDTO() {
     }
 
-    public VagaDTO(String idVaga, SetorEnum setor, boolean ocupada, Patio patio, List<RegistroCheckInOutDTO> registro) {
-        this.idVaga = idVaga;
+    public VagaDTO(String id_vaga, SetorEnum setor, boolean ocupada, Patio patio, List<Registro_check_in_outDTO> registro) {
+        this.id_vaga = id_vaga;
         this.setor = setor;
         this.ocupada = ocupada;
         this.patio = patio;
@@ -31,22 +31,22 @@ public class VagaDTO {
 
 
     public VagaDTO(Vaga vaga){
-       setIdVaga(vaga.getIdVaga());
+       setId_vaga(vaga.getId_vaga());
        setOcupada(vaga.isOcupada());
        setSetor(vaga.getSetor());
        setPatio(vaga.getPatio());
        setRegistro(vaga.getRegistrosCheckInOut()
                .stream()
-               .map(RegistroCheckInOutDTO::new)
+               .map(Registro_check_in_outDTO::new)
                .collect(Collectors.toList()));
     }
 
-    public String getIdVaga() {
-        return idVaga;
+    public String getId_vaga() {
+        return id_vaga;
     }
 
-    public void setIdVaga(String idVaga) {
-        this.idVaga = idVaga;
+    public void setId_vaga(String id_vaga) {
+        this.id_vaga = id_vaga;
     }
 
     public SetorEnum getSetor() {
@@ -73,11 +73,11 @@ public class VagaDTO {
         this.patio = patio;
     }
 
-    public List<RegistroCheckInOutDTO> getRegistro() {
+    public List<Registro_check_in_outDTO> getRegistro() {
         return registro;
     }
 
-    public void setRegistro(List<RegistroCheckInOutDTO> registro) {
+    public void setRegistro(List<Registro_check_in_outDTO> registro) {
         this.registro = registro;
     }
 }

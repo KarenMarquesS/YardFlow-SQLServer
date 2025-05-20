@@ -4,7 +4,7 @@ import org.example.yardflow.model.Cliente;
 
 public class MotoDTO {
 
-    private int idMoto;
+    private int id_moto;
     private String chassi;
     private String placa;
     private String historico;
@@ -16,8 +16,8 @@ public class MotoDTO {
     public MotoDTO() {
     }
 
-    public MotoDTO(int idMoto, String chassi, String placa, String historico, boolean ativo, Cliente cliente) {
-        this.idMoto = idMoto;
+    public MotoDTO(int id_moto, String chassi, String placa, String historico, boolean ativo, Cliente cliente) {
+        this.id_moto = id_moto;
         this.chassi = chassi;
         this.placa = placa;
         this.historico = historico;
@@ -25,33 +25,33 @@ public class MotoDTO {
         this.cliente = cliente;
     }
 
-    public MotoDTO(int idMoto, String chassi,  String placa) {
-        this.idMoto = idMoto;
+    public MotoDTO(int id_moto, String chassi,  String placa) {
+        this.id_moto = id_moto;
         this.chassi = chassi;
         this.placa = placa;
     }
 
-    public MotoDTO(int idMoto, String historico) {
-        this.idMoto = idMoto;
+    public MotoDTO(int id_moto, String historico) {
+        this.id_moto = id_moto;
         this.historico = historico;
     }
 
-    public MotoDTO(int idMoto, Cliente cliente) {
-        this.idMoto = idMoto;
+    public MotoDTO(int id_moto, Cliente cliente) {
+        this.id_moto = id_moto;
         this.cliente = cliente;
     }
 
-    public MotoDTO(int idMoto, boolean ativo) {
-        this.idMoto = idMoto;
+    public MotoDTO(int id_moto, boolean ativo) {
+        this.id_moto = id_moto;
         this.ativo = ativo;
     }
 
     public int getIdMoto() {
-        return idMoto;
+        return id_moto;
     }
 
-    public void setIdMoto(int idMoto) {
-        this.idMoto = idMoto;
+    public void setIdMoto(int id_moto) {
+        this.id_moto = id_moto;
     }
 
     public String getChassi() {

@@ -26,21 +26,21 @@ public class PatioController {
     }
 
     // Buscar pátio por ID da vaga
-    @GetMapping("/vaga/{idVaga}")
-    public ResponseEntity<Patio> buscarPorIdVaga(@PathVariable("idVaga") String idVaga) {
-        return ptSrv.buscarPorIdVagas(idVaga)
+    @GetMapping("/vaga/{id_vaga}")
+    public ResponseEntity<Patio> buscarPorIdVaga(@PathVariable("id_vaga") String id_vaga) {
+        return ptSrv.buscarPorIdVagas(id_vaga)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     // Mostrar quantidade de vagas igual a um número específico
     @GetMapping("/quantidadevagas/{qtdVagas}")
-    public ResponseEntity<List<Vaga>> mostrarQtdVagas(@PathVariable("qtdVagas") int qtdVagas) {
-        List<Vaga> vagas = ptSrv.mostrarQtdVagas(qtdVagas);
-        return ResponseEntity.ok(vagas);
+    public ResponseEntity<List<Vaga>> mostrarQtdVagas(@PathVariable("qtdVagas") int qtd_vagas) {
+        List<Vaga> vaga = ptSrv.mostrarQtdVagas(qtd_vagas);
+        return ResponseEntity.ok(vaga);
     }
 
-    // Mostrar quantidade de vagas ocupadas por setor
+    // Mostrar quantidade de vaga ocupadas por setor
     @GetMapping("/ocupada")
     public ResponseEntity<List<SetorEnum>> mostrarVagasOcupadasPorSetor() {
         List<SetorEnum> resultados = ptSrv.mostrarVagaOcupadaPorSetor();

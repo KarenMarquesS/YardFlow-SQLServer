@@ -13,7 +13,7 @@ import java.util.List;
 public class Vaga {
 
     @Id
-    private String idVaga;
+    private int id_vaga;
 
     private boolean ocupada;
 
@@ -21,51 +21,11 @@ public class Vaga {
     private SetorEnum setor;
 
     @ManyToOne
-    @JoinColumn(name = "idPatio")
+    @JoinColumn(name = "id_patio")
     private Patio patio;
 
     @OneToMany(mappedBy = "vaga", cascade = CascadeType.ALL)
-    private List<RegistroCheckInOut> registrosCheckInOut;
+    private List<Registro_check_in_out> registrosCheckInOut;
 
-
-    public String getIdVaga() {
-        return idVaga;
-    }
-
-    public void setIdVaga(String idVaga) {
-        this.idVaga = idVaga;
-    }
-
-    public boolean isOcupada() {
-        return ocupada;
-    }
-
-    public void setOcupada(boolean ocupada) {
-        this.ocupada = ocupada;
-    }
-
-    public SetorEnum getSetor() {
-        return setor;
-    }
-
-    public void setSetor(SetorEnum setor) {
-        this.setor = setor;
-    }
-
-    public Patio getPatio() {
-        return patio;
-    }
-
-    public void setPatio(Patio patio) {
-        this.patio = patio;
-    }
-
-    public List<RegistroCheckInOut> getRegistrosCheckInOut() {
-        return registrosCheckInOut;
-    }
-
-    public void setRegistrosCheckInOut(List<RegistroCheckInOut> registrosCheckInOut) {
-        this.registrosCheckInOut = registrosCheckInOut;
-    }
 }
 

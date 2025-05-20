@@ -26,20 +26,20 @@ public class PatioCachingService {
         return Optional.ofNullable(repPt.buscarPorSetor(setor));
     }
 
-    @Cacheable(value = "BuscarPorIdVaga", key = "'idVaga'")
-    public Optional<Patio> buscarPorIdVagas(String idVaga){
-        if(idVaga == null || idVaga.isEmpty()){
+    @Cacheable(value = "BuscarPorIdVaga", key = "'id_vaga'")
+    public Optional<Patio> buscarPorIdVagas(int id_vaga){
+        if(id_vaga == null || id_vaga.isEmpty()){
             return Optional.empty();
         }
-        return Optional.ofNullable(repPt.buscarPorIdVagas(idVaga));
+        return Optional.ofNullable(repPt.buscarPorIdVagas(id_vaga));
     }
 
-    @Cacheable(value = "MostrarQtdVagas", key = "#qtdVagas")
-    public List<Vaga> mostrarQtdVagas(int qtdVagas){
-        return repPt.mostrarQtdVagas(qtdVagas);
+    @Cacheable(value = "MostrarQtdVagas", key = "#qtd_vagas")
+    public List<Vaga> mostrarQtdVagas(int qtd_vagas){
+        return repPt.mostrarQtdVagas(qtd_vagas);
     }
 
-    @Cacheable(value = "VagasOcupadaPorSetor", key = "#VagaSetor")
+    @Cacheable(value = "VagasOcupadaPorSetor", key = "#vaga_setor")
     public List<SetorEnum> mostrarVagaOcupadaPorSetor(){
         return repPt.mostrarVagaOcupadaPorSetor();
     }

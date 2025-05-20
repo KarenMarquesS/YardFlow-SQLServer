@@ -10,40 +10,40 @@ import java.util.stream.Collectors;
 
 public class PatioDTO {
 
-    private int idPatio;
+    private int id_patio;
     private String endereco;
-    private int qtdVagas;
+    private int qtd_vagas;
     private SetorEnum setor;
-    private List<VagaDTO> vagas;
+    private List<VagaDTO> vaga;
 
 
-    public PatioDTO(int idPatio, int qtdVagas, String endereco, SetorEnum setor, List<VagaDTO> vagaDTO) {
+    public PatioDTO(int id_patio, int qtd_vagas, String endereco, SetorEnum setor, List<VagaDTO> vagaDTO) {
     }
 
-    public PatioDTO(int idPatio, String endereco, int qtdVagas, SetorEnum setor, List<VagaDTO> vagas) {
-        this.idPatio = idPatio;
+    public PatioDTO(int id_patio, String endereco, int qtd_vagas, SetorEnum setor, List<VagaDTO> vaga) {
+        this.id_patio = id_patio;
         this.endereco = endereco;
-        this.qtdVagas = qtdVagas;
+        this.qtd_vagas = qtd_vagas;
         this.setor = setor;
-        this.vagas = vagas;
+        this.vaga = vaga;
     }
 
     public PatioDTO(Patio p) {
-        setIdPatio(p.getIdPatio());
+        setIdPatio(p.getId_patio());
         setEndereco(p.getEndereco());
         setSetor(p.getSetor());
-        setQtdVagas(p.getQtdVagas());
-        setVagas(Optional.ofNullable(p.getVagas()).orElse(Collections.emptyList()).stream().map(VagaDTO::new).collect(Collectors.toList()));
+        setQtdVagas(p.getQtd_vagas());
+        setVagas(Optional.ofNullable(p.getVaga()).orElse(Collections.emptyList()).stream().map(VagaDTO::new).collect(Collectors.toList()));
     }
 
 
 
     public int getIdPatio() {
-        return idPatio;
+        return id_patio;
     }
 
-    public void setIdPatio(int idPatio) {
-        this.idPatio = idPatio;
+    public void setIdPatio(int id_patio) {
+        this.id_patio = id_patio;
     }
 
     public String getEndereco() {
@@ -54,12 +54,12 @@ public class PatioDTO {
         this.endereco = endereco;
     }
 
-    public int getQtdVagas() {
-        return qtdVagas;
+    public int getQtd_vagas() {
+        return qtd_vagas;
     }
 
-    public void setQtdVagas(int qtdVagas) {
-        this.qtdVagas = qtdVagas;
+    public void setQtdVagas(int qtd_vagas) {
+        this.qtd_vagas = qtd_vagas;
     }
 
     public SetorEnum getSetor() {
@@ -70,11 +70,11 @@ public class PatioDTO {
         this.setor = setor;
     }
 
-    public List<VagaDTO> getVagas() {
-        return vagas;
+    public List<VagaDTO> getVaga() {
+        return vaga;
     }
 
-    public void setVagas(List<VagaDTO> vagas) {
-        this.vagas = vagas;
+    public void setVagas(List<VagaDTO> vaga) {
+        this.vaga = vaga;
     }
 }

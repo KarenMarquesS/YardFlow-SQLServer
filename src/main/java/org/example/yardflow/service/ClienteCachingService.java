@@ -21,9 +21,9 @@ public class ClienteCachingService {
     @Autowired
     private ClienteRepositorio clRep;
 
-    @Cacheable(value = "buscarIdCliente", key = "#idCliente")
-    public Optional<Cliente> findById(int idCliente){
-        return clRep.findById(idCliente);
+    @Cacheable(value = "buscarIdCliente", key = "#id_cliente")
+    public Optional<Cliente> findById(int id_cliente){
+        return clRep.findById(id_cliente);
     }
 
     @Cacheable(value = "paginaCliente", key = "#req")
@@ -31,16 +31,16 @@ public class ClienteCachingService {
         return clRep.findAll(req).map(ClienteDTO::new);
     }
 
-    @Cacheable(value = "MotoDoCliente", key = "#idCliente")
-    public Moto motoDoCliente(int idCliente) {
-        Cliente cl = clRep.findById(idCliente).orElseThrow(() -> new EntityNotFoundException(">> Cliente não " +
-                "Localizado com o id informado: " +idCliente));
+    @Cacheable(value = "MotoDoCliente", key = "#id_cliente")
+    public Moto motoDoCliente(int id_cliente) {
+        Cliente cl = clRep.findById(id_cliente).orElseThrow(() -> new EntityNotFoundException(">> Cliente não " +
+                "Localizado com o id informado: " +id_cliente));
         return cl.getMoto();
     }
 
-    @Cacheable(value="atualizaCacheCliente", key="#idCliente")
+    @Cacheable(value="atualizaCacheCliente", key="#id_cliente")
     public ClienteDTO atualizarCliente(ClienteDTO clienteDTO){
-        Cliente cliente = clRep.findById(clienteDTO.getIdCliente())
+        Cliente cliente = clRep.findById(clienteDTO.getId_cliente())
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
 
         cliente.setNome(clienteDTO.getNome());

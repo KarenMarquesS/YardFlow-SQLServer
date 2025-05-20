@@ -7,7 +7,7 @@ import org.example.yardflow.model.PlanoEnum;
 
 public class ClienteDTO {
 
-    private int idCliente;
+    private int id_cliente;
     private String nome;
     private String cpf;
     private String telefone;
@@ -19,8 +19,8 @@ public class ClienteDTO {
     public ClienteDTO() {
     }
 
-    public ClienteDTO(int idCliente, String nome, String cpf, String telefone, boolean ativo, PlanoEnum plano, Moto moto) {
-        this.idCliente = idCliente;
+    public ClienteDTO(int id_cliente, String nome, String cpf, String telefone, boolean ativo, PlanoEnum plano, Moto moto) {
+        this.id_cliente = id_cliente;
         this.nome = nome;
         this.cpf = cpf;
         this.telefone = telefone;
@@ -30,7 +30,7 @@ public class ClienteDTO {
     }
 
     public ClienteDTO(Cliente cliente) {
-        setIdCliente(cliente.getIdCliente());
+        setId_cliente(cliente.getId_cliente());
         setNome(cliente.getNome());
         setCpf(cliente.getCpf());
         setTelefone(cliente.getTelefone());
@@ -47,12 +47,12 @@ public class ClienteDTO {
 
     public void setMoto(Moto moto) {this.moto = moto;}
 
-    public int getIdCliente() {
-        return idCliente;
+    public int getId_cliente() {
+        return id_cliente;
     }
 
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
+    public void setId_cliente(int id_cliente) {
+        this.id_cliente = id_cliente;
     }
 
     public String getNome() {

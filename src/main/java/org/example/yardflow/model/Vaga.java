@@ -13,11 +13,13 @@ import java.util.List;
 public class Vaga {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_vaga;
 
     private boolean ocupada;
 
     @Enumerated(EnumType.STRING)
+    @Column(length = 20, nullable = false)
     private SetorEnum setor;
 
     @ManyToOne

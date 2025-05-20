@@ -22,6 +22,7 @@ public class Registro_check_in_out {
 
     private LocalDate saida_patio;
 
+    @Column(nullable = false)
     private int periodo;
 
     @ManyToOne

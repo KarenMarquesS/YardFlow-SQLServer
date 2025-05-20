@@ -1,14 +1,17 @@
 package org.example.yardflow.control;
 
 
+import jakarta.validation.Valid;
 import org.example.yardflow.dto.MotoDTO;
 import org.example.yardflow.model.Moto;
 import io.swagger.v3.oas.annotations.Operation;
 import org.example.yardflow.repository.MotoRepositorio;
 import org.example.yardflow.service.MotoCachingService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Page;
 
@@ -24,6 +27,10 @@ public class MotoController {
     @Autowired
     private MotoCachingService servMt;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
+
 
     @GetMapping("/buscar{id_moto}")
     public ResponseEntity<Moto> buscarIdMoto(@PathVariable int id_moto){
@@ -31,30 +38,33 @@ public class MotoController {
         return moto.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+
     @Operation(description = "Este endpoint irá realizar as inserções das informações refentes a Moto", tags="Inserir " +
             "Dados", summary="Irá inserir os dados da Moto")
     @PostMapping(value = "/inserir")
-    public Moto InserirMoto(@RequestBody Moto moto){
+    public ResponseEntity<?> InserirMoto(@RequestBody @Valid Moto motoDTO, BindingResult result){
+
+        Moto moto = modelMapper.map(motoDTO, Moto.class);
         repM.save(moto);
         servMt.limparCache();
-        return moto;
+        return ResponseEntity.ok().body(moto);
     }
 
     @Operation(description = "Neste endpoint estará todo o historico de manuteção e reparos feitos na moto pela Mottu", tags="Historico"
                 , summary="Histórico da moto na Mottu"    )
     @GetMapping(value = "/historico/{id_moto}")
     public ResponseEntity<Page<MotoDTO>> historicoPaginado(
+            @PathVariable int id_moto,
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "2") int size){
 
-        PageRequest req = PageRequest.of(page, size);
-        Page<MotoDTO> historicoPaginado = servMt.getAllMotosPaginado(req);
+        Page<MotoDTO> historicoPaginado = servMt.getAllMotosPaginado(id_moto, page, size);
         return ResponseEntity.ok(historicoPaginado);
     }
 
 
     @PutMapping("/atualizar/{id_moto}")
-    public ResponseEntity<Moto> atualizarMoto(@PathVariable int id_moto, @RequestBody Moto motoAtualizada){
+    public ResponseEntity<Moto> atualizarMoto(@PathVariable int id_moto, @Valid @RequestBody Moto motoAtualizada){
         return repM.findById(id_moto).map(moto -> {
             moto.setModelo(motoAtualizada.getModelo());
             moto.setChassi(motoAtualizada.getChassi());
@@ -66,7 +76,7 @@ public class MotoController {
     }
 
     @PatchMapping("/atualizarhistorico/{id_moto}")
-    public ResponseEntity<Moto> atualizarHistoricoMoto(@PathVariable int id_moto, @RequestBody Moto motoHistoricoAtualizado){
+    public ResponseEntity<Moto> atualizarHistoricoMoto(@PathVariable int id_moto, @Valid @RequestBody Moto motoHistoricoAtualizado){
         return repM.findById(id_moto).map(moto -> {
             moto.setHistorico(motoHistoricoAtualizado.getHistorico());
 

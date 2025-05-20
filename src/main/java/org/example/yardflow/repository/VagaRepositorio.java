@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 
-public interface VagaRepositorio extends JpaRepository<Vaga, String> {
+public interface VagaRepositorio extends JpaRepository<Vaga, Integer> {
 
     // verifica se a vaga está ocupada
     @Query("from Vaga vG where vG.ocupada = :ocupado ")
@@ -18,7 +18,7 @@ public interface VagaRepositorio extends JpaRepository<Vaga, String> {
 
     // busca pelo IdVaga
     @Query("from Vaga vG where vG.id_vaga = :id_vaga")
-    public List<Vaga> buscarIdVaga(@Param("id_vaga") String id_vaga);
+    public List<Vaga> buscarIdVaga(@Param("id_vaga") int id_vaga);
 
     // Busca todas vagas por setor
     @Query("from Vaga vG where vG.setor = :setor")

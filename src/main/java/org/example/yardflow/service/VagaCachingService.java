@@ -18,22 +18,22 @@ import java.util.stream.Collectors;
 public class VagaCachingService {
 
     @Autowired
-    private VagaRepositorio vgRep;
+    private VagaRepositorio vRep;
 
 
-    @Cacheable(value="VagaOcupada", key = "#req")
-    public Page<VagaDTO> vagaOcupada(PageRequest req){
-        return vgRep.findAll(req).map(VagaDTO::new);
+    @Cacheable(value="VagaOcupada", key = "#ocupada")
+    public List<VagaDTO> vagaOcupada(boolean ocupada){
+        return vRep.vagaOcupada(ocupada).stream().map(VagaDTO::new).collect(Collectors.toList());
     }
 
     @Cacheable(value = "BuscaPorId_vaga", key="#id_vaga")
     public List<VagaDTO> buscarIdVaga(int id_vaga){
-        return vgRep.buscarIdVaga(id_vaga).stream().map(VagaDTO::new).collect(Collectors.toList());
+        return vRep.buscarIdVaga(id_vaga).stream().map(VagaDTO::new).collect(Collectors.toList());
     }
 
     @Cacheable(value = "VagasPorSetor", key = "#setor")
-    public List<VagaDTO> vagaSetor(SetorEnum setor){
-        return vgRep.buscarVagaSetor(setor).stream().map(VagaDTO::new).collect(Collectors.toList());
+    public List<VagaDTO> buscarVagaSetor(SetorEnum setor){
+        return vRep.buscarVagaSetor(setor).stream().map(VagaDTO::new).collect(Collectors.toList());
     }
 
     @CacheEvict(value = {"vagaOcupada", "BuscaPorId_vaga", "VagaPorSetor"}, allEntries = true)

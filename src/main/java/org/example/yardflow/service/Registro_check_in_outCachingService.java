@@ -21,12 +21,18 @@ public class Registro_check_in_outCachingService {
     private Registro_check_in_outRepositorio rep;
 
 
-    @Cacheable(value="inserir da entrada", key="data_entrada")
+    @Cacheable(value="inserirEntrada", key="data_entrada")
     public boolean inserirDataEntrada(LocalDate data_entrada) {
        return data_entrada != null;
     }
 
-    @Cacheable(value = "inserir data saida", key="data_saida")
+    @Cacheable(value = "salvaRegistros")
+    public Registro_check_in_out salvarRegistroEntradaSaida(Registro_check_in_out registro){
+        registro.calcularPeriodoPermanencia();
+        return rep.save(registro);
+    }
+
+    @Cacheable(value = "inserirSaida", key="data_saida")
     public boolean inserirDataSaida(LocalDate data_saida) {
       return data_saida != null;
     }

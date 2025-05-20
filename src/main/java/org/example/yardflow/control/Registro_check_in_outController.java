@@ -1,6 +1,8 @@
 package org.example.yardflow.control;
 
 
+import jakarta.validation.Valid;
+import org.example.yardflow.dto.Registro_check_in_outDTO;
 import org.example.yardflow.model.Registro_check_in_out;
 import org.example.yardflow.service.Registro_check_in_outCachingService;
 import org.example.yardflow.projection.PermanenciaPorSetorModeloDTO;
@@ -24,8 +26,8 @@ public class Registro_check_in_outController {
 
 
     @PostMapping("/entrada/{id_moto}")
-    public ResponseEntity<String> inserirDataEntrada(
-            @RequestParam("data") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data_entrada) {
+    public ResponseEntity<String> inserirDataEntrada(@PathVariable("id_moto") int id_moto, @Valid @RequestBody Registro_check_in_outDTO registroDTO){
+        LocalDate data_entrada = registroDTO.getEntrada_patio();
 
         boolean inserido = regSer.inserirDataEntrada(data_entrada);
         if (inserido) {
@@ -33,12 +35,14 @@ public class Registro_check_in_outController {
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Falha ao registrar a data de entrada.");
         }
+
     }
 
 
     @PostMapping("/saida/{id_moto}")
-    public ResponseEntity<String> inserirDataSaida(
-            @RequestParam("data") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data_saida) {
+    public ResponseEntity<String> inserirDataSaida(@PathVariable("id_moto") int id_moto, @Valid @RequestBody Registro_check_in_outDTO registroDTO) {
+
+        LocalDate data_saida = registroDTO.getSaida_patio();
 
         boolean inserido = regSer.inserirDataSaida(data_saida);
         if (inserido) {
@@ -46,6 +50,7 @@ public class Registro_check_in_outController {
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Falha ao registrar a data de saída.");
         }
+
     }
 
     @GetMapping("/permanencia/{id_moto}")

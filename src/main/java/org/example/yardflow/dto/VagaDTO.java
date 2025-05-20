@@ -1,6 +1,7 @@
 package org.example.yardflow.dto;
 
 
+import jakarta.validation.constraints.NotBlank;
 import org.example.yardflow.model.Patio;
 import org.example.yardflow.model.SetorEnum;
 import org.example.yardflow.model.Vaga;
@@ -10,7 +11,8 @@ import java.util.stream.Collectors;
 
 public class VagaDTO {
 
-    private String id_vaga;
+    private int id_vaga;
+    @NotBlank(message = "Informe o Setor")
     private SetorEnum setor;
     private boolean ocupada;
     private Patio patio;
@@ -20,7 +22,7 @@ public class VagaDTO {
     public VagaDTO() {
     }
 
-    public VagaDTO(String id_vaga, SetorEnum setor, boolean ocupada, Patio patio, List<Registro_check_in_outDTO> registro) {
+    public VagaDTO(int id_vaga, SetorEnum setor, boolean ocupada, Patio patio, List<Registro_check_in_outDTO> registro) {
         this.id_vaga = id_vaga;
         this.setor = setor;
         this.ocupada = ocupada;
@@ -41,11 +43,11 @@ public class VagaDTO {
                .collect(Collectors.toList()));
     }
 
-    public String getId_vaga() {
+    public int getId_vaga() {
         return id_vaga;
     }
 
-    public void setId_vaga(String id_vaga) {
+    public void setId_vaga(int id_vaga) {
         this.id_vaga = id_vaga;
     }
 

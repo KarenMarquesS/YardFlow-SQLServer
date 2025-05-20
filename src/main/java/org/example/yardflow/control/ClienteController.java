@@ -1,13 +1,14 @@
 package org.example.yardflow.control;
 
+import jakarta.validation.Valid;
 import org.example.yardflow.dto.ClienteDTO;
 import org.example.yardflow.model.Cliente;
 import org.example.yardflow.model.Moto;
-import org.example.yardflow.repository.ClienteRepositorio;
 import org.example.yardflow.service.ClienteCachingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,14 +16,19 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/clientes")
+@RequestMapping("/cliente")
 public class ClienteController {
 
-    @Autowired
-    private ClienteRepositorio repCl;
-
-    @Autowired
+      @Autowired
     private ClienteCachingService srvCl;
+
+    @PostMapping("/inserir")
+    public ResponseEntity<ClienteDTO> inserirCliente(@Valid @RequestBody ClienteDTO clienteDTO) {
+        ClienteDTO salvo =
+                srvCl.inserirCliente(clienteDTO);
+                srvCl.limparCachingCliente();
+        return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
+    }
 
     @GetMapping("/buscar/{id_cliente}")
     public ResponseEntity<Cliente> buscarCliente(@PathVariable int id_cliente) {
@@ -31,16 +37,12 @@ public class ClienteController {
     }
 
     @PutMapping("/atualizar/{id_cliente}")
-    public ResponseEntity<ClienteDTO> atualizarCliente(@PathVariable("id_cliente") int id_cliente, @RequestBody ClienteDTO clienteDTO) {
-        return repCl.findById(id_cliente).map(cliente -> {
-            cliente.setMoto(clienteDTO.getMoto());
-            cliente.setTelefone(clienteDTO.getTelefone());
-            cliente.setPlano(clienteDTO.getPlano());
+    public ResponseEntity<ClienteDTO> atualizarCliente(@PathVariable("id_cliente") int id_cliente, @RequestBody @Valid ClienteDTO dto) {
+        if (dto.getId_cliente() != id_cliente) throw new IllegalArgumentException(">> Divergência de ID <<");
 
-            Cliente clienteAtualizado = repCl.save(cliente);
+        ClienteDTO atualizado = srvCl.atualizarCliente(dto);
+        return ResponseEntity.ok(atualizado);
 
-            return ResponseEntity.ok(new ClienteDTO(clienteAtualizado));
-        }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping("/paginas")
@@ -60,14 +62,7 @@ public class ClienteController {
 
     @DeleteMapping("/desativar/{id_cliente}")
     public ResponseEntity<Void> desativarCliente(@PathVariable int id_cliente) {
-      Optional<Cliente> opCliente = srvCl.findById(id_cliente);
-      if (opCliente.isPresent()) {
-          Cliente cliente = opCliente.get();
-          cliente.setAtivo(false);
-          repCl.save(cliente);
-          return ResponseEntity.noContent().build();
-      }else{
-          return ResponseEntity.notFound().build();
-      }
+      boolean desativado = srvCl.desativarCliente(id_cliente);
+      return desativado ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
 }

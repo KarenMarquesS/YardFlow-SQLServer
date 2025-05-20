@@ -1,25 +1,31 @@
 package org.example.yardflow.dto;
 
 
+import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import org.example.yardflow.model.Cliente;
-import org.example.yardflow.model.Moto;
 import org.example.yardflow.model.PlanoEnum;
+import org.modelmapper.ModelMapper;
 
 public class ClienteDTO {
 
     private int id_cliente;
+    @NotBlank(message = "Informe o Nome Completo")
+    @Size(min = 200, max = 350)
     private String nome;
+    @NotBlank(message = "Informe o CPF - apenas números")
+    @Size(max = 11)
     private String cpf;
     private String telefone;
+    @AssertTrue(message="O ID do cleinte deve estar vazio no momento do cadastro")
     private boolean ativo;
     private PlanoEnum plano;
-    private Moto moto;
+    private MotoDTO moto;
 
 
-    public ClienteDTO() {
-    }
 
-    public ClienteDTO(int id_cliente, String nome, String cpf, String telefone, boolean ativo, PlanoEnum plano, Moto moto) {
+    public ClienteDTO(int id_cliente, String nome, String cpf, String telefone, boolean ativo, PlanoEnum plano, MotoDTO moto) {
         this.id_cliente = id_cliente;
         this.nome = nome;
         this.cpf = cpf;
@@ -29,23 +35,34 @@ public class ClienteDTO {
         this.moto = moto;
     }
 
-    public ClienteDTO(Cliente cliente) {
+    public ClienteDTO(Cliente cliente, ModelMapper modelMapper) {
         setId_cliente(cliente.getId_cliente());
         setNome(cliente.getNome());
         setCpf(cliente.getCpf());
         setTelefone(cliente.getTelefone());
         setAtivo(cliente.isAtivo());
         setPlano(cliente.getPlano());
-        setMoto(cliente.getMoto());
+        setMoto(modelMapper.map(cliente.getMoto(), MotoDTO.class));
     }
+
+    public ClienteDTO(Cliente cliente) {
+        this.id_cliente = cliente.getId_cliente();
+        this.nome = cliente.getNome();
+        this.ativo = cliente.isAtivo();
+    }
+
 
     public boolean isAtivo() {return ativo;}
 
     public void setAtivo(boolean ativo) {this.ativo = ativo;}
 
-    public Moto getMoto() {return moto;}
+    public MotoDTO getMoto() {
+        return moto;
+    }
 
-    public void setMoto(Moto moto) {this.moto = moto;}
+    public void setMoto(MotoDTO moto) {
+        this.moto = moto;
+    }
 
     public int getId_cliente() {
         return id_cliente;
@@ -84,8 +101,5 @@ public class ClienteDTO {
     public void setPlano(PlanoEnum plano) {
         this.plano = plano;
     }
-
-
-
 
 }

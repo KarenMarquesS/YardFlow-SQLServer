@@ -1,80 +1,85 @@
 package org.example.yardflow.dto;
 
-import org.example.yardflow.model.Cliente;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Pattern;
+import org.example.yardflow.model.ModeloEnum;
+import org.example.yardflow.model.Moto;
+import org.modelmapper.ModelMapper;
 
 public class MotoDTO {
 
     private int id_moto;
+
+    private ModeloEnum modelo;
+
+    @Size(min = 17, max = 17, message = "Chassi deve ter 17 caracteres")
     private String chassi;
+
+    @Size(min = 6, max = 7, message = "Placa deverá ter 7 caracteres")
+    @Pattern(regexp = "^[A-Z]{3}[0-9][0-9A-Z][0-9]{2}$", message = "Placa inválida. Use o formato ABC1D23.")
     private String placa;
+
+    @NotBlank(message = "Registre o motivo da moto entrar no pátio, 4000 caracteres")
+    @Size(min = 300, max = 4000, message = "Registre o motivo")
     private String historico;
+
     private boolean ativo;
-    private Cliente cliente;
+    private ClienteDTO cliente;
 
 
 
     public MotoDTO() {
     }
 
-    public MotoDTO(int id_moto, String chassi, String placa, String historico, boolean ativo, Cliente cliente) {
-        this.id_moto = id_moto;
-        this.chassi = chassi;
-        this.placa = placa;
-        this.historico = historico;
-        this.ativo = ativo;
-        this.cliente = cliente;
+    public MotoDTO(Moto moto, ModelMapper modelMapper) {
+        modelMapper.map(moto, this);
+        this.id_moto = moto.getId_moto();
+        this.modelo = moto.getModelo();
+        this.chassi = moto.getChassi();
+        this.placa = moto.getPlaca();
+        this.historico = moto.getHistorico();
+        this.ativo = moto.isAtivo();
+        this.cliente = modelMapper.map(moto.getCliente(), ClienteDTO.class);
     }
 
-    public MotoDTO(int id_moto, String chassi,  String placa) {
-        this.id_moto = id_moto;
-        this.chassi = chassi;
-        this.placa = placa;
-    }
-
-    public MotoDTO(int id_moto, String historico) {
-        this.id_moto = id_moto;
-        this.historico = historico;
-    }
-
-    public MotoDTO(int id_moto, Cliente cliente) {
-        this.id_moto = id_moto;
-        this.cliente = cliente;
-    }
-
-    public MotoDTO(int id_moto, boolean ativo) {
-        this.id_moto = id_moto;
-        this.ativo = ativo;
-    }
-
-    public int getIdMoto() {
+    public int getId_moto() {
         return id_moto;
     }
 
-    public void setIdMoto(int id_moto) {
+    public void setId_moto(int id_moto) {
         this.id_moto = id_moto;
     }
 
-    public String getChassi() {
+    public ModeloEnum getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(ModeloEnum modelo) {
+        this.modelo = modelo;
+    }
+
+    public @Size(min = 17, max = 17, message = "Chassi deve ter 17 caracteres") String getChassi() {
         return chassi;
     }
 
-    public void setChassi(String chassi) {
+    public void setChassi(@Size(min = 17, max = 17, message = "Chassi deve ter 17 caracteres") String chassi) {
         this.chassi = chassi;
     }
 
-    public String getPlaca() {
+    public @Size(min = 7, max = 7, message = "Placa deverá ter 7 caracteres") String getPlaca() {
         return placa;
     }
 
-    public void setPlaca(String placa) {
+    public void setPlaca(@Size(min = 7, max = 7, message = "Placa deverá ter 7 caracteres") String placa) {
         this.placa = placa;
     }
 
-    public String getHistorico() {
+    public @NotBlank(message = "Registre o motivo da moto entrar no pátio, 4000 caracteres") @Size(min = 300, max = 4000, message = "Registre o motivo") String getHistorico() {
         return historico;
     }
 
-    public void setHistorico(String historico) {
+    public void setHistorico(@NotBlank(message = "Registre o motivo da moto entrar no pátio, 4000 caracteres") @Size(min = 300, max = 4000, message = "Registre o motivo") String historico) {
         this.historico = historico;
     }
 
@@ -86,11 +91,11 @@ public class MotoDTO {
         this.ativo = ativo;
     }
 
-    public Cliente getCliente() {
+    public ClienteDTO getCliente() {
         return cliente;
     }
 
-    public void setCliente(Cliente cliente) {
+    public void setCliente(ClienteDTO cliente) {
         this.cliente = cliente;
     }
 }

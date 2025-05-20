@@ -4,7 +4,7 @@ package org.example.yardflow.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
+
 import java.util.List;
 
 
@@ -15,6 +15,7 @@ import java.util.List;
 public class Patio {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_patio;
 
     private String endereco;
@@ -22,6 +23,7 @@ public class Patio {
     private int qtd_vagas;
 
     @Enumerated(EnumType.STRING)
+    @Column(length = 20, nullable = false)
     private SetorEnum setor;
 
     @OneToMany(mappedBy = "patio", cascade = CascadeType.ALL)

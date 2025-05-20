@@ -2,7 +2,6 @@ package org.example.yardflow.control;
 
 import org.example.yardflow.model.Patio;
 import org.example.yardflow.model.SetorEnum;
-import org.example.yardflow.model.Vaga;
 import org.example.yardflow.service.PatioCachingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,22 +21,23 @@ public class PatioController {
     public ResponseEntity<Patio> buscarPorSetor(@PathVariable("setor") SetorEnum setor) {
         return ptSrv.buscarPorSetor(setor)
                 .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+                .orElseThrow(() -> new IllegalArgumentException(">> Setor Não Localisado: <<" + setor));
     }
 
     // Buscar pátio por ID da vaga
     @GetMapping("/vaga/{id_vaga}")
-    public ResponseEntity<Patio> buscarPorIdVaga(@PathVariable("id_vaga") String id_vaga) {
+    public ResponseEntity<Patio> buscarPorIdVaga(@PathVariable("id_vaga") int id_vaga) {
         return ptSrv.buscarPorIdVagas(id_vaga)
                 .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+                .orElseThrow(() -> new IllegalArgumentException(">> ID da Vaga inválido: <<" + id_vaga));
     }
 
     // Mostrar quantidade de vagas igual a um número específico
-    @GetMapping("/quantidadevagas/{qtdVagas}")
-    public ResponseEntity<List<Vaga>> mostrarQtdVagas(@PathVariable("qtdVagas") int qtd_vagas) {
-        List<Vaga> vaga = ptSrv.mostrarQtdVagas(qtd_vagas);
-        return ResponseEntity.ok(vaga);
+    @GetMapping("/quantidadevagas/{qtd_vagas}")
+    public ResponseEntity<List<Patio>> mostrarQtdVagas(@PathVariable("qtd_vagas") int qtd_vagas) {
+        List<Patio> patios = ptSrv.mostrarQtdVagas(qtd_vagas);
+
+        return ResponseEntity.ok(patios);
     }
 
     // Mostrar quantidade de vaga ocupadas por setor

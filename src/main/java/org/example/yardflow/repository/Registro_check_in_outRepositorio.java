@@ -23,6 +23,6 @@ public interface Registro_check_in_outRepositorio extends JpaRepository<Registro
 
     // Consulta por periodo de permanencia por setor e por modelo - do maior para o menor
     @Query("select vg.setor as setor, mt.modelo as modelo, sum(rg.periodo) as totalDias from Registro_check_in_out rg " +
-            "join rg.vaga vg join rg.id_moto mt group by vg.setor, mt.modelo order by sum(rg.periodo) desc")
+            "join rg.vaga vg join rg.moto mt group by vg.setor, mt.modelo order by sum(rg.periodo) desc")
     public Page<PermanenciaPorSetorModeloDTO> buscarPermanenciaPorSetorModelo(Pageable pageable);
 }

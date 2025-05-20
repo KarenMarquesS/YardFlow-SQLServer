@@ -2,7 +2,7 @@ package org.example.yardflow.projection;
 
 public interface PermanenciaPorSetorModeloDTO {
 
-    String getSetor();
-    String getModelo();
-    int getTotalDias();
+    public String getSetor();
+    public String getModelo();
+    public int getTotalDias();
 }

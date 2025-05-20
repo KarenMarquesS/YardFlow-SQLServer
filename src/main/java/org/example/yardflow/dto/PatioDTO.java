@@ -1,5 +1,7 @@
 package org.example.yardflow.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import org.example.yardflow.model.Patio;
 import org.example.yardflow.model.SetorEnum;
 
@@ -11,14 +13,13 @@ import java.util.stream.Collectors;
 public class PatioDTO {
 
     private int id_patio;
+    @Size(min = 2, max = 200)
     private String endereco;
     private int qtd_vagas;
+    @NotBlank(message = "Informe o Setor")
     private SetorEnum setor;
     private List<VagaDTO> vaga;
 
-
-    public PatioDTO(int id_patio, int qtd_vagas, String endereco, SetorEnum setor, List<VagaDTO> vagaDTO) {
-    }
 
     public PatioDTO(int id_patio, String endereco, int qtd_vagas, SetorEnum setor, List<VagaDTO> vaga) {
         this.id_patio = id_patio;

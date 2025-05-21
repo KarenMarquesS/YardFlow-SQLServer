@@ -20,8 +20,8 @@ public class MotoDTO {
     @Pattern(regexp = "^[A-Z]{3}[0-9][0-9A-Z][0-9]{2}$", message = "Placa inválida. Use o formato ABC1D23.")
     private String placa;
 
-    @NotBlank(message = "Registre o motivo da moto entrar no pátio, 4000 caracteres")
-    @Size(min = 300, max = 4000, message = "Registre o motivo")
+    @NotBlank(message = "Registre o motivo da moto entrar no pátio, 400 caracteres")
+    @Size(min = 200, max = 400, message = "Registre o motivo")
     private String historico;
 
     private boolean ativo;

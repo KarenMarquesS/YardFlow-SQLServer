@@ -74,7 +74,7 @@ public class Registro_check_in_outController {
         return ResponseEntity.ok(registro);
     }
 
-    @GetMapping("/buscarsaida/{id}")
+    @GetMapping("/buscarsaida/{id_moto}")
     public ResponseEntity<Registro_check_in_out> buscarSaidaPorData(
             @RequestParam("data_saida") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data_saida) {
 

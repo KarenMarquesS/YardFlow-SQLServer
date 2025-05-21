@@ -26,13 +26,17 @@ O YardFlow é um sistema voltado para o controle de entrada, saída e localizaç
 ## 💻 Tecnologias
  - Java (v.17)
  - Maven (v.17)
- - SpringBoot (versão - 3.4.4)
+ - SpringBoot (v. 3.4.4)
  - Oracle SQL Developer (v.12)
  - Idea Intellij IDEA
   
 
 ## 📋 Pré-requisitos
-- 
+- IDEA
+  - Intellij, ou
+  - Eclipse, ou outra da preferência
+- JDK 22
+- Maven 
 
 
 ## 🔧 Instalação

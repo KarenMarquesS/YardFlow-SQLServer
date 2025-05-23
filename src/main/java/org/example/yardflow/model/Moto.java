@@ -29,7 +29,7 @@ public class Moto {
     @Column(length = 7, unique = true)
     private String placa;
 
-    @Column(length = 4000)
+    @Column(length = 400)
     private String historico;
 
     @Column(nullable = false)

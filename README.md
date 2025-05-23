@@ -113,7 +113,7 @@ src
  - Aplicação em Desenvolvimento
    - Cronograma de exceução
      - 30% finalizado até 23/05/2025 (1° e 2° sprint)
-     - 30% finalizado até            (3° sprint)
+     - 30% finalizado em             (3° sprint)
      - 40% finalizado em             (4° sprint)     
 
 

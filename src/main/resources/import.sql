@@ -31,8 +31,8 @@ INSERT INTO vaga (ocupada, setor, id_patio) VALUES ( 0, 'MOTOR_DEFEITUOSO', 2);
 INSERT INTO vaga (ocupada, setor, id_patio) VALUES ( 0, 'MOTOR_DEFEITUOSO', 2);
 INSERT INTO vaga (ocupada, setor, id_patio) VALUES ( 0, 'MOTOR_DEFEITUOSO', 2);
 INSERT INTO vaga (ocupada, setor, id_patio) VALUES ( 0, 'MANUTENCAO', 2);
-INSERT INTO vaga (ocupada, setor, id_patio) VALUES (0 'MANUTENCAO', 2);
-INSERT INTO vaga (ocupada, setor, id_patio) VALUES (0 'MANUTENCAO', 2);
+INSERT INTO vaga (ocupada, setor, id_patio) VALUES (0, 'MANUTENCAO', 2);
+INSERT INTO vaga (ocupada, setor, id_patio) VALUES (0, 'MANUTENCAO', 2);
 INSERT INTO vaga (ocupada, setor, id_patio) VALUES ( 0, 'DISPONIVEL_ALUGUEL', 2);
 INSERT INTO vaga (ocupada, setor, id_patio) VALUES ( 0, 'DISPONIVEL_ALUGUEL', 2);
 INSERT INTO vaga (ocupada, setor, id_patio) VALUES ( 0, 'DISPONIVEL_ALUGUEL', 2);
@@ -40,7 +40,7 @@ INSERT INTO vaga (ocupada, setor, id_patio) VALUES ( 0, 'SEM_PLACA', 2);
 INSERT INTO vaga (ocupada, setor, id_patio) VALUES ( 0, 'SEM_PLACA', 2);
 INSERT INTO vaga (ocupada, setor, id_patio) VALUES ( 0, 'SEM_PLACA', 2);
 INSERT INTO vaga (ocupada, setor, id_patio) VALUES ( 0, 'SEM_PLACA', 2);
-INSERT INTO vaga (ocupada, setor, id_patio) VALUES (12, 0, 'MINHA_MOTTU', 2);
+INSERT INTO vaga (ocupada, setor, id_patio) VALUES ( 0, 'MINHA_MOTTU', 2);
 INSERT INTO vaga (ocupada, setor, id_patio) VALUES ( 0, 'MINHA_MOTTU', 2);
 INSERT INTO vaga (ocupada, setor, id_patio) VALUES ( 0, 'MINHA_MOTTU', 2);
 
@@ -52,13 +52,13 @@ INSERT INTO moto (modelo, chassi, placa, historico, ativo, id_cliente) VALUES ( 
 INSERT INTO moto (modelo, chassi, placa, historico, ativo, id_cliente) VALUES ( 'MOTTU_POP', '8CXgAkfuSfSdU4475','8CX7gAk',  'trocar rodas',0,  6);
 INSERT INTO moto (modelo, chassi, placa, historico, ativo, id_cliente) VALUES ( 'MOTTU_E',  '9tFFAzH53jRG96502','9tFFAzH',  'trocar bateria',1, 7);
 
-INSERT INTO registro_check_in_out (entrada_patio, saida_patio, id_vaga, id_moto) VALUES (TO_DATE('2025-05-01', 'YYYY-MM-DD'), NULL, 2, 12);
+INSERT INTO registro_check_in_out (entrada_patio, saida_patio, id_vaga, id_moto) VALUES (TO_DATE('2025-05-01', 'YYYY-MM-DD'), TO_DATE('2025-05-08', 'YYYY-MM-DD'), 2, 12);
 INSERT INTO registro_check_in_out (entrada_patio, saida_patio, id_vaga, id_moto) VALUES ( TO_DATE('2025-04-02', 'YYYY-MM-DD'),TO_DATE('2025-05-04', 'YYYY-MM-DD'), 3, 14);
-INSERT INTO registro_check_in_out (entrada_patio, saida_patio, id_vaga, id_moto) VALUES ( TO_DATE('2025-05-02', 'YYYY-MM-DD'), NULL, 4, 13);
+INSERT INTO registro_check_in_out (entrada_patio, saida_patio, id_vaga, id_moto) VALUES ( TO_DATE('2025-05-02', 'YYYY-MM-DD'), TO_DATE('2025-07-03', 'YYYY-MM-DD'), 4, 13);
 INSERT INTO registro_check_in_out (entrada_patio, saida_patio, id_vaga, id_moto) VALUES ( TO_DATE('2025-04-03', 'YYYY-MM-DD'),TO_DATE('2025-04-28', 'YYYY-MM-DD'), 13, 8);
-INSERT INTO registro_check_in_out (entrada_patio, saida_patio, id_vaga, id_moto) VALUES ( TO_DATE('2025-05-03', 'YYYY-MM-DD'), NULL, 5, 26);
-INSERT INTO registro_check_in_out (entrada_patio, saida_patio, id_vaga, id_moto) VALUES ( TO_DATE('2025-05-04', 'YYYY-MM-DD'), NULL, 24, 18);
-INSERT INTO registro_check_in_out (entrada_patio, saida_patio, id_vaga, id_moto) VALUES ( TO_DATE('2025-05-04', 'YYYY-MM-DD'), NULL, 20, 21);
+INSERT INTO registro_check_in_out (entrada_patio, saida_patio, id_vaga, id_moto) VALUES ( TO_DATE('2025-05-03', 'YYYY-MM-DD'), TO_DATE('2025-08-04', 'YYYY-MM-DD'), 5, 26);
+INSERT INTO registro_check_in_out (entrada_patio, saida_patio, id_vaga, id_moto) VALUES ( TO_DATE('2025-05-04', 'YYYY-MM-DD'), TO_DATE('2025-06-04', 'YYYY-MM-DD'), 24, 18);
+INSERT INTO registro_check_in_out (entrada_patio, saida_patio, id_vaga, id_moto) VALUES ( TO_DATE('2025-05-04', 'YYYY-MM-DD'), TO_DATE('2025-06-20', 'YYYY-MM-DD'), 20, 21);
 
 
 

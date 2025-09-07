@@ -1,7 +1,7 @@
 package org.example.yardflow.control;
 
 import org.example.yardflow.model.Patio;
-import org.example.yardflow.model.SetorEnum;
+import org.example.yardflow.model.EnumSetor;
 import org.example.yardflow.service.PatioCachingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +18,13 @@ public class PatioController {
 
     // Buscar pátio por setor
     @GetMapping("/setor/{setor}")
-    public ResponseEntity<Patio> buscarPorSetor(@PathVariable("setor") SetorEnum setor) {
-        return ptSrv.buscarPorSetor(setor)
-                .map(ResponseEntity::ok)
-                .orElseThrow(() -> new IllegalArgumentException(">> Setor Não Localisado: <<" + setor));
+    public ResponseEntity<List<Patio>> buscarPorSetor(@PathVariable("setor") EnumSetor setor) {
+        List<Patio> patios = ptSrv.buscarPorSetor(setor);;
+
+        if(patios.isEmpty()) {
+            throw new IllegalArgumentException(">> Setor Não Localisado: <<" + setor);
+        }
+        return  ResponseEntity.ok(patios);
     }
 
     // Buscar pátio por ID da vaga
@@ -32,7 +35,7 @@ public class PatioController {
                 .orElseThrow(() -> new IllegalArgumentException(">> ID da Vaga inválido: <<" + id_vaga));
     }
 
-    // Mostrar quantidade de vagas igual a um número específico
+    // Mostrar quantidade de vagas
     @GetMapping("/quantidadevagas/{qtd_vagas}")
     public ResponseEntity<List<Patio>> mostrarQtdVagas(@PathVariable("qtd_vagas") int qtd_vagas) {
         List<Patio> patios = ptSrv.mostrarQtdVagas(qtd_vagas);
@@ -40,13 +43,18 @@ public class PatioController {
         return ResponseEntity.ok(patios);
     }
 
-    // Mostrar quantidade de vaga ocupadas por setor
+    // Quantidade de vaga ocupadas por setor
     @GetMapping("/ocupada")
-    public ResponseEntity<List<SetorEnum>> mostrarVagasOcupadasPorSetor() {
-        List<SetorEnum> resultados = ptSrv.mostrarVagaOcupadaPorSetor();
-        return ResponseEntity.ok(resultados);
+    public ResponseEntity<List<Object[]>> contarVagasOcupadasPorSetor() {
+        return ResponseEntity.ok(ptSrv.mostrarVagaOcupadaPorSetor());
     }
 
+    // Deletar pátio
+    @DeleteMapping("/{id_patio}")
+    public ResponseEntity<Void> deletarPatio(@PathVariable int id_patio) {
+        ptSrv.deletarPatio(id_patio);
+        return ResponseEntity.noContent().build();
+    }
 
     @DeleteMapping("/limparcache")
     public ResponseEntity<Void> limparCache() {

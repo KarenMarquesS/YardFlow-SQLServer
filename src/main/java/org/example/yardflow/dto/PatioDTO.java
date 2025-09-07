@@ -1,81 +1,49 @@
 package org.example.yardflow.dto;
 
+
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import org.example.yardflow.model.EnumSetor;
 import org.example.yardflow.model.Patio;
-import org.example.yardflow.model.SetorEnum;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class PatioDTO {
 
     private int id_patio;
+
+    @NotBlank
     @Size(min = 2, max = 200)
     private String endereco;
+
+    @Positive
     private int qtd_vagas;
-    @NotBlank(message = "Informe o Setor")
-    private SetorEnum setor;
-    private List<VagaDTO> vaga;
+    private EnumSetor setor;
+    private List<VagaDTO> vagas;
 
-
-    public PatioDTO(int id_patio, String endereco, int qtd_vagas, SetorEnum setor, List<VagaDTO> vaga) {
-        this.id_patio = id_patio;
-        this.endereco = endereco;
-        this.qtd_vagas = qtd_vagas;
-        this.setor = setor;
-        this.vaga = vaga;
-    }
-
+    // Conversão de entidade em DTO
     public PatioDTO(Patio p) {
-        setIdPatio(p.getId_patio());
-        setEndereco(p.getEndereco());
-        setSetor(p.getSetor());
-        setQtdVagas(p.getQtd_vagas());
-        setVagas(Optional.ofNullable(p.getVaga()).orElse(Collections.emptyList()).stream().map(VagaDTO::new).collect(Collectors.toList()));
+        this.id_patio = p.getId_patio();
+        this.endereco = p.getEndereco();
+        this.qtd_vagas = p.getQtd_vagas();
+        this.setor = p.getSetor();
+        this.vagas = Optional.ofNullable(p.getVagas())
+                .orElse(Collections.emptyList())
+                .stream()
+                .map(VagaDTO::new)
+                .collect(Collectors.toList());
     }
 
-
-
-    public int getIdPatio() {
-        return id_patio;
-    }
-
-    public void setIdPatio(int id_patio) {
-        this.id_patio = id_patio;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-    public int getQtd_vagas() {
-        return qtd_vagas;
-    }
-
-    public void setQtdVagas(int qtd_vagas) {
-        this.qtd_vagas = qtd_vagas;
-    }
-
-    public SetorEnum getSetor() {
-        return setor;
-    }
-
-    public void setSetor(SetorEnum setor) {
-        this.setor = setor;
-    }
-
-    public List<VagaDTO> getVaga() {
-        return vaga;
-    }
-
-    public void setVagas(List<VagaDTO> vaga) {
-        this.vaga = vaga;
-    }
 }

@@ -1,16 +1,18 @@
 package org.example.yardflow.service;
 
 import org.example.yardflow.dto.VagaDTO;
-import org.example.yardflow.model.SetorEnum;
+import org.example.yardflow.model.EnumSetor;
+import org.example.yardflow.model.Patio;
+import org.example.yardflow.model.Vaga;
+import org.example.yardflow.repository.PatioRepositorio;
 import org.example.yardflow.repository.VagaRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -20,23 +22,51 @@ public class VagaCachingService {
     @Autowired
     private VagaRepositorio vRep;
 
+    @Autowired
+    private PatioRepositorio pRep;
 
-    @Cacheable(value="VagaOcupada", key = "#ocupada")
+    // Criar nova vaga
+    public VagaDTO criarVaga(VagaDTO dto) {
+        Vaga vaga = new Vaga();
+        vaga.setOcupada(dto.isOcupada());
+        vaga.setSetor(dto.getSetor());
+
+        // Busca o Patio relacionado
+        Optional<Patio> patio = pRep.findByIdPatio(dto.getId_patio());
+        if (patio.isEmpty()) {
+            throw new IllegalArgumentException(">> Patio informado não existe! <<");
+        }
+        vaga.setPatio(patio.get());
+
+        Vaga vagaSalva = vRep.save(vaga);
+        return new VagaDTO(vagaSalva);
+    }
+
+    @Cacheable(value= "vagaCache", key = "'ocupada' + #ocupada")
     public List<VagaDTO> vagaOcupada(boolean ocupada){
         return vRep.vagaOcupada(ocupada).stream().map(VagaDTO::new).collect(Collectors.toList());
     }
 
-    @Cacheable(value = "BuscaPorId_vaga", key="#id_vaga")
-    public List<VagaDTO> buscarIdVaga(int id_vaga){
-        return vRep.buscarIdVaga(id_vaga).stream().map(VagaDTO::new).collect(Collectors.toList());
+    @Cacheable(value =  "vagaCache", key="'vaga:' + #id_vaga")
+    public Optional<VagaDTO> findByIdVaga(int id_vaga){
+        return vRep.findByIdVaga(id_vaga).map(VagaDTO::new);
     }
 
-    @Cacheable(value = "VagasPorSetor", key = "#setor")
-    public List<VagaDTO> buscarVagaSetor(SetorEnum setor){
-        return vRep.buscarVagaSetor(setor).stream().map(VagaDTO::new).collect(Collectors.toList());
+    @Cacheable(value =  "vagaCache", key = "'setor:' + #setor")
+    public List<VagaDTO> findVagaBySetor(EnumSetor setor){
+        return vRep.findVagaBySetor(setor).stream().map(VagaDTO::new).collect(Collectors.toList());
     }
 
-    @CacheEvict(value = {"vagaOcupada", "BuscaPorId_vaga", "VagaPorSetor"}, allEntries = true)
+
+    // Deletar vaga
+    public void deletarVaga(int id_vaga) {
+        if (!vRep.existsById(id_vaga)) {
+            throw new IllegalArgumentException(">> Vaga deletada com Sucesso <<");
+        }
+        vRep.deleteById(id_vaga);
+    }
+
+    @CacheEvict(value =  "vagaCache", allEntries = true)
     public void limparCaheVaga(){
         System.out.println(">> Removendo arquivos de cache da Vagas! <<");
     }

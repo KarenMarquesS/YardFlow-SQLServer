@@ -1,17 +1,17 @@
 package org.example.yardflow.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-
-
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table
+@Table(name = "moto")
 public class Moto {
 
 
@@ -20,26 +20,20 @@ public class Moto {
     private int id_moto;
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 20, nullable = false)
-    private ModeloEnum modelo;
+    private EnumModelo modelo;
 
-    @Column(length = 17)
     private String chassi;
 
-    @Column(length = 7, unique = true)
     private String placa;
 
-    @Column(length = 400)
     private String historico;
+
+    private int yFlowIoT;
 
     @Column(nullable = false)
     private boolean ativo = true;
 
-    @OneToOne
-    @JoinColumn(name = "id_cliente")
-    private Cliente cliente;
-
     @OneToMany(mappedBy = "moto", cascade = CascadeType.ALL)
-    private List<Registro_check_in_out> registrosCheckInOut;
+    private List<RegistroCheckInOut> registrosCheckInOut;
 
 }

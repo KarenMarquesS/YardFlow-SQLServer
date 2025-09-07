@@ -2,14 +2,17 @@ package org.example.yardflow.model;
 
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table
+@Table(name = "vaga")
 public class Vaga {
 
     @Id
@@ -19,15 +22,15 @@ public class Vaga {
     private boolean ocupada;
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 20, nullable = false)
-    private SetorEnum setor;
+    private EnumSetor setor;
 
     @ManyToOne
-    @JoinColumn(name = "id_patio")
+    @JoinColumn(name = "id_patio", nullable = false)
     private Patio patio;
 
-    @OneToMany(mappedBy = "vaga", cascade = CascadeType.ALL)
-    private List<Registro_check_in_out> registrosCheckInOut;
+    @OneToMany(mappedBy = "vaga", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RegistroCheckInOut> registrosCheckInOut;
+
 
 }
 

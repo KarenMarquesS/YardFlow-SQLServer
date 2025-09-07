@@ -32,11 +32,11 @@ public class VagaCachingService {
         vaga.setSetor(dto.getSetor());
 
         // Busca o Patio relacionado
-        Optional<Patio> patio = pRep.findByIdPatio(dto.getId_patio());
-        if (patio.isEmpty()) {
+        Patio patio = pRep.findByIdPatio(dto.getId_patio());
+        if (patio == null) {
             throw new IllegalArgumentException(">> Patio informado não existe! <<");
         }
-        vaga.setPatio(patio.get());
+        vaga.setPatio(patio);
 
         Vaga vagaSalva = vRep.save(vaga);
         return new VagaDTO(vagaSalva);

@@ -15,7 +15,7 @@ import java.time.temporal.ChronoUnit;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "registro_chack_in_out")
+@Table(name = "registro_check_in_out")
 public class RegistroCheckInOut {
 
     @Id

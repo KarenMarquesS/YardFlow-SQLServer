@@ -13,7 +13,8 @@ import java.util.Optional;
 @Repository
 public interface PatioRepositorio extends JpaRepository<Patio, Integer> {
 
-    Optional<Patio> findByIdPatio(@Param("id_patio")int id_patio);
+    @Query("select pT from Patio pT where pT.id_patio = :id")
+    Patio findByIdPatio(@Param("id")int id);
 
     @Query("FROM Patio pT WHERE pT.setor = :setor")
     List<Patio> findBySetor(@Param("setor") EnumSetor setor);

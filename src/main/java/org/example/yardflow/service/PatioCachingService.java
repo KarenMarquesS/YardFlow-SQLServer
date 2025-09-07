@@ -22,7 +22,7 @@ public class PatioCachingService {
     @Autowired
     private PatioRepositorio ptRep;
 
-    public Optional<Patio> buscarPatioPorId(int id_patio) {
+    public Patio buscarPatioPorId(int id_patio) {
         return ptRep.findByIdPatio(id_patio);
     }
 

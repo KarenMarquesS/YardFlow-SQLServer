@@ -20,7 +20,7 @@ public class TesteAplicacao implements CommandLineRunner {
         System.out.println("=== Testando no console ===");
         try {
             var patio = patioService.buscarPatioPorId(1);
-            System.out.println("Pátio encontrado: " + patio.getSetor());
+            System.out.println("Pátio encontrado: " );
         } catch (Exception e) {
             System.out.println("Erro: " + e.getMessage());
         }

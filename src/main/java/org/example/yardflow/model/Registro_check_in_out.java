@@ -3,6 +3,7 @@ package org.example.yardflow.model;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Past;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,11 +13,11 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "registro_check_in_out")
-public class RegistroCheckInOut {
+@Table(name = "tb_yf_registro_check_in_out")
+public class Registro_check_in_out {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,10 +38,6 @@ public class RegistroCheckInOut {
     @JoinColumn(name="id_moto")
     private Moto moto;
 
-    @Valid
-    @ManyToOne
-    @JoinColumn(name = "id_vaga", nullable = false)
-    private Vaga vaga;
 
 
     // irá retornar Zero se a entrada e saida for no mesmo dia

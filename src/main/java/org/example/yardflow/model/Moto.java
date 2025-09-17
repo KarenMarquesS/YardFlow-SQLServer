@@ -1,17 +1,14 @@
 package org.example.yardflow.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
 
 import java.util.List;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
-@Table(name = "moto")
+@Table(name = "tb_yf_moto")
 public class Moto {
 
 
@@ -28,12 +25,10 @@ public class Moto {
 
     private String historico;
 
-    private int yFlowIoT;
-
-    @Column(nullable = false)
-    private boolean ativo = true;
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    private YfIoT yfIoT;
 
     @OneToMany(mappedBy = "moto", cascade = CascadeType.ALL)
-    private List<RegistroCheckInOut> registrosCheckInOut;
+    private List<Registro_check_in_out> registrosCheckInOut;
 
 }

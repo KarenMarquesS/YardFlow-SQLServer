@@ -4,13 +4,14 @@ import org.example.yardflow.model.Moto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface MotoRepositorio extends JpaRepository<Moto, Integer> {
 
     Moto findByPlaca(String placa);
 
-    @Query("select mT from Moto mT where mT.id_moto = :id")
-    Moto findByIdMoto(@Param ("id") int id);
+    Moto findById(int id_moto);
 
     Moto findByChassi(String chassi);
 

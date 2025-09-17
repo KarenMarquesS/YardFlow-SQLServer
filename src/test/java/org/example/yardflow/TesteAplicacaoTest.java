@@ -17,6 +17,6 @@ public class TesteAplicacaoTest {
     void testarBuscaPorId() {
         var patio = patioService.buscarPatioPorId(1);
         Contracts.assertNotNull(patio, "O pátio não deveria ser nulo");
-        System.out.println("Pátio encontrado: " + patio.getSetor());
+        System.out.println("Pátio encontrado: " );
     }
 }

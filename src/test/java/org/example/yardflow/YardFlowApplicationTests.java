@@ -1,6 +1,6 @@
 package org.example.yardflow;
 
-import org.example.yardflow.model.RegistroCheckInOut;
+import org.example.yardflow.model.Registro_check_in_out;
 import org.example.yardflow.service.PatioCachingService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ class YardFlowApplicationTests {
 
     @Test
     void deveCalcularPeriodoComEntradaESaida() {
-        RegistroCheckInOut registro = new RegistroCheckInOut();
+        Registro_check_in_out registro = new Registro_check_in_out();
         registro.setEntrada_patio(LocalDate.now().minusDays(3));
         registro.setSaida_patio(LocalDate.now());
 
@@ -32,7 +32,7 @@ class YardFlowApplicationTests {
 
     @Test
     void deveCalcularPeriodoComSaidaNula() {
-        RegistroCheckInOut registro = new RegistroCheckInOut();
+        Registro_check_in_out registro = new Registro_check_in_out();
         registro.setEntrada_patio(LocalDate.now().minusDays(2));
         registro.setSaida_patio(null); // usuário não informou saída
 
@@ -43,7 +43,7 @@ class YardFlowApplicationTests {
 
     @Test
     void deveRetornarUmDiaQuandoEntradaIgualSaida() {
-        RegistroCheckInOut registro = new RegistroCheckInOut();
+        Registro_check_in_out registro = new Registro_check_in_out();
         registro.setEntrada_patio(LocalDate.now());
         registro.setSaida_patio(LocalDate.now());
 
@@ -54,14 +54,14 @@ class YardFlowApplicationTests {
 
     @Test
     void deveLancarExcecaoQuandoEntradaNula() {
-        RegistroCheckInOut registro = new RegistroCheckInOut();
+        Registro_check_in_out registro = new Registro_check_in_out();
 
         assertThrows(IllegalStateException.class, registro::calcularPeriodoPermanencia);
     }
 
     @Test
     void deveLancarExcecaoQuandoSaidaAntesDaEntrada() {
-        RegistroCheckInOut registro = new RegistroCheckInOut();
+        Registro_check_in_out registro = new Registro_check_in_out();
         registro.setEntrada_patio(LocalDate.now());
         registro.setSaida_patio(LocalDate.now().minusDays(1));
 
@@ -77,7 +77,7 @@ class YardFlowApplicationTests {
     void testarBuscaPorId() {
         var patio = patioService.buscarPatioPorId(1);
         assertNotNull(patio);
-        System.out.println("Patio encontrado: " + patio.getSetor());
+        System.out.println("Patio encontrado: ");
     }
 
 }

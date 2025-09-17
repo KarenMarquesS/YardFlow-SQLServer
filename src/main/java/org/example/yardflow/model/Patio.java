@@ -1,17 +1,12 @@
 package org.example.yardflow.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import java.util.List;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
-@Table(name = "patio")
+@Table(name = "tb_yf_patio")
 public class Patio {
 
     @Id
@@ -24,12 +19,7 @@ public class Patio {
     @Column(nullable = false)
     private int qtd_vagas;
 
-    @Enumerated(EnumType.STRING)
-    @Column(length = 20, nullable = false)
-    private EnumSetor setor;
 
-    @OneToMany(mappedBy = "patio", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Vaga> vagas;
 
 }
 

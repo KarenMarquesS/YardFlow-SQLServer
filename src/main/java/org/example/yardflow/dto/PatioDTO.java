@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import org.example.yardflow.model.EnumSetor;
 import org.example.yardflow.model.Patio;
 
 import java.util.Collections;
@@ -24,26 +23,23 @@ public class PatioDTO {
 
     private int id_patio;
 
+    private String nickname;
+
     @NotBlank
     @Size(min = 2, max = 200)
     private String endereco;
 
     @Positive
     private int qtd_vagas;
-    private EnumSetor setor;
-    private List<VagaDTO> vagas;
+
 
     // Conversão de entidade em DTO
     public PatioDTO(Patio p) {
         this.id_patio = p.getId_patio();
         this.endereco = p.getEndereco();
         this.qtd_vagas = p.getQtd_vagas();
-        this.setor = p.getSetor();
-        this.vagas = Optional.ofNullable(p.getVagas())
-                .orElse(Collections.emptyList())
-                .stream()
-                .map(VagaDTO::new)
-                .collect(Collectors.toList());
+
+
     }
 
 }

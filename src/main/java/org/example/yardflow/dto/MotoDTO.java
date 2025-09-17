@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.yardflow.model.EnumModelo;
+import org.example.yardflow.model.YfIoT;
 
 
 @Data
@@ -30,8 +31,7 @@ public class MotoDTO {
     @Size(min = 200, max = 500, message = "Registre o motivo")
     private String historico;
 
-    private boolean ativo;
-    private int yFlowIoT;
+    private YfIoT yfIoT;
 
 
 }

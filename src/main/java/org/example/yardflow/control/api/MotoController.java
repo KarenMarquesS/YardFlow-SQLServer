@@ -1,4 +1,4 @@
-package org.example.yardflow.control;
+package org.example.yardflow.control.api;
 
 import jakarta.validation.Valid;
 import org.example.yardflow.dto.MotoDTO;
@@ -27,7 +27,7 @@ public class MotoController {
 
     @GetMapping("/buscar{id_moto}")
     public ResponseEntity<Moto> buscarIdMoto(@PathVariable int id_moto){
-        Moto moto = servMt.findByIdMoto(id_moto);
+        Moto moto = servMt.findById(id_moto);
         if(moto == null){
             return ResponseEntity.ok(moto);
         }else{
@@ -57,25 +57,27 @@ public class MotoController {
     }
 
 
-    @Operation(description = "Este endpoint irá realizar as inserções das informações refentes a Moto", tags="Inserir " +
-            "Dados", summary="Irá inserir os dados da Moto")
-    @PostMapping(value = "/inserir")
-    public ResponseEntity<?> inserirMoto(@RequestBody @Valid MotoDTO motoDTO, BindingResult result){
-        if(result.hasErrors()){
-            return ResponseEntity.badRequest().body(result.getAllErrors());
-        }
-        Moto moto = modelMapper.map(motoDTO, Moto.class);
-        return ResponseEntity.ok(servMt.salvarOuAtualizar(moto));
-    }
+//    @Operation(description = "Este endpoint irá realizar as inserções das informações refentes a Moto", tags="Inserir " +
+//            "Dados", summary="Irá inserir os dados da Moto")
+//    @PostMapping(value = "/inserir")
+//    public ResponseEntity<?> inserirMoto(@RequestBody @Valid MotoDTO motoDTO, BindingResult result){
+//        if(result.hasErrors()){
+//            return ResponseEntity.badRequest().body(result.getAllErrors());
+//        }
+//        Moto moto = modelMapper.map(motoDTO, Moto.class);
+//        return ResponseEntity.ok(servMt.salvarOuAtualizar(moto));
+//    }
 
-    @GetMapping(value = "/historico/{id_moto}")
-    public ResponseEntity<Page<MotoDTO>> historicoPaginado(
-            @PathVariable int id_moto,
-            @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "size", defaultValue = "2") int size){
+    // atualizar moto
 
-        return ResponseEntity.ok(servMt.getAllMotosPaginado(id_moto, page, size));
-    }
+//    @GetMapping(value = "/historico/{id_moto}")
+//    public ResponseEntity<Page<MotoDTO>> historicoPaginado(
+//            @PathVariable int id_moto,
+//            @RequestParam(value = "page", defaultValue = "0") int page,
+//            @RequestParam(value = "size", defaultValue = "2") int size){
+//
+//        return ResponseEntity.ok(servMt.getAllMotosPaginado(id_moto, page, size));
+//    }
 
     // Buscar apenas o histórico da moto pelo id (com cache)
     @GetMapping("/buscar/historico/{id_moto}")
@@ -88,25 +90,25 @@ public class MotoController {
     }
 
 
-    @PatchMapping("/historico/{id_moto}")
-    public ResponseEntity<Moto> atualizarHistoricoMoto(@PathVariable int id_moto, @RequestBody String historico){
-
-        Moto moto = servMt.findByIdMoto(id_moto);
-        if (moto == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        moto.setHistorico(historico);
-        Moto atualizado = servMt.salvarOuAtualizar(moto);
-        return ResponseEntity.ok(atualizado);
-    }
-
-
-    @DeleteMapping("/desativar/{id_moto}")
-    public ResponseEntity<Void> desativarMoto(@PathVariable int id_moto) {
-        servMt.desativarMoto(id_moto);
-        return ResponseEntity.noContent().build();
-    }
+//    @PatchMapping("/historico/{id_moto}")
+//    public ResponseEntity<Moto> atualizarHistoricoMoto(@PathVariable int id_moto, @RequestBody String historico){
+//
+//        Moto moto = servMt.findByIdMoto(id_moto);
+//        if (moto == null) {
+//            return ResponseEntity.notFound().build();
+//        }
+//
+//        moto.setHistorico(historico);
+//        Moto atualizado = servMt.salvarOuAtualizar(moto);
+//        return ResponseEntity.ok(atualizado);
+//    }
+//
+//
+//    @DeleteMapping("/desativar/{id_moto}")
+//    public ResponseEntity<Void> desativarMoto(@PathVariable int id_moto) {
+//        servMt.desativarMoto(id_moto);
+//        return ResponseEntity.noContent().build();
+//    }
 
 
     @DeleteMapping("/cache/limpar")

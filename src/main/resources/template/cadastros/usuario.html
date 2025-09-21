@@ -1,0 +1,55 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragmentos :: cabecalho('Cadastro de Usuário')}" />
+
+<body class="bg-gray-100 bg-dots flex items-center justify-center h-screen">
+
+<div>
+    <form th:replace="~{fragmentos :: form-logout}" />
+</div>
+
+<div class="mb-6 flex justify-center">
+    <div th:replace="~{fragmentos :: saudacoes(${patio})}"></div>
+</div>
+
+
+<div class="bg-white shadow-lg rounded-xl p-8 w-96">
+
+
+    <div class="row">
+        <h1>Cadastro de Usuário</h1>
+    </div>
+    <div class="row">
+
+        <form th:object="${usuario}" action="/insere_usuario" method="post">
+
+            Nome: <input class="form-control" type="text" th:field="*{nome}">
+            Email: <input class="form-control" type="text" th:field="*{email}">
+            Senha: <input class="form-control" type="password" th:field="*{senha}">
+            Funções:
+            <select class="form-select" th:name="'id_funcao'">
+                <option th:each="funcao : ${lista_funcoes}" th:value="${funcao.id}" th:text="${funcao.nome}" />
+            </select><br>
+
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+
+            <button th:replace="~{fragmentos :: botao-salvar}('Salvar Cadastro')"/>
+        </form>
+
+
+    </div>
+    <div class="row">
+        <a href="/home">Home</a>
+    </div>
+</div>
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+
+<footer th:replace="~{fragmentos :: rodape}" />
+</body>
+
+</html>

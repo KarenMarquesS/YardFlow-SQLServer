@@ -17,6 +17,9 @@ public class Usuario {
     @Pattern(regexp = "^(.+)@(.+)$", message = "Dgite um e-mail válido")
     private String email;
 
+
+    private String senha;
+
     @Enumerated(EnumType.STRING)
     private EnumFuncao funcao;
 

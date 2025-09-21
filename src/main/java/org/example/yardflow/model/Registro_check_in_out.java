@@ -12,9 +12,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+
 @Entity
 @Table(name = "tb_yf_registro_check_in_out")
 public class Registro_check_in_out {
@@ -32,6 +30,9 @@ public class Registro_check_in_out {
 
     @Column(nullable = false)
     private int periodo;
+
+    @Enumerated(EnumType.STRING)
+    private EnumSetor setor;
 
     @Valid
     @ManyToOne

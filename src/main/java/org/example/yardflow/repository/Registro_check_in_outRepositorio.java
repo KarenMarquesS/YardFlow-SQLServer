@@ -14,19 +14,23 @@ import java.util.Optional;
 @Repository
 public interface Registro_check_in_outRepositorio extends JpaRepository<Registro_check_in_out, Integer> {
 
-    //Lista das DATAS DE ENTRADA E DE SAIDA
-    List<Registro_check_in_out> findByEntradaPatio(LocalDate entradaPatio);
 
-    List<Registro_check_in_out> findBySaidaPatio(LocalDate saidaPatio);
+    List<Registro_check_in_out> findAllByEntradaPatio(LocalDate entrada_patio);
 
 
-    // Consulta feita a partir da data de entrada para localizar o Id da Moto
-    @Query("from Registro_check_in_out rG where rG.entrada_patio = :entrada_patio")
-    Optional<Registro_check_in_out> buscarDataEntradaMoto(@Param("entrada_patio")LocalDate entrada_patio);
+    List<Registro_check_in_out> findAllBySaidaPatio(LocalDate saida_patio);
 
-    // Consulta feita a partir da data de saida para localizar o Id da Moto
-    @Query("from Registro_check_in_out rG where rG.saida_patio = :saida_patio")
-    Optional<Registro_check_in_out> buscarDataSaidaMoto(@Param("saida_patio") LocalDate saida_patio);
+    // Encontra o registro em aberto (entrada sem saída) mais recente da moto
+    Optional<Registro_check_in_out> findTopByMoto_IdAndSaidaPatioIsNullOrderByEntradaPatioDesc(int id_moto);
+
+    // Encontra o último registro (fechado ou não) pela moto
+    Optional<Registro_check_in_out> findTopByMoto_IdOrderByEntradaPatioDesc(int id_moto);
+
+    // Lista todos os registros de uma moto
+    List<Registro_check_in_out> findByMoto_Id(int id_moto);
+
+    // Lista todos com entrada (útil para ordenar por permanência em memória)
+    List<Registro_check_in_out> findByEntradaPatioIsNotNull();
 
 
 

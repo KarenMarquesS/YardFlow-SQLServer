@@ -1,45 +1,67 @@
 package org.example.yardflow.dto;
 
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import org.example.yardflow.model.Patio;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class PatioDTO {
 
     private int id_patio;
 
-    private String nickname;
-
-    @NotBlank
-    @Size(min = 2, max = 200)
-    private String endereco;
+    private String name;
 
     @Positive
     private int qtd_vagas;
 
 
     // Conversão de entidade em DTO
-    public PatioDTO(Patio p) {
+    public Patio toEntity() {
+        Patio p = new Patio();
         this.id_patio = p.getId_patio();
-        this.endereco = p.getEndereco();
         this.qtd_vagas = p.getQtd_vagas();
+        this.name = p.getName();
 
-
+        return p;
     }
 
+    public PatioDTO() {
+    }
+
+    public PatioDTO(int id_patio, String name, int qtd_vagas) {
+        this.id_patio = id_patio;
+        this.name = name;
+        this.qtd_vagas = qtd_vagas;
+    }
+
+    public PatioDTO(Patio patio) {
+        this.id_patio = patio.getId_patio();
+        this.name = patio.getName();
+        this.qtd_vagas = patio.getQtd_vagas();
+    }
+
+    public int getId_patio() {
+        return id_patio;
+    }
+
+    public void setId_patio(int id_patio) {
+        this.id_patio = id_patio;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Positive
+    public int getQtd_vagas() {
+        return qtd_vagas;
+    }
+
+    public void setQtd_vagas(@Positive int qtd_vagas) {
+        this.qtd_vagas = qtd_vagas;
+    }
 }

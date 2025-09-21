@@ -11,11 +11,9 @@ public interface MotoRepositorio extends JpaRepository<Moto, Integer> {
 
     Moto findByPlaca(String placa);
 
-    Moto findById(int id_moto);
-
     Moto findByChassi(String chassi);
 
     @Query("select mT.historico from Moto mT where mT.id_moto = :id_moto")
-    String mostrarHistoricoMoto(@Param("id_moto") int id_moto);
+    String historicoMoto(@Param("id_moto") int id_moto);
 
 }

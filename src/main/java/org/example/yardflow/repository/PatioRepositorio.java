@@ -5,13 +5,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface PatioRepositorio extends JpaRepository<Patio, Integer> {
 
-    Patio findById(@Param("id")int id_patio);
+    Patio findByName(String nickname);
 
-    Patio findByqtd_vagas(int qtd_vagas);
-
-    Patio findByNickname(String nickname);
+    List<Patio> findByQtdVagas(int qtd_vagas);
 
 }

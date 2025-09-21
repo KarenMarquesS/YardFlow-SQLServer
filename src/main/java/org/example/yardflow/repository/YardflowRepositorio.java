@@ -10,7 +10,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface YardflowRepositorio extends JpaRepository<Yardflow, UUID> {
+public interface YardflowRepositorio extends JpaRepository<Yardflow, Integer> {
 
     Optional<Yardflow> findBySerial(@Param("serial")String serial);
 

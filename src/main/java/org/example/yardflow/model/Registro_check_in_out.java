@@ -56,4 +56,64 @@ public class Registro_check_in_out {
         long dias = ChronoUnit.DAYS.between(entrada_patio, dataSaida);
         this.periodo = (int) Math.max(dias, 1 ); // mínimo 1 dia
     }
+
+    public Registro_check_in_out() {
+    }
+
+    public Registro_check_in_out(int id_registro, LocalDate entrada_patio, LocalDate saida_patio, int periodo, EnumSetor setor, Moto moto) {
+        this.id_registro = id_registro;
+        this.entrada_patio = entrada_patio;
+        this.saida_patio = saida_patio;
+        this.periodo = periodo;
+        this.setor = setor;
+        this.moto = moto;
+    }
+
+    public int getId_registro() {
+        return id_registro;
+    }
+
+    public void setId_registro(int id_registro) {
+        this.id_registro = id_registro;
+    }
+
+    public @Past(message = "Data de Entrada inválida!") LocalDate getEntrada_patio() {
+        return entrada_patio;
+    }
+
+    public void setEntrada_patio(@Past(message = "Data de Entrada inválida!") LocalDate entrada_patio) {
+        this.entrada_patio = entrada_patio;
+    }
+
+    public LocalDate getSaida_patio() {
+        return saida_patio;
+    }
+
+    public void setSaida_patio(LocalDate saida_patio) {
+        this.saida_patio = saida_patio;
+    }
+
+    public int getPeriodo() {
+        return periodo;
+    }
+
+    public void setPeriodo(int periodo) {
+        this.periodo = periodo;
+    }
+
+    public EnumSetor getSetor() {
+        return setor;
+    }
+
+    public void setSetor(EnumSetor setor) {
+        this.setor = setor;
+    }
+
+    public @Valid Moto getMoto() {
+        return moto;
+    }
+
+    public void setMoto(@Valid Moto moto) {
+        this.moto = moto;
+    }
 }

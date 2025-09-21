@@ -101,9 +101,8 @@ public class Registro_check_in_outCachingService {
                 .map(r -> {
                     int periodo = calcularPeriodoEntre(r.getEntrada_patio(), r.getSaida_patio());
                     Integer id_moto = (r.getMoto() != null) ? r.getMoto().getId_moto() : null;
-                    String modelo = (r.getMoto() != null) ? r.getMoto().getModelo() : null;
-                    return new RegistroPermanenciaDTO(r.getId_registro(), id_moto, modelo, r.getEntrada_patio(),
-                            r.getSaida_patio(), periodo);
+                    String modelo = (r.getMoto() != null) ? r.getMoto().getModelo().getDescricao() : null;
+                    return new RegistroPermanenciaDTO();
                 })
                 .sorted(Comparator.comparingInt(RegistroPermanenciaDTO::getPeriodo).reversed()) // maior -> menor
                 .collect(Collectors.toList());

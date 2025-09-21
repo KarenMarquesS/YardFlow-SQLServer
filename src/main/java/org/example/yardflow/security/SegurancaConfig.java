@@ -13,11 +13,14 @@ public class SegurancaConfig {
 
     @Bean
     public SecurityFilterChain chain(HttpSecurity http) throws Exception {
-
+                                                // usuario passa pela autenticacao
         http.authorizeHttpRequests( (request) -> request.requestMatchers("/usuario/novo").hasAuthority("ADMIN")
                     .anyRequest().authenticated() )
-            .formLogin( (login) -> login.loginPage("/login").defaultSuccessUrl("/index", true)
+                                    // pagina de login = quando bem sussedido vai para o home
+            .formLogin( (login) -> login.loginPage("/index").defaultSuccessUrl("/home", true)
+                    // se falhar = o usuario permanece na mesma página - isso permite enviar uma mensagem de erro
                     .failureUrl("/login?falha=true").permitAll())
+                //não tem necessidade de estar autenticado
             .logout((logout) -> logout.logoutUrl("/logout")
                     .logoutSuccessUrl("/login?logout=true").permitAll()  )
             .exceptionHandling((exception) ->
@@ -30,6 +33,7 @@ public class SegurancaConfig {
 
     @Bean
     public PasswordEncoder encoder() {
+
         return new BCryptPasswordEncoder();
     }
 

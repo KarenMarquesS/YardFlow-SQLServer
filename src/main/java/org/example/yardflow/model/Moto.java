@@ -10,7 +10,6 @@ import java.util.List;
 @Table(name = "tb_yf_moto")
 public class Moto {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_moto;

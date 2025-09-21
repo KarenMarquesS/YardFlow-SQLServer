@@ -31,7 +31,7 @@ public class YardflowCachingService {
     }
 
     @Cacheable(value = "yfCache", key = "#ativar")
-    public Yardflow ativarYardFlow(UUID id_yf, int id_moto){
+    public Yardflow ativarYardFlow(int id_yf, int id_moto){
 
         Yardflow yf = yfR.findById(id_yf).orElseThrow(()-> new IllegalArgumentException("YardFlow não localizado"));
 
@@ -50,7 +50,7 @@ public class YardflowCachingService {
     }
 
     @Cacheable(value = "yfCache", key = "#desativar")
-    public Yardflow desativarYardFlow(UUID id_yf){
+    public Yardflow desativarYardFlow(int id_yf){
         Yardflow yf = yfR.findById(id_yf).orElseThrow(()-> new IllegalArgumentException("YardFlow não encontrado"));
         Moto moto = yf.getMoto();
         if (moto == null){
@@ -64,14 +64,14 @@ public class YardflowCachingService {
     }
 
     @Cacheable(value = "yfCache", key = "#id_yf")
-    public Moto localizarMotoPorYardFlow(UUID id_yf){
+    public Moto localizarMotoPorYardFlow(int id_yf){
         Yardflow yf = yfR.findById(id_yf).orElseThrow(()-> new IllegalArgumentException("YardFlow não encontrado"));
 
         return yf.getMoto();
     }
 
     @CacheEvict(value = "yfCache", allEntries = true)
-    public void removerYardFlow(UUID id_yf){
+    public void removerYardFlow(int id_yf){
         if (!yfR.existsById(id_yf)){
             throw new IllegalArgumentException("YardFlow não encontrado");
         }

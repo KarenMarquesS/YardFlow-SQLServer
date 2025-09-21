@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.util.UUID;
+
 
 
 @Entity
@@ -14,7 +14,7 @@ public class Yardflow {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id_yf;
+    private int id_yf;
 
     @Column(nullable = false, unique = true)
     private String serial;
@@ -23,24 +23,25 @@ public class Yardflow {
     private LocalDate dt_ultimo_acionamento;
 
     @ManyToOne
+    @JoinColumn(name = "moto_id", referencedColumnName = "id_moto")
     private Moto moto;
 
 
     public Yardflow() {
     }
 
-    public Yardflow(UUID id_yf, String serial, LocalDate dt_ultimo_acionamento, Moto moto) {
+    public Yardflow(int id_yf, String serial, LocalDate dt_ultimo_acionamento, Moto moto) {
         this.id_yf = id_yf;
         this.serial = serial;
         this.dt_ultimo_acionamento = dt_ultimo_acionamento;
         this.moto = moto;
     }
 
-    public UUID getId_yf() {
+    public int getId_yf() {
         return id_yf;
     }
 
-    public void setId_yf(UUID id_yf) {
+    public void setId_yf(int id_yf) {
         this.id_yf = id_yf;
     }
 

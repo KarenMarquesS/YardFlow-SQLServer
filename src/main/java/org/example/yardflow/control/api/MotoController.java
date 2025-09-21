@@ -3,8 +3,10 @@ package org.example.yardflow.control.api;
 import jakarta.validation.Valid;
 import org.example.yardflow.dto.MotoDTO;
 
+import org.example.yardflow.model.Moto;
 import org.example.yardflow.service.MotoCachingService;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.NoSuchElementException;
 
 
 @RestController
@@ -22,6 +25,8 @@ public class MotoController {
 
     @Autowired
     private MotoCachingService mtS;
+
+    private ModelMapper mm;
 
 
     @GetMapping
@@ -32,7 +37,10 @@ public class MotoController {
 
     @GetMapping("/{id_moto}")
     public ResponseEntity<MotoDTO> findById(@PathVariable Integer id_moto) {
-        return ResponseEntity.ok(mtS.findById(id_moto));
+        Moto moto = mtS.findById(id_moto)
+                .orElseThrow(() -> new NoSuchElementException("Moto não encontrada: " + id_moto));
+        MotoDTO dto = mm.map(moto, MotoDTO.class);
+        return ResponseEntity.ok(dto);
     }
 
     @GetMapping("/placa/{placa}")

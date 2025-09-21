@@ -21,7 +21,7 @@
 
 
 <!-- Entrar -->
-<button th:fragment="botao-entrar" type="submit"
+<button th:fragment="entrar" type="submit"
         class="px-6 py-2 rounded-xl text-white shadow-md bg-gradient-to-r from-blue-500 to-blue-700">
   <span th:text="#{botao_entrar}">Entrar</span>
 </button>
@@ -32,13 +32,13 @@
 </form>
 
 <!-- Cancelar -->
-<button th:fragment="botao-cancelar" th:onclick="|window.location.href='@{/home}'|"
+<button th:fragment="cancelar" th:onclick="|window.location.href='@{/home}'|"
         class="px-6 py-2 rounded-xl text-white shadow-md bg-gradient-to-r from-red-500 to-red-700">
   <span th:text="#{botao_cancelar}">Cancelar</span>
 </button>
 
 <!-- Salvar -->
-<button th:fragment="botao-salvar" type="submit"
+<button th:fragment="salvar" type="submit"
         class="px-6 py-2 rounded-xl text-white shadow-md bg-gradient-to-r from-blue-500 to-blue-700">
   <span th:text="#{botao_salvar}">Salvar</span>
 </button>

@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public class YardflowDTO {
 
-    private UUID id_yf;
+    private long id_yf;
     private String serial;
     private LocalDate dt_ultimo_acionamento;
     private Moto moto;
@@ -19,24 +19,24 @@ public class YardflowDTO {
     public YardflowDTO() {
     }
 
-    public YardflowDTO(UUID id_yf, String serial) {
+    public YardflowDTO(long id_yf, String serial) {
         this.id_yf = id_yf;
         this.serial = serial;
     }
 
 
-    public YardflowDTO(UUID id_yf, String serial, LocalDate dt_ultimo_acionamento, Moto moto) {
+    public YardflowDTO(long id_yf, String serial, LocalDate dt_ultimo_acionamento, Moto moto) {
         this.id_yf = id_yf;
         this.serial = serial;
         this.dt_ultimo_acionamento = dt_ultimo_acionamento;
         this.moto = moto;
     }
 
-    public UUID getId_yf() {
+    public long getId_yf() {
         return id_yf;
     }
 
-    public void setId_yf(UUID id_yf) {
+    public void setId_yf(long id_yf) {
         this.id_yf = id_yf;
     }
 

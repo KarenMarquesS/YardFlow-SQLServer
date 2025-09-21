@@ -1,5 +1,6 @@
 package org.example.yardflow.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.example.yardflow.dto.MotoDTO;
 import org.example.yardflow.model.Moto;
 import org.example.yardflow.repository.MotoRepositorio;
@@ -9,6 +10,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 
+import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -35,15 +37,15 @@ public class MotoCachingService {
 
     @Cacheable(value = "motoCache", key = "'placa:' + #placa")
     public MotoDTO findByPlaca(String placa) {
-        Moto moto = mtRp.findByPlaca(placa)
-                .orElseThrow(() -> new ResourceNotFoundException("Moto não encontrada com a placa: " + placa));
+        Moto moto = mtRp.findByPlaca(placa);
+
         return mm.map(moto, MotoDTO.class);
     }
 
     @Cacheable(value = "motoCache", key = "'chassi:' + #chassi")
     public MotoDTO findByChassi(String chassi) {
-        Moto moto = mtRp.findByChassi(chassi)
-                .orElseThrow(() -> new ResourceNotFoundException("Moto não encontrada com o chassi: " + chassi));
+        Moto moto = mtRp.findByChassi(chassi);
+
         return mm.map(moto, MotoDTO.class);
     }
 
@@ -67,11 +69,14 @@ public class MotoCachingService {
 
     @Transactional
     @CachePut(value = "motoCache", key = "#id_moto")
-    @CacheEvict(value = "motoCache", key="'placa:' + #result.placa", condition="#result != null")
-    @CacheEvict(value = "motoCache", key="'chassi:' + #result.chassi", condition="#result != null")
+    @Caching(evict = {
+            @CacheEvict(value = "motoCache", key = "'placa:' + #result.placa", condition = "#result != null"),
+            @CacheEvict(value = "motoCache", key = "'chassi:' + #result.chassi", condition = "#result != null")
+    })
+
     public MotoDTO atualizarRegistroMoto(int id_moto, MotoDTO motoDTO) {
 
-        mtRp.findById(id_moto).orElseThrow(() -> new ResourceNotFoundException("Moto não encontrada: " + id_moto));
+        mtRp.findById(id_moto).orElseThrow(() -> new EntityNotFoundException("Moto não encontrada: " + id_moto));
 
         Moto motoToUpdate = mm.map(motoDTO, Moto.class);
         motoToUpdate.setId_moto(id_moto);
@@ -84,7 +89,7 @@ public class MotoCachingService {
     @CacheEvict(value = "motoCache", allEntries = true) // Invalida todo o cache, mais simples e seguro
     public void deletarRegistroMoto(int id_moto) {
         Moto moto = mtRp.findById(id_moto)
-                .orElseThrow(() -> new ResourceNotFoundException("Moto não encontrada: " + id_moto));
+                .orElseThrow(() -> new EntityNotFoundException("Moto não encontrada: " + id_moto));
         mtRp.delete(moto);
     }
 

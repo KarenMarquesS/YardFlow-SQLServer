@@ -18,6 +18,6 @@ public class SwaggerConfig {
                 .summary("Sumário: descrição mais detalhada essa aplicação é parte da proposta de solução para" +
                         "manter e organizar o pátio de motos")
                 .version("v1.0.0")
-                .license(new License().url("www.DevForge.com.br").name("Licença - ·DEV·FORGE· - v1.0.0")));
+                .license(new License().url("www.DevForge.com.br").name("Licença - ·DEV·FORGE· - v1.1.2")));
     }
 }

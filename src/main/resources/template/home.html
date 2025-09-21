@@ -1,0 +1,48 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragmentos :: cabecalho('Home')}" />
+
+
+<body class="bg-gray-100 bg-dots p-8">
+
+<div>
+  <form th:replace="~{fragmentos :: form-logout}" />
+</div>
+
+<div class="mb-6 flex justify-center">
+  <div th:replace="~{fragmentos :: saudacoes(${patio})}"></div>
+</div>
+
+<h1 class="text-center text-green-700 font-bold text-3xl mb-8">Yard Flow</h1>
+
+<div class="grid grid-cols-2 gap-6 max-w-4xl mx-auto">
+  <div class="bg-white shadow-md rounded-xl p-6">
+    <p class="text-lg font-semibold">Quantidade total de vagas:</p>
+    <p th:text="${totalVagas}" class="text-2xl text-blue-600"></p>
+  </div>
+  <div class="bg-white shadow-md rounded-xl p-6">
+    <p class="text-lg font-semibold">Quantidade vagas ocupadas:</p>
+    <p th:text="${vagasOcupadas}" class="text-2xl text-red-600"></p>
+  </div>
+</div>
+
+<div class="flex flex-wrap justify-center gap-4 mt-10">
+  <a th:href="@{/}"
+     class="px-6 py-3 rounded-xl text-white shadow-md bg-gradient-to-r from-purple-500 to-pink-600">Permanência &lt; 5 dias</a>
+
+  <a th:href="@{/}"
+     class="px-6 py-3 rounded-xl text-white shadow-md bg-gradient-to-r from-orange-400 to-red-500">Permanência &gt; 5 dias</a>
+
+  <a th:href="@{/consultas/listaMoto}"
+     class="px-6 py-3 rounded-xl text-white shadow-md bg-gradient-to-r from-green-400 to-green-600">Lista de Motos</a>
+
+  <a th:href="@{/cadastros/moto}"
+     class="px-6 py-3 rounded-xl text-white shadow-md bg-gradient-to-r from-blue-500 to-blue-700">Registrar Moto</a>
+
+  <a th:href="@{/motos/localizar}"
+     class="px-6 py-3 rounded-xl text-white shadow-md bg-gradient-to-r from-purple-700 to-pink-500">Localizar Moto</a>
+</div>
+</body>
+</html>
+

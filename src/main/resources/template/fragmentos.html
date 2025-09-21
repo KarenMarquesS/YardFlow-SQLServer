@@ -1,0 +1,59 @@
+<!-- Cabecalho -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="cabecalho(titulo)">
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title th:text="${titulo}">Título</title>
+
+  <!-- Tailwind CDN para desenvolvimento (rápido) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- se tiver CSS local -->
+  <link rel="stylesheet" th:href="@{/css/app.css}" />
+</head>
+
+<!-- outros fragments -->
+<div th:fragment="saudacoes(usuario)">
+  <b><span th:text="#{saudacao}">Olá,</span> <span th:text="${usuario.name}">Usuário</span>!</b>
+</div>
+
+
+
+<!-- Entrar -->
+<button th:fragment="botao-entrar" type="submit"
+        class="px-6 py-2 rounded-xl text-white shadow-md bg-gradient-to-r from-blue-500 to-blue-700">
+  <span th:text="#{botao_entrar}">Entrar</span>
+</button>
+
+<!-- Logout -->
+<form th:fragment="form-logout" th:action="@{/logout}" method="post">
+  <button type="submit" style="float: right;"> <span th:text="#{botao_sair}">Sair</span> </button>
+</form>
+
+<!-- Cancelar -->
+<button th:fragment="botao-cancelar" th:onclick="|window.location.href='@{/home}'|"
+        class="px-6 py-2 rounded-xl text-white shadow-md bg-gradient-to-r from-red-500 to-red-700">
+  <span th:text="#{botao_cancelar}">Cancelar</span>
+</button>
+
+<!-- Salvar -->
+<button th:fragment="botao-salvar" type="submit"
+        class="px-6 py-2 rounded-xl text-white shadow-md bg-gradient-to-r from-blue-500 to-blue-700">
+  <span th:text="#{botao_salvar}">Salvar</span>
+</button>
+
+<!-- Rodapé -->
+<footer th:fragment="rodape" class="bg-green-500">
+  <p class="text-center text-gray-950 text-sm mt-6">· DEV · FORGE ·</p>
+  <p class="text-center text-gray-950 text-sm ">&copy; 2025</p>
+  <p class="text-center text-gray-950 text-sm ">yardflow@devforge.com.br</p>
+</footer>
+
+
+
+
+
+
+
+</html>

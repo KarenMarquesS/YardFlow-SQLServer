@@ -1,0 +1,56 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragmentos :: cabecalho('Cadastro de Pátio')}" />
+
+<body class="bg-gray-100 bg-dots flex items-center justify-center h-screen">
+
+<div>
+  <form th:replace="~{fragmentos :: form-logout}" />
+</div>
+
+<div class="mb-6 flex justify-center">
+  <div th:replace="~{fragmentos :: saudacoes(${patio})}"></div>
+</div>
+
+<h1 class="text-center text-green-700 font-bold text-2xl mb-8">Cadastro do Pátio</h1>
+
+<div class="bg-white shadow-lg rounded-xl p-8 w-96">
+
+
+  <form th:object="${patio}" th:action="@{/patio/salvar} @{/editar/{id_patio}(id_patio = ${patio.id_patio})}"
+        method="post" class="max-w-2xl mx-auto bg-white p-6 shadow-lg rounded-xl space-y-4">
+    <div class="grid grid-cols-2 gap-4">
+
+      Nome do Pátio (nickname): <input type="text" name="nome" placeholder="Nome" class="border rounded-lg p-2 w-full"
+                                      th:field="*{patio.name}" th:errorclass="is-invalid"/><div class="invalid-feedback"
+                                                                                                th:errors="*{name}"></div>
+
+      CEP: <input type="text" name="cep" placeholder="CEP" class="border rounded-lg p-2 w-full" th:field="*{endereco.cep}"
+             th:errorclass="is-invalid"/><div class="invalid-feedback" th:errors="*{endereco.cep}"></div>
+
+      Rua: <input type="text" name="rua" placeholder="Rua" class="border rounded-lg p-2 w-full" th:field="*{endereco.logradouro}"/>
+      Número: <input type="text" name="numero" placeholder="Número" class="border rounded-lg p-2 w-full" th:field="*{endereco.numero}"/>
+      Bairro: <input type="text" name="bairro" placeholder="Bairro" class="border rounded-lg p-2 w-full" th:field="*{endereco.bairro}"/>
+      Cidade: <input type="text" name="cidade" placeholder="Cidade" class="border rounded-lg p-2 w-full" th:field="*{endereco.localidade}"/>
+      Estado: <input type="text" name="estado" placeholder="Estado" class="border rounded-lg p-2 w-full" th:field="*{endereco.uf}"/>
+      Quantidade total de vagas: <input type="number" name="vagas" placeholder="Qtd. Total Vagas" class="border rounded-lg p-2 w-full" th:field="*{qtd_vagas}"/>
+    </div>
+
+    <!-- ícones de editar e excluir -->
+    <div class="flex justify-end gap-6 mt-4">
+      <button type="button" class="text-gray-600 hover:text-blue-600">
+        <i class="fas fa-pencil-alt"></i>
+      </button>
+      <button type="button" class="text-gray-600 hover:text-red-600">
+        <i class="fas fa-trash"></i>
+      </button>
+    </div>
+
+    <!-- config posição botões -->
+    <div class="flex justify-center gap-6 mt-6"></div>
+  </form>
+</div>
+<footer th:replace="~{fragmentos :: rodape}" />
+</body>
+</html>

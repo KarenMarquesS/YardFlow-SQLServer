@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragmentos :: cabecalho('Localizar Moto')}" />
+
+<body class="bg-gray-100 bg-dots items-center justify-center h-screen">
+
+<div class="mb-6 flex justify-center">
+  <div th:replace="~{fragmentos :: saudacoes(${patio})}"></div>
+</div>
+
+<h1 class="text-center text-green-700 font-bold text-2xl mb-8">Localizar moto</h1>
+
+<div class="bg-white shadow-lg rounded-xl p-8 w-96">
+
+
+  <form th:object="${yardflow}" th:action="@{/} @{//{}(id_yf = ${yardflow.id_yf})}"
+        method="post" class="max-w-2xl mx-auto bg-white p-6 shadow-lg rounded-xl space-y-4">
+    <div class="grid grid-cols-2 gap-4">
+
+      <p>Preencha um dos campos para localizar a moto</p>
+
+      Número do Yard Flow: <input type="text" name="id_yf" placeholder="Yard Flow" class="border rounded-lg p-2 w-full" th:field="*{id_yf}"
+             th:errorclass="is-invalid"/><div class="invalid-feedback" th:errors="*{id_yf}"></div>
+
+      Placa da moto: <input type="text" name="placa" placeholder="PLACA" class="border rounded-lg p-2 w-full" th:field="*{moto.placa}"
+             th:errorclass="is-invalid"/><div class="invalid-feedback" th:errors="*{moto.placa}"></div>
+
+      Chassi da moto:<input type="text" name="rua" placeholder="Chassi" class="border rounded-lg p-2 w-full" th:field="*{moto.chassi}"/>
+      <div class="invalid-feedback" th:errors="*{moto.chassi}"></div>
+
+    </div>
+  </form>
+
+</div>
+
+FALTA OS BOTÕES DE PESQUISA / VOLTAR / CANCELAR /
+
+<div>
+  <footer th:replace="~{fragmento :: rodape}"></footer>
+</div>
+</body>
+</html>

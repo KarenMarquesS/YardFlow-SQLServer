@@ -22,8 +22,8 @@ public class Yardflow {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate dt_ultimo_acionamento;
 
-    @ManyToOne
-    @JoinColumn(name = "moto_id", referencedColumnName = "id_moto")
+    @OneToOne
+    @JoinColumn(name = "moto_id", referencedColumnName = "id_moto", nullable = false, unique = true)
     private Moto moto;
 
 

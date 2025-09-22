@@ -28,8 +28,6 @@ public class MotoCachingService {
     @Autowired
     private ModelMapper mm;
 
-
-
     @Cacheable(value = "motoCache", key = "#id_moto")
     public Optional<Moto> findById(int id_moto) {
         return mtRp.findById(id_moto);
@@ -38,25 +36,27 @@ public class MotoCachingService {
     @Cacheable(value = "motoCache", key = "'placa:' + #placa")
     public MotoDTO findByPlaca(String placa) {
         Moto moto = mtRp.findByPlaca(placa);
-
         return mm.map(moto, MotoDTO.class);
     }
 
     @Cacheable(value = "motoCache", key = "'chassi:' + #chassi")
     public MotoDTO findByChassi(String chassi) {
         Moto moto = mtRp.findByChassi(chassi);
-
         return mm.map(moto, MotoDTO.class);
     }
 
-    @Transactional(readOnly = true)
+    @Cacheable(value = "motoCache", key = "'historico' + #id_moto")
+    public MotoDTO buscarHistorico(int id_moto) {
+        String moto = mtRp.historicoMoto(id_moto);
+        return mm.map(moto, MotoDTO.class);
+    }
+
+    @Cacheable(value = "motoCache", key = "'paginado' + #id_moto")
     public Page<MotoDTO> findAllPaginado(Pageable pageable) {
         Page<Moto> motosPage = mtRp.findAll(pageable);
         return motosPage.map(moto -> mm.map(moto, MotoDTO.class));
     }
 
-
-    @Transactional
     @CacheEvict(value = "motoCache", allEntries = true)
     public MotoDTO criarNovaMoto(MotoDTO motoDTO) {
 
@@ -67,13 +67,11 @@ public class MotoCachingService {
     }
 
 
-    @Transactional
     @CachePut(value = "motoCache", key = "#id_moto")
     @Caching(evict = {
             @CacheEvict(value = "motoCache", key = "'placa:' + #result.placa", condition = "#result != null"),
             @CacheEvict(value = "motoCache", key = "'chassi:' + #result.chassi", condition = "#result != null")
     })
-
     public MotoDTO atualizarRegistroMoto(int id_moto, MotoDTO motoDTO) {
 
         mtRp.findById(id_moto).orElseThrow(() -> new EntityNotFoundException("Moto não encontrada: " + id_moto));
@@ -84,8 +82,8 @@ public class MotoCachingService {
         return mm.map(updatedMoto, MotoDTO.class);
     }
 
-    // DELETE
-    @Transactional
+
+
     @CacheEvict(value = "motoCache", allEntries = true) // Invalida todo o cache, mais simples e seguro
     public void deletarRegistroMoto(int id_moto) {
         Moto moto = mtRp.findById(id_moto)

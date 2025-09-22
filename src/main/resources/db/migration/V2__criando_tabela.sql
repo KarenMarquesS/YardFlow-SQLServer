@@ -26,7 +26,7 @@ CREATE TABLE tb_yf_moto (
 
 -- Tabela: tb_yf_IoT (sem FK por enquanto)
 CREATE TABLE tb_yf_IoT (
-   id_yf INT PRIMARY KEY,
+   id_yf INT AUTO_INCREMENT PRIMARY KEY,
    serial VARCHAR(100) NOT NULL UNIQUE,
    dt_ultimo_acionamento DATE,
    moto_id INT

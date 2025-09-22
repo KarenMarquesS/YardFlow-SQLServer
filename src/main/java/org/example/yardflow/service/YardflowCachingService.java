@@ -5,16 +5,20 @@ import org.example.yardflow.model.Moto;
 import org.example.yardflow.model.Yardflow;
 import org.example.yardflow.repository.MotoRepositorio;
 import org.example.yardflow.repository.YardflowRepositorio;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
+
 import org.springframework.cache.annotation.Cacheable;
+
 import org.springframework.stereotype.Service;
+
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
+
 
 @Service
 public class YardflowCachingService {
@@ -29,6 +33,7 @@ public class YardflowCachingService {
     public Yardflow criarNovoYardFlow(Yardflow yf) {
         return yfR.save(yf);
     }
+
 
     @Cacheable(value = "yfCache", key = "#ativar")
     public Yardflow ativarYardFlow(int id_yf, int id_moto){
@@ -46,7 +51,16 @@ public class YardflowCachingService {
         yf.setDt_ultimo_acionamento(LocalDate.now());
 
         return yfR.save(yf);
+    }
 
+    @Cacheable(value = "yfCache", key = "'serial' + #serial")
+    public Optional<Yardflow> buscarSerial ( String serial) {
+        return yfR.findBySerial(serial);
+    }
+
+    @Cacheable(value = "yfCache", key = "'acionamento' + #dt_ultimo_acionamento")
+    public List<Yardflow> buscarDtUltimoAcionamento (LocalDate dt_ultimo_acionamento) {
+        return yfR.findByDtUltimoAcionamento(LocalDateTime.from(dt_ultimo_acionamento));
     }
 
     @Cacheable(value = "yfCache", key = "#desativar")

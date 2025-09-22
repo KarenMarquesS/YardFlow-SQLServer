@@ -53,6 +53,11 @@ public class MotoController {
         return ResponseEntity.ok(mtS.findByChassi(chassi));
     }
 
+    @GetMapping("/historico/{id_moto}")
+    public ResponseEntity<MotoDTO> buscarHistoricoPorMoto(@PathVariable Integer id_moto) {
+        return ResponseEntity.ok(mtS.buscarHistorico(id_moto));
+    }
+
     @PostMapping
     public ResponseEntity<MotoDTO> criarNovaMoto(@RequestBody @Valid MotoDTO motoDTO) {
         MotoDTO createdMoto = mtS.criarNovaMoto(motoDTO);

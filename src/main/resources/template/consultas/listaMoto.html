@@ -1,55 +1,80 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
 
-<head th:replace="~{fragmentos :: cabecalho('Lista de motos')}"></head>
+<!-- Botão para abrir modal -->
+<button onclick="toggleModal(true)"
+        class="px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg shadow-md text-white font-semibold transition">
+    Ver Vagas Livres
+</button>
 
-<body class="bg-gray-100 bg-dots flex items-center justify-center h-screen">
+<!-- Modal -->
+<div id="modalVagasLivres" class="hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
+    <div class="bg-black/80 border border-purple-700 rounded-2xl shadow-lg max-w-4xl w-full p-6 relative">
 
-<div>
-    <form th:replace="~{fragmentos :: form-logout}" />
+        <!-- Botão fechar -->
+        <button onclick="toggleModal(false)"
+                class="absolute top-3 right-3 text-gray-400 hover:text-white transition">
+            ✖
+        </button>
+
+        <!-- Título -->
+        <h2 class="text-2xl font-bold text-center mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-600">
+            Vagas Livres
+        </h2>
+
+        <!-- Resumo -->
+        <div class="mb-6 text-center text-gray-300">
+            <p>Total de Vagas no Pátio: <span th:text="${totalVagas}"></span></p>
+            <p>Total de Vagas Livres: <span th:text="${totalVagasLivres}"></span></p>
+        </div>
+
+        <!-- Lista de Vagas -->
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-purple-700">
+                <thead>
+                <tr class="text-purple-400 text-left">
+                    <th class="px-4 py-2">ID Vaga</th>
+                    <th class="px-4 py-2">Setor</th>
+                    <th class="px-4 py-2">Status</th>
+                </tr>
+                </thead>
+                <tbody class="divide-y divide-purple-700 text-gray-300">
+                <tr th:each="vaga, iterStat : ${vagasLivresPage}">
+                    <td class="px-4 py-2" th:text="${vaga.id}"></td>
+                    <td class="px-4 py-2" th:text="${vaga.setor}"></td>
+                    <td class="px-4 py-2 text-green-400 font-semibold">Livre</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Paginação -->
+        <div class="flex justify-center items-center mt-6 space-x-2">
+            <a th:if="${currentPage > 0}"
+               th:href="@{/vagasLivres(page=${currentPage - 1}, size=20)}"
+               class="px-3 py-1 bg-purple-600 hover:bg-purple-700 rounded-lg text-white text-sm">Anterior</a>
+
+            <span class="text-gray-400">Página <span th:text="${currentPage + 1}"></span> de <span th:text="${totalPages}"></span></span>
+
+            <a th:if="${currentPage < totalPages - 1}"
+               th:href="@{/vagasLivres(page=${currentPage + 1}, size=20)}"
+               class="px-3 py-1 bg-purple-600 hover:bg-purple-700 rounded-lg text-white text-sm">Próxima</a>
+        </div>
+    </div>
 </div>
 
-<div class="mb-6 flex justify-center">
-    <div th:replace="~{fragmentos :: saudacoes(${patio})}"></div>
-</div>
+<!-- Script para abrir/fechar modal -->
+<script>
+    function toggleModal(show) {
+        document.getElementById('modalVagasLivres').classList.toggle('hidden', !show);
+    }
+</script>
 
 
-<div class="bg-white shadow-lg rounded-xl p-8 w-96">
-
-
-<div class="row">
-    <h1 class="text-center text-green-700 font-bold text-2xl mb-8">Lista de Motos</h1>
-</div>
-
-<div class="row max-w-5xl mx-auto bg-white shadow-lg rounded-xl overflow-hidden">
-
-    <table class="w-full text-left border-collapse">
-        <thead class="bg-green-600 text-white">
-        <tr>
-            <th class="p-3">ID Moto</th>
-            <th class="p-3">ID YardFlow</th>
-            <th class="p-3">Modelo</th>
-            <th class="p-3">Motivo</th>
-            <th class="p-3">Data Entrada</th>
-            <th class="p-3">Data Saída</th>
-            <th class="p-3">Periodo de Permanência</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="moto : ${motos}" class="odd:bg-gray-100 even:bg-gray-200">
-            <td class="p-3" th:text="${moto.idMoto}"></td>
-            <td class="p-3" th:text="${moto.idYardFlow}"></td>
-            <td class="p-3" th:text="${moto.modelo}"></td>
-            <td class="p-3" th:text="${moto.motivo}"></td>
-            <td class="p-3" th:text="${moto.dtEntrada}"></td>
-            <td class="p-3" th:text="${moto.dtSaida}"></td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-</div>
-<div>
-    <footer th:replace="~{fragmento :: rodape}"></footer>
-</div>
 </body>
 </html>

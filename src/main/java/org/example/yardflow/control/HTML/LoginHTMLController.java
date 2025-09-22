@@ -4,10 +4,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-@Controller
+@Controller("/login")
 public class LoginHTMLController {
 
-    @GetMapping("/loginhtml")
+    @GetMapping("/logar")
     public ModelAndView logar() {
         return new ModelAndView("/login");
     }

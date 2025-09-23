@@ -36,11 +36,11 @@ public class YardflowCachingService {
 
 
     @Cacheable(value = "yfCache", key = "#ativar")
-    public Yardflow ativarYardFlow(int id_yf, int id_moto){
+    public Yardflow ativarYardFlow(int idyf, int idmoto){
 
-        Yardflow yf = yfR.findById(id_yf).orElseThrow(()-> new IllegalArgumentException("YardFlow não localizado"));
+        Yardflow yf = yfR.findById(idyf).orElseThrow(()-> new IllegalArgumentException("YardFlow não localizado"));
 
-        Moto moto = mtR.findById(id_moto).orElseThrow(()-> new IllegalArgumentException("Moto não localizada"));
+        Moto moto = mtR.findById(idmoto).orElseThrow(()-> new IllegalArgumentException("Moto não localizada"));
 
         if (moto.getYardflow() != null){
             throw new IllegalArgumentException("Moto já possui uma yardflow ativo");
@@ -64,8 +64,8 @@ public class YardflowCachingService {
     }
 
     @Cacheable(value = "yfCache", key = "#desativar")
-    public Yardflow desativarYardFlow(int id_yf){
-        Yardflow yf = yfR.findById(id_yf).orElseThrow(()-> new IllegalArgumentException("YardFlow não encontrado"));
+    public Yardflow desativarYardFlow(int idyf){
+        Yardflow yf = yfR.findById(idyf).orElseThrow(()-> new IllegalArgumentException("YardFlow não encontrado"));
         Moto moto = yf.getMoto();
         if (moto == null){
             throw new IllegalArgumentException("YardFlow não esta associado a nenhuma moto");
@@ -77,19 +77,19 @@ public class YardflowCachingService {
         return yfR.save(yf);
     }
 
-    @Cacheable(value = "yfCache", key = "#id_yf")
-    public Moto localizarMotoPorYardFlow(int id_yf){
-        Yardflow yf = yfR.findById(id_yf).orElseThrow(()-> new IllegalArgumentException("YardFlow não encontrado"));
+    @Cacheable(value = "yfCache", key = "#idyf")
+    public Moto localizarMotoPorYardFlow(int idyf){
+        Yardflow yf = yfR.findById(idyf).orElseThrow(()-> new IllegalArgumentException("YardFlow não encontrado"));
 
         return yf.getMoto();
     }
 
     @CacheEvict(value = "yfCache", allEntries = true)
-    public void removerYardFlow(int id_yf){
-        if (!yfR.existsById(id_yf)){
+    public void removerYardFlow(int idyf){
+        if (!yfR.existsById(idyf)){
             throw new IllegalArgumentException("YardFlow não encontrado");
         }
-        yfR.deleteById(id_yf);
+        yfR.deleteById(idyf);
     }
 
     @CacheEvict(value = "yfCache", allEntries = true)

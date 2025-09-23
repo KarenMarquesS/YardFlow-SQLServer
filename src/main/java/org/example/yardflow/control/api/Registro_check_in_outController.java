@@ -25,29 +25,29 @@ public class Registro_check_in_outController {
     private Registro_check_in_outCachingService rgS;
 
 
-    @PostMapping("/entrada/{id_moto}")
-    public ResponseEntity<Registro_check_in_outDTO> registrarEntrada(@PathVariable("id_moto") int id_moto,
+    @PostMapping("/entrada/{idmoto}")
+    public ResponseEntity<Registro_check_in_outDTO> registrarEntrada(@PathVariable("idmoto") int idmoto,
                                                                      @Valid @RequestBody Registro_check_in_outDTO dto) {
-        Registro_check_in_out reg = rgS.inserirDataEntrada(id_moto, dto.getEntrada_patio());
-        Registro_check_in_outDTO resposta = new Registro_check_in_outDTO(reg.getId_registro(), reg.getEntrada_patio(),
-                reg.getSaida_patio(), reg.getPeriodo(), reg.getSetor(), null);
+        Registro_check_in_out reg = rgS.inserirDataEntrada(idmoto, dto.getEntradapatio());
+        Registro_check_in_outDTO resposta = new Registro_check_in_outDTO(reg.getIdregistro(), reg.getEntradapatio(),
+                reg.getSaidapatio(), reg.getPeriodo(), reg.getSetor(), null);
         return ResponseEntity.ok(resposta);
     }
 
 
-    @PostMapping("/saida/{id_moto}")
-    public ResponseEntity<Registro_check_in_outDTO> registrarSaida(@PathVariable("id_moto") int id_moto,
+    @PostMapping("/saida/{idmoto}")
+    public ResponseEntity<Registro_check_in_outDTO> registrarSaida(@PathVariable("idmoto") int idmoto,
                                                                 @Valid @RequestBody Registro_check_in_outDTO dto) {
-        Registro_check_in_out reg = rgS.inserirDataSaida(id_moto, dto.getSaida_patio());
-        Registro_check_in_outDTO resposta = new Registro_check_in_outDTO(reg.getId_registro(), reg.getEntrada_patio(),
-                reg.getSaida_patio(), reg.getPeriodo(), reg.getSetor(), null);
+        Registro_check_in_out reg = rgS.inserirDataSaida(idmoto, dto.getSaidapatio());
+        Registro_check_in_outDTO resposta = new Registro_check_in_outDTO(reg.getIdregistro(), reg.getEntradapatio(),
+                reg.getSaidapatio(), reg.getPeriodo(), reg.getSetor(), null);
         return ResponseEntity.ok(resposta);
     }
 
     @GetMapping("/entrada")
     public ResponseEntity<List<Registro_check_in_out>> buscarEntrada(
-            @RequestParam("data") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate entrada_patio) {
-        List<Registro_check_in_out> registros = rgS.buscarPorEntrada(entrada_patio);
+            @RequestParam("data") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate entradapatio) {
+        List<Registro_check_in_out> registros = rgS.buscarPorEntrada(entradapatio);
 
         if (registros == null || registros.isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -56,9 +56,9 @@ public class Registro_check_in_outController {
     }
 
 
-    @GetMapping("/permanencia/moto/{id_moto}")
-    public ResponseEntity<Integer> permanenciaPorMoto(@PathVariable("id_moto") int id_moto) {
-        int dias = rgS.calcularPermanenciaPorIdMoto(id_moto);
+    @GetMapping("/permanencia/moto/{idmoto}")
+    public ResponseEntity<Integer> permanenciaPorMoto(@PathVariable("idmoto") int idmoto) {
+        int dias = rgS.calcularPermanenciaPorIdMoto(idmoto);
         return ResponseEntity.ok(dias);
     }
 

@@ -38,19 +38,19 @@ public class YardflowController {
         return ResponseEntity.ok(yf);
     }
 
-    @PostMapping("/ativar/{id_yf}")
-    public ResponseEntity<Yardflow> ativarYardFlow(@RequestBody @Valid int id_yf, @PathVariable int id_moto) {
-        return ResponseEntity.ok(yfS.ativarYardFlow(id_yf, id_moto));
+    @PostMapping("/ativar/{idyf}")
+    public ResponseEntity<Yardflow> ativarYardFlow(@RequestBody @Valid int idyf, @PathVariable int idmoto) {
+        return ResponseEntity.ok(yfS.ativarYardFlow(idyf, idmoto));
     }
 
-    @PostMapping("/desativar/{id_yf}")
-    public ResponseEntity<Yardflow> desativarYardFlow(@RequestBody @Valid int id_yf) {
-        return ResponseEntity.ok(yfS.desativarYardFlow(id_yf));
+    @PostMapping("/desativar/{idyf}")
+    public ResponseEntity<Yardflow> desativarYardFlow(@RequestBody @Valid int idyf) {
+        return ResponseEntity.ok(yfS.desativarYardFlow(idyf));
     }
 
-    @GetMapping("/{id_yf}")
-    public ResponseEntity<Moto> localizarMoto(@PathVariable int id_yf) {
-        return ResponseEntity.ok(yfS.localizarMotoPorYardFlow(id_yf));
+    @GetMapping("/{idyf}")
+    public ResponseEntity<Moto> localizarMoto(@PathVariable int idyf) {
+        return ResponseEntity.ok(yfS.localizarMotoPorYardFlow(idyf));
     }
 
     @GetMapping("{/serial}")
@@ -70,9 +70,9 @@ public class YardflowController {
         return ResponseEntity.ok(yf);
     }
 
-    @DeleteMapping("/{id_yf}")
-    public ResponseEntity<Void> removerYardFlow(@PathVariable int id_yf) {
-        yfS.removerYardFlow(id_yf);
+    @DeleteMapping("/{idyf}")
+    public ResponseEntity<Void> removerYardFlow(@PathVariable int idyf) {
+        yfS.removerYardFlow(idyf);
         return ResponseEntity.noContent().build();
     }
 

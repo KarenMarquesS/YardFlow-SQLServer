@@ -34,57 +34,57 @@ public class Registro_check_in_outCachingService {
 
 
     @CacheEvict(value = "registroCache", allEntries = true)
-    public Registro_check_in_out inserirDataEntrada(int id_moto, LocalDate entrada) {
-        Moto moto = mtR.findById(id_moto).orElseThrow(() ->
-                new IllegalArgumentException("Moto não encontrada com id: " + id_moto));
+    public Registro_check_in_out inserirDataEntrada(int idmoto, LocalDate entrada) {
+        Moto moto = mtR.findById(idmoto).orElseThrow(() ->
+                new IllegalArgumentException("Moto não encontrada com id: " + idmoto));
 
-        rgR.findTopByMoto_IdAndSaidaPatioIsNullOrderByEntradaPatioDesc(id_moto)
+        rgR.findTopByMotoAndSaidapatioIsNullOrderByEntradapatioDesc(idmoto)
                 .ifPresent(r -> { throw new IllegalStateException("Já existe um registro aberto para essa moto."); });
 
         Registro_check_in_out reg = new Registro_check_in_out();
         reg.setMoto(moto);
-        reg.setEntrada_patio(entrada);
+        reg.setEntradapatio(entrada);
         reg.setPeriodo(1);
         return rgR.save(reg);
     }
 
 
     @CacheEvict(value = "registroCache", allEntries = true)
-    public Registro_check_in_out inserirDataSaida(int id_moto, LocalDate saida) {
-        Registro_check_in_out reg = rgR.findTopByMoto_IdAndSaidaPatioIsNullOrderByEntradaPatioDesc(id_moto)
-                .orElseThrow(() -> new IllegalArgumentException("Nenhum registro aberto encontrado para a moto id: " + id_moto));
+    public Registro_check_in_out inserirDataSaida(int idmoto, LocalDate saida) {
+        Registro_check_in_out reg = rgR.findTopByMotoAndSaidapatioIsNullOrderByEntradapatioDesc(idmoto)
+                .orElseThrow(() -> new IllegalArgumentException("Nenhum registro aberto encontrado para a moto id: " + idmoto));
 
-        if (saida.isBefore(reg.getEntrada_patio())) {
+        if (saida.isBefore(reg.getEntradapatio())) {
             throw new IllegalArgumentException("Data de saída não pode ser anterior à entrada.");
         }
 
-        reg.setSaida_patio(saida);
-        int periodo = calcularPeriodoEntre(reg.getEntrada_patio(), saida);
+        reg.setSaidapatio(saida);
+        int periodo = calcularPeriodoEntre(reg.getEntradapatio(), saida);
         reg.setPeriodo(periodo);
         return rgR.save(reg);
     }
 
-    @Cacheable(value = "registroCache", key = "'entrada:' + #entrada_patio")
-    public List<Registro_check_in_out> buscarPorEntrada(LocalDate entrada_patio) {
-        return rgR.findAllByEntradaPatio(entrada_patio);
+    @Cacheable(value = "registroCache", key = "'entrada:' + #entradapatio")
+    public List<Registro_check_in_out> buscarPorEntrada(LocalDate entradapatio) {
+        return rgR.findAllByEntradapatio(entradapatio);
     }
 
-    @Cacheable(value = "registroCache", key = "'saida:' + #saida_patio")
-    public List<Registro_check_in_out> buscarPorSaida(LocalDate saida_patio) {
-        return rgR.findAllBySaidaPatio(saida_patio);
+    @Cacheable(value = "registroCache", key = "'saida:' + #saidapatio")
+    public List<Registro_check_in_out> buscarPorSaida(LocalDate saidapatio) {
+        return rgR.findAllBySaidapatio(saidapatio);
     }
 
 
     // Calcula permanência (se existir saida usa saida, senão agora)
-    @Cacheable(value = "registroCache", key = "'permanencia:moto:' + #id_moto")
-    public int calcularPermanenciaPorIdMoto(int id_moto) {
+    @Cacheable(value = "registroCache", key = "'permanencia:moto:' + #idmoto")
+    public int calcularPermanenciaPorIdMoto(int idmoto) {
         // tenta primeiro registro aberto, senão o último registro existente
-        Registro_check_in_out reg = rgR.findTopByMoto_IdAndSaidaPatioIsNullOrderByEntradaPatioDesc(id_moto)
-                .orElseGet(() -> rgR.findTopByMoto_IdOrderByEntradaPatioDesc(id_moto)
-                        .orElseThrow(() -> new IllegalArgumentException("Registro não encontrado para moto id: " + id_moto)));
+        Registro_check_in_out reg = rgR.findTopByMotoAndSaidapatioIsNullOrderByEntradapatioDesc(idmoto)
+                .orElseGet(() -> rgR.findTopByMotoOrderByEntradapatioDesc(idmoto)
+                        .orElseThrow(() -> new IllegalArgumentException("Registro não encontrado para moto id: " + idmoto)));
 
-        LocalDate saida = reg.getSaida_patio();
-        return calcularPeriodoEntre(reg.getEntrada_patio(), saida);
+        LocalDate saida = reg.getSaidapatio();
+        return calcularPeriodoEntre(reg.getEntradapatio(), saida);
     }
 
     private int calcularPeriodoEntre(LocalDate entrada, LocalDate saida) {
@@ -97,14 +97,14 @@ public class Registro_check_in_outCachingService {
 
     // Lista todos os registros com entrada e retorna paginado/ordenado pela permanência (desc)
     public Page<RegistroPermanenciaDTO> listarPorPermanenciaOrdenada(Pageable pageable) {
-        List<RegistroPermanenciaDTO> all = rgR.findByEntradaPatioIsNotNull().stream()
+        List<RegistroPermanenciaDTO> all = rgR.findByEntradapatioIsNotNull().stream()
                 .map(r -> {
-                    int periodo = calcularPeriodoEntre(r.getEntrada_patio(), r.getSaida_patio());
-                    Integer id_moto = (r.getMoto() != null) ? r.getMoto().getId_moto() : null;
+                    int periodo = calcularPeriodoEntre(r.getEntradapatio(), r.getSaidapatio());
+                    Integer idmoto = (r.getMoto() != null) ? r.getMoto().getIdmoto() : null;
                     String modelo = (r.getMoto() != null) ? r.getMoto().getModelo().getDescricao() : null;
                     return new RegistroPermanenciaDTO();
                 })
-                .sorted(Comparator.comparingInt(RegistroPermanenciaDTO::getPeriodo).reversed()) // maior -> menor
+                .sorted(Comparator.comparingInt(RegistroPermanenciaDTO::getPeriodo).reversed())
                 .collect(Collectors.toList());
 
         final int start = (int) pageable.getOffset();

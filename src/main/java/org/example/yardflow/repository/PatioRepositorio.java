@@ -10,8 +10,8 @@ import java.util.List;
 @Repository
 public interface PatioRepositorio extends JpaRepository<Patio, Integer> {
 
-    Patio findByName(String nickname);
+    Patio findByName(String name);
 
-    List<Patio> findByQtdVagas(int qtd_vagas);
+    List<Patio> findByQtdvagas(int qtdvagas);
 
 }

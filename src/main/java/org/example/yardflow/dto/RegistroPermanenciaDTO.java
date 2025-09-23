@@ -6,22 +6,22 @@ import java.time.LocalDate;
 
 public class RegistroPermanenciaDTO {
 
-    private int id_permanencia;
-    private int id_moto;
+    private int idpermanencia;
+    private int idmoto;
     private EnumModelo modelo;
-    private LocalDate entrada_patio;
-    private LocalDate saida_patio;
+    private LocalDate entradapatio;
+    private LocalDate saidapatio;
     private int periodo;
 
     public RegistroPermanenciaDTO() {
     }
 
-    public RegistroPermanenciaDTO(int id_permanencia, int id_moto, EnumModelo modelo, LocalDate entrada_patio, LocalDate saida_patio, int periodo) {
-        this.id_permanencia = id_permanencia;
-        this.id_moto = id_moto;
+    public RegistroPermanenciaDTO(int idpermanencia, int idmoto, EnumModelo modelo, LocalDate entradapatio, LocalDate saidapatio, int periodo) {
+        this.idpermanencia = idpermanencia;
+        this.idmoto = idmoto;
         this.modelo = modelo;
-        this.entrada_patio = entrada_patio;
-        this.saida_patio = saida_patio;
+        this.entradapatio = entradapatio;
+        this.saidapatio = saidapatio;
         this.periodo = periodo;
     }
 
@@ -33,20 +33,20 @@ public class RegistroPermanenciaDTO {
         this.periodo = periodo;
     }
 
-    public LocalDate getSaida_patio() {
-        return saida_patio;
+    public LocalDate getSaidapatio() {
+        return saidapatio;
     }
 
-    public void setSaida_patio(LocalDate saida_patio) {
-        this.saida_patio = saida_patio;
+    public void setSaidapatio(LocalDate saidapatio) {
+        this.saidapatio = saidapatio;
     }
 
-    public LocalDate getEntrada_patio() {
-        return entrada_patio;
+    public LocalDate getEntradapatio() {
+        return entradapatio;
     }
 
-    public void setEntrada_patio(LocalDate entrada_patio) {
-        this.entrada_patio = entrada_patio;
+    public void setEntradapatio(LocalDate entradapatio) {
+        this.entradapatio = entradapatio;
     }
 
     public EnumModelo getModelo() {
@@ -57,19 +57,19 @@ public class RegistroPermanenciaDTO {
         this.modelo = modelo;
     }
 
-    public int getId_moto() {
-        return id_moto;
+    public int getIdmoto() {
+        return idmoto;
     }
 
-    public void setId_moto(int id_moto) {
-        this.id_moto = id_moto;
+    public void setIdmoto(int idmoto) {
+        this.idmoto = idmoto;
     }
 
-    public int getId_permanencia() {
-        return id_permanencia;
+    public int getIdpermanencia() {
+        return idpermanencia;
     }
 
-    public void setId_permanencia(int id_permanencia) {
-        this.id_permanencia = id_permanencia;
+    public void setIdpermanencia(int idpermanencia) {
+        this.idpermanencia = idpermanencia;
     }
 }

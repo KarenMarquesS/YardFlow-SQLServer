@@ -17,10 +17,10 @@ public class MotoHTMLController {
     @Autowired
     private MotoCachingService mtS;
 
-    @GetMapping("/{id_moto}")
-    public ModelAndView buscarPorId(@PathVariable int id_moto) {
+    @GetMapping("/{idmoto}")
+    public ModelAndView buscarPorId(@PathVariable int idmoto) {
         ModelAndView mv = new ModelAndView("moto");
-        Moto moto = mtS.findById(id_moto).orElseThrow(() -> new IllegalArgumentException("Moto não localizada"));
+        Moto moto = mtS.findById(idmoto).orElseThrow(() -> new IllegalArgumentException("Moto não localizada"));
         mv.addObject("moto", moto);
         return mv;
     }
@@ -41,10 +41,10 @@ public class MotoHTMLController {
         return mv;
     }
 
-    @GetMapping("/{id_moto}")
-    public ModelAndView buscarHistorico(@PathVariable int id_moto) {
+    @GetMapping("/{idmoto}")
+    public ModelAndView buscarHistorico(@PathVariable int idmoto) {
         ModelAndView mv = new ModelAndView("moto_historico");
-        MotoDTO motoDTO = mtS.buscarHistorico(id_moto);
+        MotoDTO motoDTO = mtS.buscarHistorico(idmoto);
         mv.addObject("motoDTO", motoDTO);
         return mv;
     }
@@ -62,15 +62,15 @@ public class MotoHTMLController {
         return new ModelAndView("redirect:/moto");
     }
 
-    @PostMapping("/atualizar/{id_moto}")
-    public ModelAndView atulizar(@PathVariable int id_moto, @ModelAttribute MotoDTO dto) {
-        mtS.atualizarRegistroMoto(id_moto, dto);
+    @PostMapping("/atualizar/{idmoto}")
+    public ModelAndView atulizar(@PathVariable int idmoto, @ModelAttribute MotoDTO dto) {
+        mtS.atualizarRegistroMoto(idmoto, dto);
         return new ModelAndView("redirect:/moto");
     }
 
-    @PostMapping("/{id_moto}")
-    public ModelAndView deletar(@PathVariable int id_moto) {
-        mtS.deletarRegistroMoto(id_moto);
+    @PostMapping("/{idmoto}")
+    public ModelAndView deletar(@PathVariable int idmoto) {
+        mtS.deletarRegistroMoto(idmoto);
         return new ModelAndView("redirect:/moto");
     }
 

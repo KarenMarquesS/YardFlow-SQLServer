@@ -53,9 +53,9 @@ public class MotoController {
         return ResponseEntity.ok(mtS.findByChassi(chassi));
     }
 
-    @GetMapping("/historico/{id_moto}")
-    public ResponseEntity<MotoDTO> buscarHistoricoPorMoto(@PathVariable Integer id_moto) {
-        return ResponseEntity.ok(mtS.buscarHistorico(id_moto));
+    @GetMapping("/historico/{idmoto}")
+    public ResponseEntity<MotoDTO> buscarHistoricoPorMoto(@PathVariable Integer idmoto) {
+        return ResponseEntity.ok(mtS.buscarHistorico(idmoto));
     }
 
     @PostMapping
@@ -64,22 +64,22 @@ public class MotoController {
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
-                .path("/{id_moto}")
-                .buildAndExpand(createdMoto.getId_moto())
+                .path("/{idmoto}")
+                .buildAndExpand(createdMoto.getIdmoto())
                 .toUri();
         return ResponseEntity.created(location).body(createdMoto);
     }
 
-    @PutMapping("/{id_moto}")
-    public ResponseEntity<MotoDTO> atualizarRegistroMoto(@PathVariable Integer id_moto, @RequestBody @Valid MotoDTO motoDTO) {
-        MotoDTO updatedMoto = mtS.atualizarRegistroMoto(id_moto, motoDTO);
+    @PutMapping("/{idmoto}")
+    public ResponseEntity<MotoDTO> atualizarRegistroMoto(@PathVariable Integer idmoto, @RequestBody @Valid MotoDTO motoDTO) {
+        MotoDTO updatedMoto = mtS.atualizarRegistroMoto(idmoto, motoDTO);
         return ResponseEntity.ok(updatedMoto);
     }
 
     @DeleteMapping("/{id_moto}")
     public ResponseEntity<Void> deletarRegistroMoto(@PathVariable Integer id_moto) {
         mtS.deletarRegistroMoto(id_moto);
-        return ResponseEntity.noContent().build(); // Retorna 204 No Content
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/cache/limpar")

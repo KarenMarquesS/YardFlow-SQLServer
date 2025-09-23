@@ -50,12 +50,12 @@ public class UsuarioHTMLController {
 
     @PostMapping("/insere_usuario")
     public ModelAndView inserirUsuario(Usuario usuario,
-                                       @RequestParam(name = "id_funcao", required = false) Long id_funcao) {
+                                       @RequestParam(name = "idfuncao", required = false) Long idfuncao) {
         usuario.setSenha(encoder.encode(usuario.getSenha()));
 
         Set<Funcao> funcoes = new HashSet<>();
-        if (id_funcao != null) {
-            fuR.findById(id_funcao).ifPresent(funcoes::add);
+        if (idfuncao != null) {
+            fuR.findById(idfuncao).ifPresent(funcoes::add);
         }
 
         usuario.setFuncoes(funcoes);

@@ -9,29 +9,29 @@ public class Patio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_patio;
+    private int idpatio;
 
     private String name;
 
     @Column(nullable = false)
-    private int qtd_vagas;
+    private int qtdvagas;
 
 
     public Patio() {
     }
 
-    public Patio(int id_patio, String name, int qtd_vagas) {
-        this.id_patio = id_patio;
+    public Patio(int idpatio, String name, int qtdvagas) {
+        this.idpatio = idpatio;
         this.name = name;
-        this.qtd_vagas = qtd_vagas;
+        this.qtdvagas = qtdvagas;
     }
 
-    public int getId_patio() {
-        return id_patio;
+    public int getIdpatio() {
+        return idpatio;
     }
 
-    public void setId_patio(int id_patio) {
-        this.id_patio = id_patio;
+    public void setIdpatio(int idpatio) {
+        this.idpatio = idpatio;
     }
 
     public String getName() {
@@ -42,12 +42,12 @@ public class Patio {
         this.name = name;
     }
 
-    public int getQtd_vagas() {
-        return qtd_vagas;
+    public int getQtdvagas() {
+        return qtdvagas;
     }
 
-    public void setQtd_vagas(int qtd_vagas) {
-        this.qtd_vagas = qtd_vagas;
+    public void setQtdvagas(int qtdvagas) {
+        this.qtdvagas = qtdvagas;
     }
 }
 

@@ -14,7 +14,7 @@ public class Yardflow {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id_yf;
+    private int idyf;
 
     @Column(nullable = false, unique = true)
     private String serial;
@@ -23,26 +23,26 @@ public class Yardflow {
     private LocalDate dt_ultimo_acionamento;
 
     @OneToOne
-    @JoinColumn(name = "moto_id", referencedColumnName = "id_moto", nullable = false, unique = true)
+    @JoinColumn(name = "idmoto", referencedColumnName = "idmoto", nullable = false, unique = true)
     private Moto moto;
 
 
     public Yardflow() {
     }
 
-    public Yardflow(int id_yf, String serial, LocalDate dt_ultimo_acionamento, Moto moto) {
-        this.id_yf = id_yf;
+    public Yardflow(int idyf, String serial, LocalDate dt_ultimo_acionamento, Moto moto) {
+        this.idyf = idyf;
         this.serial = serial;
         this.dt_ultimo_acionamento = dt_ultimo_acionamento;
         this.moto = moto;
     }
 
     public int getId_yf() {
-        return id_yf;
+        return idyf;
     }
 
-    public void setId_yf(int id_yf) {
-        this.id_yf = id_yf;
+    public void setId_yf(int idyf) {
+        this.idyf = idyf;
     }
 
     public String getSerial() {

@@ -25,10 +25,10 @@ public class PatioHTMLController {
 
 
 
-    @GetMapping("/{id_patio}")
-    public ModelAndView buscarPorId(@PathVariable int id_patio) {
+    @GetMapping("/{idpatio}")
+    public ModelAndView buscarPorId(@PathVariable int idpatio) {
         ModelAndView mv = new ModelAndView("patio_detalhe");
-        Patio patio = ptS.buscarPatioPorId(id_patio)
+        Patio patio = ptS.buscarPatioPorId(idpatio)
                 .orElseThrow(() -> new IllegalArgumentException("Pátio não encontrado"));
         mv.addObject("patio", patio);
         return mv;
@@ -68,16 +68,16 @@ public class PatioHTMLController {
     }
 
 
-    @PostMapping("/atualizar/{id_patio}")
-    public ModelAndView atualizar(@PathVariable int id_patio, @ModelAttribute PatioDTO dto) {
-        ptS.atualizarPatio(id_patio, dto);
-        return new ModelAndView("redirect:/patio/" + id_patio);
+    @PostMapping("/atualizar/{idpatio}")
+    public ModelAndView atualizar(@PathVariable int idpatio, @ModelAttribute PatioDTO dto) {
+        ptS.atualizarPatio(idpatio, dto);
+        return new ModelAndView("redirect:/patio/" + idpatio);
     }
 
 
-    @PostMapping("/deletar/{id_patio}")
-    public ModelAndView deletar(@PathVariable int id_patio) {
-        ptS.deletarPatio(id_patio);
+    @PostMapping("/deletar/{idpatio}")
+    public ModelAndView deletar(@PathVariable int idpatio) {
+        ptS.deletarPatio(idpatio);
         return new ModelAndView("redirect:/patio/lista");
     }
 

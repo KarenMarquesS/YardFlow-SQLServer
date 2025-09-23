@@ -10,7 +10,7 @@ public class Funcao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_funcao;
+    private Long idfucao;
 
     @Enumerated(EnumType.STRING)
     private EnumFuncao nome;
@@ -18,17 +18,17 @@ public class Funcao {
     public Funcao() {
     }
 
-    public Funcao(Long id_funcao, EnumFuncao nome) {
-        this.id_funcao = id_funcao;
+    public Funcao(Long idfucao, EnumFuncao nome) {
+        this.idfucao = idfucao;
         this.nome = nome;
     }
 
     public Long getId() {
-        return id_funcao;
+        return idfucao;
     }
 
-    public void setId(Long id_funcao) {
-        this.id_funcao = id_funcao;
+    public void setId(Long idfucao) {
+        this.idfucao = idfucao;
     }
 
     public EnumFuncao getNome() {

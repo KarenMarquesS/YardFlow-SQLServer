@@ -19,14 +19,14 @@ public class Registro_check_in_out {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_registro;
+    private int idregistro;
 
     @Past(message = "Data de Entrada inválida!")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDate entrada_patio;
+    private LocalDate entradapatio;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDate saida_patio;
+    private LocalDate saidapatio;
 
     @Column(nullable = false)
     private int periodo;
@@ -36,61 +36,61 @@ public class Registro_check_in_out {
 
     @Valid
     @ManyToOne
-    @JoinColumn(name="id_moto")
+    @JoinColumn(name="idmoto")
     private Moto moto;
 
 
 
     // irá retornar Zero se a entrada e saida for no mesmo dia
     public void calcularPeriodoPermanencia() {
-        if (entrada_patio == null) {
+        if (entradapatio == null) {
             throw new IllegalStateException("A data de entrada deve ser informada.");
         }
 
-        LocalDate dataSaida = (saida_patio != null) ? saida_patio : LocalDate.now();
+        LocalDate dataSaida = (saidapatio != null) ? saidapatio : LocalDate.now();
 
-        if (dataSaida.isBefore(entrada_patio)) {
+        if (dataSaida.isBefore(entradapatio)) {
             throw new IllegalArgumentException("A data de saída não pode ser anterior à data de entrada.");
         }
 
-        long dias = ChronoUnit.DAYS.between(entrada_patio, dataSaida);
+        long dias = ChronoUnit.DAYS.between(entradapatio, dataSaida);
         this.periodo = (int) Math.max(dias, 1 ); // mínimo 1 dia
     }
 
     public Registro_check_in_out() {
     }
 
-    public Registro_check_in_out(int id_registro, LocalDate entrada_patio, LocalDate saida_patio, int periodo, EnumSetor setor, Moto moto) {
-        this.id_registro = id_registro;
-        this.entrada_patio = entrada_patio;
-        this.saida_patio = saida_patio;
+    public Registro_check_in_out(int idregistro, LocalDate entradapatio, LocalDate saidapatio, int periodo, EnumSetor setor, Moto moto) {
+        this.idregistro = idregistro;
+        this.entradapatio = entradapatio;
+        this.saidapatio = saidapatio;
         this.periodo = periodo;
         this.setor = setor;
         this.moto = moto;
     }
 
-    public int getId_registro() {
-        return id_registro;
+    public int getIdregistro() {
+        return idregistro;
     }
 
-    public void setId_registro(int id_registro) {
-        this.id_registro = id_registro;
+    public void setIdregistro(int idregistro) {
+        this.idregistro = idregistro;
     }
 
-    public @Past(message = "Data de Entrada inválida!") LocalDate getEntrada_patio() {
-        return entrada_patio;
+    public @Past(message = "Data de Entrada inválida!") LocalDate getEntradapatio() {
+        return entradapatio;
     }
 
-    public void setEntrada_patio(@Past(message = "Data de Entrada inválida!") LocalDate entrada_patio) {
-        this.entrada_patio = entrada_patio;
+    public void setEntradapatio(@Past(message = "Data de Entrada inválida!") LocalDate entradapatio) {
+        this.entradapatio = entradapatio;
     }
 
-    public LocalDate getSaida_patio() {
-        return saida_patio;
+    public LocalDate getSaidapatio() {
+        return saidapatio;
     }
 
-    public void setSaida_patio(LocalDate saida_patio) {
-        this.saida_patio = saida_patio;
+    public void setSaidapatio(LocalDate saidapatio) {
+        this.saidapatio = saidapatio;
     }
 
     public int getPeriodo() {

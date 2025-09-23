@@ -9,24 +9,24 @@ import java.time.LocalDate;
 
 public class Registro_check_in_outDTO {
 
-    private int id_registro;
-    private LocalDate entrada_patio;
-    private LocalDate saida_patio;
+    private int idregistro;
+    private LocalDate entradapatio;
+    private LocalDate saidapatio;
     private int periodo;
     private EnumSetor setor;
     private MotoDTO motoDTO;
 
     public Registro_check_in_outDTO(Registro_check_in_out registro) {
-        this.id_registro = registro.getId_registro();
-        this.entrada_patio = registro.getEntrada_patio();
-        this.saida_patio = registro.getSaida_patio();
+        this.idregistro = registro.getIdregistro();
+        this.entradapatio = registro.getEntradapatio();
+        this.saidapatio = registro.getSaidapatio();
         this.periodo = registro.getPeriodo();
         this.motoDTO = new MotoDTO();
 
         // sobre a entidade moto
         var m = registro.getMoto();
         this.motoDTO = new MotoDTO(
-                registro.getMoto().getId_moto(),
+                registro.getMoto().getIdmoto(),
                 registro.getMoto().getModelo(),
                 registro.getMoto().getChassi(),
                 registro.getMoto().getPlaca(),
@@ -38,37 +38,38 @@ public class Registro_check_in_outDTO {
     public Registro_check_in_outDTO() {
     }
 
-    public Registro_check_in_outDTO(int id_registro, LocalDate entrada_patio, LocalDate saida_patio, int periodo, EnumSetor setor, MotoDTO motoDTO) {
-        this.id_registro = id_registro;
-        this.entrada_patio = entrada_patio;
-        this.saida_patio = saida_patio;
+    public Registro_check_in_outDTO(int idregistro, LocalDate entradapatio, LocalDate saidapatio, int periodo,
+                                    EnumSetor setor, MotoDTO motoDTO) {
+        this.idregistro = idregistro;
+        this.entradapatio = entradapatio;
+        this.saidapatio = saidapatio;
         this.periodo = periodo;
         this.setor = setor;
         this.motoDTO = motoDTO;
     }
 
-    public int getId_registro() {
-        return id_registro;
+    public int getIdregistro() {
+        return idregistro;
     }
 
-    public void setId_registro(int id_registro) {
-        this.id_registro = id_registro;
+    public void setIdregistro(int idregistro) {
+        this.idregistro = idregistro;
     }
 
-    public LocalDate getEntrada_patio() {
-        return entrada_patio;
+    public LocalDate getEntradapatio() {
+        return entradapatio;
     }
 
-    public void setEntrada_patio(LocalDate entrada_patio) {
-        this.entrada_patio = entrada_patio;
+    public void setEntradapatio(LocalDate entradapatio) {
+        this.entradapatio = entradapatio;
     }
 
-    public LocalDate getSaida_patio() {
-        return saida_patio;
+    public LocalDate getSaidapatio() {
+        return saidapatio;
     }
 
-    public void setSaida_patio(LocalDate saida_patio) {
-        this.saida_patio = saida_patio;
+    public void setSaidapatio(LocalDate saidapatio) {
+        this.saidapatio = saidapatio;
     }
 
     public int getPeriodo() {

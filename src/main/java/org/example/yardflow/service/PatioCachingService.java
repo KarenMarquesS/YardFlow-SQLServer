@@ -20,17 +20,17 @@ public class PatioCachingService {
     private PatioRepositorio ptR;
 
 
-    @Cacheable(value="patioCache", key = "#id_patio")
-    public Optional<Patio> buscarPatioPorId(int id_patio){
-        return ptR.findById(id_patio);
+    @Cacheable(value="patioCache", key = "#idpatio")
+    public Optional<Patio> buscarPatioPorId(int idpatio){
+        return ptR.findById(idpatio);
     }
 
-    @Cacheable(value = "patioCache", key = "'qtd_' + #qtd_vagas")
-    public List<Patio> buscarQtdVagas(int qtd_vagas){
-        if (qtd_vagas > 0){
+    @Cacheable(value = "patioCache", key = "'qtdvagas' + #qtdvagas")
+    public List<Patio> buscarQtdVagas(int qtdvagas){
+        if (qtdvagas > 0){
             throw new IllegalArgumentException("Quantidade de vagas deve ser maoir de ZERO");
         }
-        List<Patio> patios = ptR.findByQtdVagas(qtd_vagas);
+        List<Patio> patios = ptR.findByQtdvagas(qtdvagas);
         if (patios.isEmpty()){throw new IllegalArgumentException("Nenhuma pátio encontrado com a quaindade de vaga informado");
         }
         return patios;
@@ -60,23 +60,23 @@ public class PatioCachingService {
 
 
     @CacheEvict(value="patioCache", allEntries=true)
-    public Patio atualizarPatio(int id_patio, PatioDTO dto){
-        Patio existente = ptR.findById(id_patio)
+    public Patio atualizarPatio(int idpatio, PatioDTO dto){
+        Patio existente = ptR.findById(idpatio)
                 .orElseThrow(() -> new IllegalArgumentException("ID informado não localizado"));
 
         existente.setName(dto.getName());
-        existente.setQtd_vagas(dto.getQtd_vagas()); // camelCase mais recomendado
+        existente.setQtdvagas(dto.getQtdvagas());
 
         return ptR.save(existente);
     }
 
 
     @CacheEvict(value = "patioCache", allEntries = true)
-    public void deletarPatio(int id_patio){
-        if (!ptR.existsById(id_patio)){
+    public void deletarPatio(int idpatio){
+        if (!ptR.existsById(idpatio)){
             throw new IllegalArgumentException("Pátio não localizado");
         }
-        ptR.deleteById(id_patio);
+        ptR.deleteById(idpatio);
     }
 
 

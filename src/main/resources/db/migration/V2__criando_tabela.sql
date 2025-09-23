@@ -9,36 +9,36 @@ CREATE TABLE tb_yf_usuario (
 
 -- Tabela: tb_yf_patio
 CREATE TABLE tb_yf_patio (
-     id_patio INT AUTO_INCREMENT PRIMARY KEY,
+     idpatio INT AUTO_INCREMENT PRIMARY KEY,
      name VARCHAR(255),
-     qtd_vagas INT NOT NULL
+     qtdvagas INT NOT NULL
 );
 
 -- Tabela: tb_yf_moto (sem FK por enquanto)
 CREATE TABLE tb_yf_moto (
-    id_moto INT AUTO_INCREMENT PRIMARY KEY,
+    idmoto INT AUTO_INCREMENT PRIMARY KEY,
     modelo VARCHAR(50) NOT NULL,
     chassi VARCHAR(100),
     placa VARCHAR(20),
     historico TEXT,
-    id_yf INT
+    idyf INT
 );
 
 -- Tabela: tb_yf_IoT (sem FK por enquanto)
 CREATE TABLE tb_yf_IoT (
-   id_yf INT AUTO_INCREMENT PRIMARY KEY,
+   idyf INT AUTO_INCREMENT PRIMARY KEY,
    serial VARCHAR(100) NOT NULL UNIQUE,
    dt_ultimo_acionamento DATE,
-   moto_id INT
+   idmoto INT
 );
 
 -- Tabela: tb_yf_registro_check_in_out
 CREATE TABLE tb_yf_registro_check_in_out (
-     id_registro INT AUTO_INCREMENT PRIMARY KEY,
-     entrada_patio DATE,
-     saida_patio DATE,
+     idregistro INT AUTO_INCREMENT PRIMARY KEY,
+     entradapatio DATE,
+     saidapatio DATE,
      periodo INT NOT NULL,
      setor VARCHAR(50) NOT NULL,
-     id_moto INT,
-     CONSTRAINT fk_registro_moto FOREIGN KEY (id_moto) REFERENCES tb_yf_moto(id_moto)
+     idmoto INT,
+     CONSTRAINT fk_registro_moto FOREIGN KEY (idmoto) REFERENCES tb_yf_moto(idmoto)
 );

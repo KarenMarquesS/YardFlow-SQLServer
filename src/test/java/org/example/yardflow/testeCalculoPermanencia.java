@@ -18,14 +18,14 @@ public class testeCalculoPermanencia {
             System.out.print("Digite a data de entrada (dd/MM/yyyy): ");
             String entradaStr = scanner.nextLine();
             LocalDate entrada = LocalDate.parse(entradaStr, formatter);
-            registro.setEntrada_patio(entrada);
+            registro.setEntradapatio(entrada);
 
             // Saída (opcional)
             System.out.print("Digite a data de saída (dd/MM/yyyy) ou deixe em branco: ");
             String saidaStr = scanner.nextLine();
             if (!saidaStr.isBlank()) {
                 LocalDate saida = LocalDate.parse(saidaStr, formatter);
-                registro.setSaida_patio(saida);
+                registro.setSaidapatio(saida);
             }
 
             // Calcula período

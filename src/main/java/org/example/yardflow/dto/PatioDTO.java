@@ -7,19 +7,19 @@ import org.example.yardflow.model.Patio;
 
 public class PatioDTO {
 
-    private int id_patio;
+    private int idpatio;
 
     private String name;
 
     @Positive
-    private int qtd_vagas;
+    private int qtdvagas;
 
 
     // Conversão de entidade em DTO
     public Patio toEntity() {
         Patio p = new Patio();
-        this.id_patio = p.getId_patio();
-        this.qtd_vagas = p.getQtd_vagas();
+        this.idpatio = p.getIdpatio();
+        this.qtdvagas = p.getQtdvagas();
         this.name = p.getName();
 
         return p;
@@ -28,24 +28,24 @@ public class PatioDTO {
     public PatioDTO() {
     }
 
-    public PatioDTO(int id_patio, String name, int qtd_vagas) {
-        this.id_patio = id_patio;
+    public PatioDTO(int idpatio, String name, int qtdvagas) {
+        this.idpatio = idpatio;
         this.name = name;
-        this.qtd_vagas = qtd_vagas;
+        this.qtdvagas = qtdvagas;
     }
 
     public PatioDTO(Patio patio) {
-        this.id_patio = patio.getId_patio();
+        this.idpatio = patio.getIdpatio();
         this.name = patio.getName();
-        this.qtd_vagas = patio.getQtd_vagas();
+        this.qtdvagas = patio.getQtdvagas();
     }
 
-    public int getId_patio() {
-        return id_patio;
+    public int getIdpatio() {
+        return idpatio;
     }
 
-    public void setId_patio(int id_patio) {
-        this.id_patio = id_patio;
+    public void setId_patio(int idpatio) {
+        this.idpatio = idpatio;
     }
 
     public String getName() {
@@ -57,11 +57,11 @@ public class PatioDTO {
     }
 
     @Positive
-    public int getQtd_vagas() {
-        return qtd_vagas;
+    public int getQtdvagas() {
+        return qtdvagas;
     }
 
-    public void setQtd_vagas(@Positive int qtd_vagas) {
-        this.qtd_vagas = qtd_vagas;
+    public void setQtd_vagas(@Positive int qtdvagas) {
+        this.qtdvagas = qtdvagas;
     }
 }

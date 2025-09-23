@@ -11,7 +11,7 @@ import org.example.yardflow.model.Yardflow;
 
 public class MotoDTO {
 
-    private int id_moto;
+    private int idmoto;
 
     private EnumModelo modelo;
 
@@ -32,8 +32,8 @@ public class MotoDTO {
     public MotoDTO() {
     }
 
-    public MotoDTO(int id_moto, EnumModelo modelo, String chassi, String placa, String historico, Yardflow yardflow) {
-        this.id_moto = id_moto;
+    public MotoDTO(int idmoto, EnumModelo modelo, String chassi, String placa, String historico, Yardflow yardflow) {
+        this.idmoto = idmoto;
         this.modelo = modelo;
         this.chassi = chassi;
         this.placa = placa;
@@ -41,12 +41,12 @@ public class MotoDTO {
         this.yardflow = yardflow;
     }
 
-    public int getId_moto() {
-        return id_moto;
+    public int getIdmoto() {
+        return idmoto;
     }
 
-    public void setId_moto(int id_moto) {
-        this.id_moto = id_moto;
+    public void setIdmoto(int idmoto) {
+        this.idmoto = idmoto;
     }
 
     public EnumModelo getModelo() {

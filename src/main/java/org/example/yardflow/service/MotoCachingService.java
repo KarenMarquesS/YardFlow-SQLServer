@@ -28,9 +28,9 @@ public class MotoCachingService {
     @Autowired
     private ModelMapper mm;
 
-    @Cacheable(value = "motoCache", key = "#id_moto")
-    public Optional<Moto> findById(int id_moto) {
-        return mtRp.findById(id_moto);
+    @Cacheable(value = "motoCache", key = "#idmoto")
+    public Optional<Moto> findById(int idmoto) {
+        return mtRp.findById(idmoto);
     }
 
     @Cacheable(value = "motoCache", key = "'placa:' + #placa")
@@ -45,13 +45,13 @@ public class MotoCachingService {
         return mm.map(moto, MotoDTO.class);
     }
 
-    @Cacheable(value = "motoCache", key = "'historico' + #id_moto")
-    public MotoDTO buscarHistorico(int id_moto) {
-        String moto = mtRp.historicoMoto(id_moto);
+    @Cacheable(value = "motoCache", key = "'historico' + #idmoto")
+    public MotoDTO buscarHistorico(int idmoto) {
+        String moto = mtRp.historicoMoto(idmoto);
         return mm.map(moto, MotoDTO.class);
     }
 
-    @Cacheable(value = "motoCache", key = "'paginado' + #id_moto")
+    @Cacheable(value = "motoCache", key = "'paginado' + #idmoto")
     public Page<MotoDTO> findAllPaginado(Pageable pageable) {
         Page<Moto> motosPage = mtRp.findAll(pageable);
         return motosPage.map(moto -> mm.map(moto, MotoDTO.class));
@@ -60,41 +60,41 @@ public class MotoCachingService {
     @CacheEvict(value = "motoCache", allEntries = true)
     public MotoDTO criarNovaMoto(MotoDTO motoDTO) {
 
-        motoDTO.setId_moto(0);
+        motoDTO.setIdmoto(0);
         Moto moto = mm.map(motoDTO, Moto.class);
         Moto savedMoto = mtRp.save(moto);
         return mm.map(savedMoto, MotoDTO.class);
     }
 
 
-    @CachePut(value = "motoCache", key = "#id_moto")
+    @CachePut(value = "motoCache", key = "#idmoto")
     @Caching(evict = {
             @CacheEvict(value = "motoCache", key = "'placa:' + #result.placa", condition = "#result != null"),
             @CacheEvict(value = "motoCache", key = "'chassi:' + #result.chassi", condition = "#result != null")
     })
-    public MotoDTO atualizarRegistroMoto(int id_moto, MotoDTO motoDTO) {
+    public MotoDTO atualizarRegistroMoto(int idmoto, MotoDTO motoDTO) {
 
-        mtRp.findById(id_moto).orElseThrow(() -> new EntityNotFoundException("Moto não encontrada: " + id_moto));
+        mtRp.findById(idmoto).orElseThrow(() -> new EntityNotFoundException("Moto não encontrada: " + idmoto));
 
         Moto motoToUpdate = mm.map(motoDTO, Moto.class);
-        motoToUpdate.setId_moto(id_moto);
+        motoToUpdate.setIdmoto(idmoto);
         Moto updatedMoto = mtRp.save(motoToUpdate);
         return mm.map(updatedMoto, MotoDTO.class);
     }
 
 
 
-    @CacheEvict(value = "motoCache", allEntries = true) // Invalida todo o cache, mais simples e seguro
-    public void deletarRegistroMoto(int id_moto) {
-        Moto moto = mtRp.findById(id_moto)
-                .orElseThrow(() -> new EntityNotFoundException("Moto não encontrada: " + id_moto));
+    @CacheEvict(value = "motoCache", allEntries = true)
+    public void deletarRegistroMoto(int idmoto) {
+        Moto moto = mtRp.findById(idmoto)
+                .orElseThrow(() -> new EntityNotFoundException("Moto não encontrada: " + idmoto));
         mtRp.delete(moto);
     }
 
 
     @CacheEvict(value = "motoCache", allEntries = true)
     public void limparCache() {
-        System.out.println(">> Removendo todos os caches de 'motoCache' <<");
+        System.out.println(" Removendo todos os caches de 'motoCache' ");
     }
 
 

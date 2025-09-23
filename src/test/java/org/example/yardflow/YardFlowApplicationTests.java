@@ -22,8 +22,8 @@ class YardFlowApplicationTests {
     @Test
     void deveCalcularPeriodoComEntradaESaida() {
         Registro_check_in_out registro = new Registro_check_in_out();
-        registro.setEntrada_patio(LocalDate.now().minusDays(3));
-        registro.setSaida_patio(LocalDate.now());
+        registro.setEntradapatio(LocalDate.now().minusDays(3));
+        registro.setSaidapatio(LocalDate.now());
 
         registro.calcularPeriodoPermanencia();
 
@@ -33,8 +33,8 @@ class YardFlowApplicationTests {
     @Test
     void deveCalcularPeriodoComSaidaNula() {
         Registro_check_in_out registro = new Registro_check_in_out();
-        registro.setEntrada_patio(LocalDate.now().minusDays(2));
-        registro.setSaida_patio(null); // usuário não informou saída
+        registro.setEntradapatio(LocalDate.now().minusDays(2));
+        registro.setSaidapatio(null); // usuário não informou saída
 
         registro.calcularPeriodoPermanencia();
 
@@ -44,8 +44,8 @@ class YardFlowApplicationTests {
     @Test
     void deveRetornarUmDiaQuandoEntradaIgualSaida() {
         Registro_check_in_out registro = new Registro_check_in_out();
-        registro.setEntrada_patio(LocalDate.now());
-        registro.setSaida_patio(LocalDate.now());
+        registro.setEntradapatio(LocalDate.now());
+        registro.setSaidapatio(LocalDate.now());
 
         registro.calcularPeriodoPermanencia();
 
@@ -62,8 +62,8 @@ class YardFlowApplicationTests {
     @Test
     void deveLancarExcecaoQuandoSaidaAntesDaEntrada() {
         Registro_check_in_out registro = new Registro_check_in_out();
-        registro.setEntrada_patio(LocalDate.now());
-        registro.setSaida_patio(LocalDate.now().minusDays(1));
+        registro.setEntradapatio(LocalDate.now());
+        registro.setSaidapatio(LocalDate.now().minusDays(1));
 
         assertThrows(IllegalArgumentException.class, registro::calcularPeriodoPermanencia);
     }

@@ -38,9 +38,9 @@ public class PatioController {
 
     }
 
-    @PutMapping("/{id_patio}")
-    public ResponseEntity<PatioDTO> atualizarPatio(@PathVariable int id_patio, @Valid @RequestBody PatioDTO dto) {
-        Patio atualizado = ptS.atualizarPatio(id_patio, dto);
+    @PutMapping("/{idpatio}")
+    public ResponseEntity<PatioDTO> atualizarPatio(@PathVariable int idpatio, @Valid @RequestBody PatioDTO dto) {
+        Patio atualizado = ptS.atualizarPatio(idpatio, dto);
 
         return ResponseEntity.status(HttpStatus.OK).body(new PatioDTO(atualizado));
     }
@@ -50,9 +50,9 @@ public class PatioController {
             tags = "Consulta de informação",
             summary = "Buscar pátio por ID"
     )
-    @GetMapping("{/id_patio}")
-    public ResponseEntity<PatioDTO> buscarPorId(@PathVariable int id_patio) {
-        Optional<Patio> patio = ptS.buscarPatioPorId(id_patio);
+    @GetMapping("{/idpatio}")
+    public ResponseEntity<PatioDTO> buscarPorId(@PathVariable int idpatio) {
+        Optional<Patio> patio = ptS.buscarPatioPorId(idpatio);
 
         return patio.map(p-> ResponseEntity.ok(new PatioDTO(p))).orElseGet(() -> ResponseEntity.notFound().build());
     }
@@ -75,20 +75,20 @@ public class PatioController {
             summary = "Buscar pátios por quantidade de vagas"
     )
     @GetMapping("/quantidadevagas/{id_patio}")
-    public ResponseEntity<Integer> mostrarQtdVagas(@PathVariable int id_patio) {
-        Optional<Patio> patio = ptS.buscarPatioPorId(id_patio);
+    public ResponseEntity<Integer> mostrarQtdVagas(@PathVariable int idpatio) {
+        Optional<Patio> patio = ptS.buscarPatioPorId(idpatio);
 
         if (patio.isPresent()) {
-            return ResponseEntity.ok(patio.get().getQtd_vagas());
+            return ResponseEntity.ok(patio.get().getQtdvagas());
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pátio não encontrado");
         }
     }
 
 
-    @DeleteMapping("/{id_patio}")
-    public ResponseEntity<Void> deletarPatio(@PathVariable int id_patio) {
-        ptS.deletarPatio(id_patio);
+    @DeleteMapping("/{idpatio}")
+    public ResponseEntity<Void> deletarPatio(@PathVariable int idpatio) {
+        ptS.deletarPatio(idpatio);
         return ResponseEntity.noContent().build();
     }
 

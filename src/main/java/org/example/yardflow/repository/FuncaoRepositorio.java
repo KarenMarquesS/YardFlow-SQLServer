@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface FuncaoRepositorio  extends JpaRepository<Funcao, Integer> {
-    Optional<Funcao> findById(Long id_funcao);
+    Optional<Funcao> findById(Long idfuncao);
 }

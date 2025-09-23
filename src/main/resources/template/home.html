@@ -15,8 +15,12 @@
 </head>
 <body class="min-h-screen flex flex-col text-gray-200">
 
-<!-- Cabeçalho (fragmento Thymeleaf) -->
-<header th:replace="fragments/header :: header"></header>
+<!-- Header com Logout -->
+<header class="bg-green-600 p-4 shadow-md flex justify-between items-center">
+  <h1 class="text-white text-xl font-bold">YardFlow</h1>
+  <div th:replace="~{fragmentos :: form-logout}"></div>
+
+</header>
 
 <div class="flex flex-grow">
 
@@ -26,13 +30,13 @@
     <!-- Boas-vindas -->
     <section>
       <p class="text-lg text-green-900 mb-6">
-        Olá,
-        <span th:text="${saudacao}" class="text-lg text-green-900 mb-6">Bom dia</span>,
-        <span th:text="${usuario.nome}" class="text-lg text-green-900 mb-6">Usuário</span> 👋
+        Olá 👋
+<!--        <span th:text="${saudacao}" class="text-lg text-green-900 mb-6">Bom dia</span>,-->
+<!--        <span th:text="${usuario.nome}" class="text-lg text-green-900 mb-6">Usuário</span> -->
       </p>
       <p class="text-lg text-green-900 mb-6">
         Você está visualizando o pátio:
-        <span class="font-semibold text-green-900" th:text="${nome}">Nome do Pátio</span>
+        <span class="font-semibold text-green-900" th:text="${nome}"></span>
       </p>
     </section>
 
@@ -42,63 +46,69 @@
       <div class="grid grid-cols-1 md:grid-cols-1 gap-6">
         <!-- Total de vagas -->
         <div class="bg-green-20 border border-green-900 rounded-2xl p-6 shadow-lg">
-          <h3 class="text-green-900 text-lg font-semibold mb-2">Total de Vagas</h3>
-          <p class="text-3xl font-bold text-blue-400" th:text="${vagasTotal}">0</p>
+          <h3 class="text-green-900 text-center text-2xl font-semibold mb-2">Total de vagas</h3>
+          <p class="text-3xl font-bold text-center text-blue-400" th:text="${vagasTotal}">0</p>
         </div>
 
         <!-- Vagas ocupadas -->
         <div class="bg-green-20 border border-green-900 rounded-2xl p-6 shadow-lg">
-          <h3 class="text-green-900 text-lg font-semibold mb-2">Vagas Ocupadas</h3>
-          <p class="text-3xl font-bold text-orange-400" th:text="${vagasOcupadas}">0</p>
+          <h3 class="text-green-900 text-2xl text-center font-semibold mb-2">Vagas ocupadas</h3>
+          <p class="text-3xl font-bold text-center text-orange-400" th:text="${vagasOcupadas}">0</p>
         </div>
 
         <!-- Vagas livres -->
         <div class="bg-green-20 border border-green-900 rounded-2xl p-6 shadow-lg">
-          <h3 class="text-green-900 text-lg font-semibold mb-4">Vagas Livres </h3>
-          <p class="text-3xl font-bold text-green-400" th:text="${vagasLivres}">0</p>
+          <h3 class="text-green-900 text-2xl text-center font-semibold mb-4">Vagas livres </h3>
+          <p class="text-3xl font-bold text-center text-green-400" th:text="${vagasLivres}">0</p>
         </div>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-1 gap-6">
         <!-- Motos +5 dias -->
         <div class="bg-green-20 border border-green-900 rounded-2xl p-6 shadow-lg text-center">
-          <h3 class="text-green-900 text-lg font-semibold mb-4">Motos +5 dias</h3>
-          <p class="text-3xl font-bold text-red-400" th:text="${motosMais5Dias}">0</p>
+          <h3 class="text-green-900 text-2xl text-center font-semibold mb-4">Motos +5 dias</h3>
+          <p class="text-3xl font-bold text-center text-red-400" th:text="${motosMais5Dias}">0</p>
         </div>
 
         <!-- Cadastro de pátio -->
         <div class="bg-green-20 border border-green-900 rounded-2xl p-6 shadow-lg col-span-1 md:col-span-2">
-          <h3 class="text-green-900 text-lg font-semibold mb-4" th:text="${}">Cadastro de Pátio</h3>
+          <a href="/cadastros/patio"> <h3 class="text-green-900 text-center text-2xl font-semibold mb-4"
+                                          th:text="${}">Cadastro de pátio</h3></a>
         </div>
 
         <!-- Registro de moto -->
         <div class="bg-green-20 border border-green-900 rounded-2xl p-6 shadow-lg col-span-1 md:col-span-2">
-          <h3 class="text-green-900 text-lg font-semibold mb-4" th:text="${}">Registro de Moto</h3>
+          <a href="/cadastros/moto"><h3 class="text-green-900 text-center text-2xl font-semibold mb-4"
+                                        th:text="${}">Registrar de moto</h3></a>
         </div>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-1 gap-6">
         <!-- Cadastro de usuário -->
         <div class="bg-green-20 border border-green-900 rounded-2xl p-6 shadow-lg col-span-1 md:col-span-2">
-          <h3 class="text-green-900 text-lg font-semibold mb-4" th:text="${}">Registro de Moto</h3>
+          <a href="/cadastros/usuario"><h3 class="text-green-900 text-center text-2xl font-semibold mb-4"
+                                           th:text="${}">Cadastro de usuário</h3></a>
         </div>
 
         <!-- Cadastro de yard flow -->
         <div class="bg-green-20 border border-green-900 rounded-2xl p-6 shadow-lg col-span-1 md:col-span-2">
-          <h3 class="text-green-900 text-lg font-semibold mb-4" th:text="${}">Cadastro do Yard Flow</h3>
+          <a href="/cadastros/yardflow"><h3 class="text-green-900 text-center text-2xl  font-semibold mb-4"
+                                            th:text="${}">Cadastro do Yard Flow</h3></a>
         </div>
 
         <!-- Lista de moto do pátio -->
         <div class="bg-green-20 border border-green-900 rounded-2xl p-6 shadow-lg col-span-1 md:col-span-2">
-          <h3 class="text-green-900 text-lg font-semibold mb-4" th:text="${}">Lista de moto do pátio</h3>
+          <a href="/consultas/listaMoto"><h3 class="text-green-900 text-center text-2xl font-semibold mb-4"
+                                             >Lista de moto no pátio</h3></a>
         </div>
       </div>
     </section>
 
       <div class="mt-6">
         <!-- Localizar moto -->
-        <div class="bg-green-20 border border-green-900 rounded-2xl p-6 shadow-lg ">
-          <h3 class="text-green-900 text-4xl text-center font-semibold mb-4" th:text="${}">Localizar moto</h3>
+        <div class=" bg-green-20 border border-green-900 rounded-2xl p-6 shadow-lg ">
+          <a href="/consultas/localizarMoto"><h3 class="text-green-900 text-center text-4xl text-center
+              font-semibold mb-4" th:text="${}">Localizar moto</h3></a>
         </div>
       </div>
 
@@ -108,8 +118,8 @@
   </main>
 </div>
 
-<!-- Rodapé (fragmento Thymeleaf) -->
-<footer th:replace="fragments/footer :: footer"></footer>
+<!-- Rodapé -->
+<footer th:replace="~{fragmentos :: rodape}"></footer>
 
 </body>
 </html>

@@ -1,7 +1,7 @@
 <!-- Cabecalho -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="cabecalho(titulo)">
+<head th:fragment="cabecalho(Fragmentos)">
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title th:text="${titulo}">Título</title>
@@ -24,6 +24,11 @@
   <b><span th:text="#{saudacao}">Olá,</span> <span th:text="${usuario.name}">Usuário</span>!</b>
 </div>
 
+<!--Home-->
+<button th:fragment="voltarHome" type="button" class="px-6 py-2 rounded-xl text-white shadow-md bg-gradient-to-r
+      from-blue-500 to-blue-700">
+  <a href="/home"><b>Voltar para Home</b></a>
+</button>
 
 
 <!-- Entrar -->
@@ -51,15 +56,10 @@
 
 <!-- Rodapé -->
 <footer th:fragment="rodape" class="bg-green-500">
+  <img src="@{/img/logoDF.png}" alt="logoYF"/>
   <p class="text-center text-gray-950 text-sm mt-6">· DEV · FORGE ·</p>
   <p class="text-center text-gray-950 text-sm ">&copy; 2025</p>
   <p class="text-center text-gray-950 text-sm ">yardflow@devforge.com.br</p>
 </footer>
-
-
-
-
-
-
 
 </html>

@@ -1,55 +1,57 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-
-<head th:replace="~{fragmentos :: cabecalho('Cadastro de Yard Flow')}">
-  <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Tailwind -->
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>YardFlow</title>
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- FontAwesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    body {
+      background-color: #D7DFD9;
+      background-image: radial-gradient(rgba(8, 200, 38, 0.2) 0.2px, transparent 1px);
+      background-size: 25px 25px;
+    }
+  </style>
 </head>
+<body class="flex flex-col min-h-screen text-gray-800">
 
-<body class="bg-gray-100 flex items-center justify-center h-screen">
+<header th:replace="fragments/header :: header"></header>
 
-<div>
-  <form th:replace="~{fragmentos :: form-logout}" />
-</div>
+<main class="flex-1 flex items-center justify-center p-8">
+  <div class="w-full max-w-5xl bg-gray/70 border-4 border-green-700 rounded-2xl p-10 shadow-lg">
 
-<div class="mb-6 flex justify-center">
-  <div th:replace="~{fragmentos :: saudacoes(${patio})}"></div>
-</div>
+    <h1 class="text-5xl font-bold text-center text-green-800 mb-10">
+      YardFlow - Fluxo de Entrada e Saída
+    </h1>
 
+    <table class="w-full border-collapse bg-gray-100 rounded-lg shadow-lg">
+      <thead class="bg-green-700 text-white">
+      <tr>
+        <th class="p-3 text-left">ID</th>
+        <th class="p-3 text-left">Moto</th>
+        <th class="p-3 text-left">Data Entrada</th>
+        <th class="p-3 text-left">Data Saída</th>
+        <th class="p-3 text-center">Ações</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="fluxo : ${yardflows}" class="border-b hover:bg-green-50">
+        <td class="p-3" th:text="${fluxo.id}"></td>
+        <td class="p-3" th:text="${fluxo.moto.placa}"></td>
+        <td class="p-3" th:text="${fluxo.dataEntrada}"></td>
+        <td class="p-3" th:text="${fluxo.dataSaida}"></td>
+        <td class="p-3 text-center space-x-2">
+          <a th:href="@{/yardflow/editar/{id}(id=${fluxo.id})}"
+             class="px-4 py-2 bg-green-600 hover:bg-green-800 text-white rounded-lg">Editar</a>
+          <a th:href="@{/yardflow/excluir/{id}(id=${fluxo.id})}"
+             class="px-4 py-2 bg-gray-400 hover:bg-red-500 text-white rounded-lg">Excluir</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
 
-<div class="bg-white shadow-lg rounded-xl p-8 w-96">
-
-  <div class="row">
-    <h1>Cadastro de Yard Flow</h1>
   </div>
+</main>
 
-  <div class="row">
-
-    <form th:object="${yardflow}" action="/insere_yardflow" method="post">
-
-      Número Serial: <input class="form-control" type="text" th:field="*{serial}">
-
-      <button th:replace="~{fragmentos :: botao-salvar}('Salvar Cadastro')"/>
-    </form>
-  </div>
-
-  <div class="row">
-    <a href="/home">Home</a>
-  </div>
-</div>
-
-<!-- Option 1: Bootstrap Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-        crossorigin="anonymous"></script>
-
-<footer th:replace="~{fragmentos :: rodape}" />
+<footer th:replace="fragments/footer :: footer"></footer>
 </body>
-
 </html>

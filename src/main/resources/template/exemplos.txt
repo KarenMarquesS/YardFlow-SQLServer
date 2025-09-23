@@ -244,7 +244,23 @@ cadastro usuário
  </body>
  </html>
 
+<form th:object="${yardflow}" th:action="@{/} @{//{}(id_yf = ${yardflow.id_yf})}"
+        method="post" class="max-w-2xl mx-auto bg-white p-6 shadow-lg rounded-xl space-y-4">
+    <div class="grid grid-cols-2 gap-4">
 
+      <p>Preencha um dos campos para localizar a moto</p>
+
+      Número do Yard Flow: <input type="text" name="id_yf" placeholder="Yard Flow" class="border rounded-lg p-2 w-full" th:field="*{id_yf}"
+             th:errorclass="is-invalid"/><div class="invalid-feedback" th:errors="*{id_yf}"></div>
+
+      Placa da moto: <input type="text" name="placa" placeholder="PLACA" class="border rounded-lg p-2 w-full" th:field="*{moto.placa}"
+             th:errorclass="is-invalid"/><div class="invalid-feedback" th:errors="*{moto.placa}"></div>
+
+      Chassi da moto:<input type="text" name="rua" placeholder="Chassi" class="border rounded-lg p-2 w-full" th:field="*{moto.chassi}"/>
+      <div class="invalid-feedback" th:errors="*{moto.chassi}"></div>
+
+    </div>
+  </form>
 
 ------------ LISTA DE MOTOS
 
@@ -407,3 +423,38 @@ cadastro usuário
 </body>
 </html>
 
+=================== MENU LATERAL ================
+
+ <!-- Menu lateral -->
+  <aside class="w-64 bg-black/70 border-r border-purple-700/40 p-6">
+    <nav class="space-y-4">
+      <a href="#" class="flex items-center space-x-3 text-purple-300 hover:text-purple-500 transition">
+        <i class="fa-solid fa-gauge"></i> <!-- ícone (FontAwesome ou outro) -->
+        <span>Dashboard</span>
+      </a>
+
+      <!-- Vai para a página de cadstro de moto-->
+      <a href="#" class="flex items-center space-x-3 text-purple-300 hover:text-purple-500 transition">
+        <i class="fa-solid fa-motorcycle"></i>
+        <span>Registrar Moto</span>
+      </a>
+      <a href="#" class="flex items-center space-x-3 text-purple-300 hover:text-purple-500 transition">
+        <i class="fa-solid fa-square-parking"></i>
+        <span>Vagas</span>
+      </a>
+      <a href="#" class="flex items-center space-x-3 text-purple-300 hover:text-purple-500 transition">
+        <i class="fa-solid fa-warehouse"></i>
+        <span>Pátios</span>
+      </a>
+    </nav>
+  </aside>
+
+
+  ===========================================================
+
+   <!-- Botão que abre o modal -->
+      <button onclick="document.getElementById('modalMoto').classList.remove('hidden')"
+              class="mt-4 px-6 py-3 bg-gradient-to-r from-green-500 to-green-700
+             text-white font-semibold rounded-lg shadow-lg hover:from-green-600 hover:to-green-800 transition">
+        Ver Moto
+      </button>

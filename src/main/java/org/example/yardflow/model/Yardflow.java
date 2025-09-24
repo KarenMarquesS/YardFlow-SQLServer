@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -19,8 +19,8 @@ public class Yardflow {
     @Column(nullable = false, unique = true)
     private String serial;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDate dtultimoacionamento;
+    @Column(name = "dt_ultimo_acionamento")
+    private LocalDateTime dtUltimoAcionamento;
 
     @OneToOne
     @JoinColumn(name = "idmoto", referencedColumnName = "idmoto", nullable = false, unique = true)
@@ -30,10 +30,10 @@ public class Yardflow {
     public Yardflow() {
     }
 
-    public Yardflow(int idyf, String serial, LocalDate dtultimoacionamento, Moto moto) {
+    public Yardflow(int idyf, String serial, LocalDateTime dtultimoacionamento, Moto moto) {
         this.idyf = idyf;
         this.serial = serial;
-        this.dtultimoacionamento = dtultimoacionamento;
+        this.dtUltimoAcionamento = dtultimoacionamento;
         this.moto = moto;
     }
 
@@ -53,12 +53,12 @@ public class Yardflow {
         this.serial = serial;
     }
 
-    public LocalDate getDtultimoacionamento() {
-        return dtultimoacionamento;
+    public LocalDateTime getDtultimoacionamento() {
+        return dtUltimoAcionamento;
     }
 
-    public void setDtultimoacionamento(LocalDate dtultimoacionamento) {
-        this.dtultimoacionamento = dtultimoacionamento;
+    public void setDtultimoacionamento(LocalDateTime dtultimoacionamento) {
+        this.dtUltimoAcionamento = dtultimoacionamento;
     }
 
     public Moto getMoto() {

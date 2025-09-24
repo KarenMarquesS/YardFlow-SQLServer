@@ -48,7 +48,7 @@ public class YardflowCachingService {
 
         moto.setYardflow(yf);
         yf.setMoto(moto);
-        yf.setDtultimoacionamento(LocalDate.now());
+        yf.setDtultimoacionamento(LocalDateTime.from(LocalDate.now()));
 
         return yfRep.save(yf);
     }

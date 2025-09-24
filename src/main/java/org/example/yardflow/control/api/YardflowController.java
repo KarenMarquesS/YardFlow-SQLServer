@@ -53,12 +53,12 @@ public class YardflowController {
         return ResponseEntity.ok(yfS.localizarMotoPorYardFlow(idyf));
     }
 
-    @GetMapping("{/serial}")
+    @GetMapping("/{serial}")
     public ResponseEntity<Optional<Yardflow>> localizarSerialYf(@PathVariable String serial) {
         return ResponseEntity.ok(yfS.buscarSerial(serial));
     }
 
-    @GetMapping("{/dt_ultimo_acionamento}")
+    @GetMapping("/{dtultimoacionamento}")
     public ResponseEntity<List<Yardflow>> buscarUltimoAcionamento(@RequestParam("data")
                                                                   @DateTimeFormat (iso = DateTimeFormat.ISO.DATE)
                                                              LocalDate dtultimoacionamento) {

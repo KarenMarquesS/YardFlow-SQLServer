@@ -20,7 +20,7 @@ public class Yardflow {
     private String serial;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDate dt_ultimo_acionamento;
+    private LocalDate dtultimoacionamento;
 
     @OneToOne
     @JoinColumn(name = "idmoto", referencedColumnName = "idmoto", nullable = false, unique = true)
@@ -30,18 +30,18 @@ public class Yardflow {
     public Yardflow() {
     }
 
-    public Yardflow(int idyf, String serial, LocalDate dt_ultimo_acionamento, Moto moto) {
+    public Yardflow(int idyf, String serial, LocalDate dtultimoacionamento, Moto moto) {
         this.idyf = idyf;
         this.serial = serial;
-        this.dt_ultimo_acionamento = dt_ultimo_acionamento;
+        this.dtultimoacionamento = dtultimoacionamento;
         this.moto = moto;
     }
 
-    public int getId_yf() {
+    public int getIdyf() {
         return idyf;
     }
 
-    public void setId_yf(int idyf) {
+    public void setIdyf(int idyf) {
         this.idyf = idyf;
     }
 
@@ -53,12 +53,12 @@ public class Yardflow {
         this.serial = serial;
     }
 
-    public LocalDate getDt_ultimo_acionamento() {
-        return dt_ultimo_acionamento;
+    public LocalDate getDtultimoacionamento() {
+        return dtultimoacionamento;
     }
 
-    public void setDt_ultimo_acionamento(LocalDate dt_ultimo_acionamento) {
-        this.dt_ultimo_acionamento = dt_ultimo_acionamento;
+    public void setDtultimoacionamento(LocalDate dtultimoacionamento) {
+        this.dtultimoacionamento = dtultimoacionamento;
     }
 
     public Moto getMoto() {

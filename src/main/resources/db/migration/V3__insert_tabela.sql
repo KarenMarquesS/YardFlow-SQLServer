@@ -1,14 +1,14 @@
 
 -- INSERTS PARA BANCO H2
 
-INSERT INTO tb_yf_IoT (serial, dt_ultimo_acionamento, idmoto) VALUES ('SN-ABC10001', DATE '2025-01-10', 1);
-INSERT INTO tb_yf_IoT (serial, dt_ultimo_acionamento, idmoto) VALUES ('SN-ABC10002', DATE '2025-02-20', 2);
-INSERT INTO tb_yf_IoT (serial, dt_ultimo_acionamento, idmoto) VALUES ('SN-ABC10003', DATE '2025-03-05', 3);
-INSERT INTO tb_yf_IoT (serial, dt_ultimo_acionamento, idmoto) VALUES ('SN-ABC10004', DATE '2025-04-18', 4);
-INSERT INTO tb_yf_IoT (serial, dt_ultimo_acionamento, idmoto) VALUES ('SN-ABC10005', DATE '2025-05-25', 5);
-INSERT INTO tb_yf_IoT (serial, dt_ultimo_acionamento, idmoto) VALUES ('SN-ABC10006', DATE '2025-05-25', 6);
-INSERT INTO tb_yf_IoT (serial, dt_ultimo_acionamento, idmoto) VALUES ('SN-ABC10007', DATE '2025-05-25', 7);
-INSERT INTO tb_yf_IoT (serial, dt_ultimo_acionamento, idmoto) VALUES ('SN-ABC10008', DATE '2025-05-25', 8);
+INSERT INTO tb_yf_IoT (serial, dtultimoacionamento, idmoto) VALUES ('SN-ABC10001', DATE '2025-01-10', 1);
+INSERT INTO tb_yf_IoT (serial, dtultimoacionamento, idmoto) VALUES ('SN-ABC10002', DATE '2025-02-20', 2);
+INSERT INTO tb_yf_IoT (serial, dtultimoacionamento, idmoto) VALUES ('SN-ABC10003', DATE '2025-03-05', 3);
+INSERT INTO tb_yf_IoT (serial, dtultimoacionamento, idmoto) VALUES ('SN-ABC10004', DATE '2025-04-18', 4);
+INSERT INTO tb_yf_IoT (serial, dtultimoacionamento, idmoto) VALUES ('SN-ABC10005', DATE '2025-05-25', 5);
+INSERT INTO tb_yf_IoT (serial, dtultimoacionamento, idmoto) VALUES ('SN-ABC10006', DATE '2025-05-25', 6);
+INSERT INTO tb_yf_IoT (serial, dtultimoacionamento, idmoto) VALUES ('SN-ABC10007', DATE '2025-05-25', 7);
+INSERT INTO tb_yf_IoT (serial, dtultimoacionamento, idmoto) VALUES ('SN-ABC10008', DATE '2025-05-25', 8);
 
 
 INSERT INTO tb_yf_patio (name, qtdvagas) VALUES ('Butantã', 100);

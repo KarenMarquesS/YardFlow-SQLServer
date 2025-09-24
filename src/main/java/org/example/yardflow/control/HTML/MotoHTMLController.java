@@ -41,7 +41,7 @@ public class MotoHTMLController {
         return mv;
     }
 
-    @GetMapping("/{idmoto}")
+    @GetMapping("/historico/{idmoto}")
     public ModelAndView buscarHistorico(@PathVariable int idmoto) {
         ModelAndView mv = new ModelAndView("moto_historico");
         MotoDTO motoDTO = mtS.buscarHistorico(idmoto);
@@ -49,7 +49,7 @@ public class MotoHTMLController {
         return mv;
     }
 
-    @GetMapping("/inserir")
+    @GetMapping("/inserir/moto")
     public ModelAndView NovaMoto() {
         ModelAndView mv = new ModelAndView("moto");
         mv.addObject("moto", new Moto());
@@ -68,7 +68,7 @@ public class MotoHTMLController {
         return new ModelAndView("redirect:/moto");
     }
 
-    @PostMapping("/{idmoto}")
+    @PostMapping("/deletar/{idmoto}")
     public ModelAndView deletar(@PathVariable int idmoto) {
         mtS.deletarRegistroMoto(idmoto);
         return new ModelAndView("redirect:/moto");

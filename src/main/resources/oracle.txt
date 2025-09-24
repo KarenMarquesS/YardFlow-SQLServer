@@ -1,0 +1,19 @@
+
+
+#spring.datasource.url=jdbc:oracle:thin:@oracle.fiap.com.br:1521/orcl
+#spring.datasource.username=rm554556
+#spring.datasource.password=181085
+#spring.datasource.driver-class-name=oracle.jdbc.OracleDriver
+#
+#
+#spring.jpa.hibernate.ddl-auto=none
+#spring.jpa.show-sql=true
+#spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.OracleDialect
+#
+## Cache
+#spring.cache.type=simple
+#
+#spring.flyway.enabled=true
+#spring.flyway.baseline-on-migration=true
+#spring.flyway.validate-migration-naming=true
+#spring.flyway.locations=db/migration

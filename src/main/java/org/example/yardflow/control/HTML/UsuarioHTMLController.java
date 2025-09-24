@@ -38,7 +38,7 @@ public class UsuarioHTMLController {
         ModelAndView mv = new ModelAndView("/usuario/novo");
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Optional<Usuario> op = usR.findByUsername(auth.getName());
+        Optional<Usuario> op = usR.findBynome(auth.getName());
 
         op.ifPresent(usuario -> mv.addObject("usuario_logado", usuario));
 

@@ -20,7 +20,7 @@ public class Usuario {
 
     private String nome;
 
-    @Pattern(regexp = "^(.+)@(.+)$", message = "Dgite um e-mail válido")
+    @Pattern(regexp = "^(.+)@(.+)$", message = "Digite um e-mail válido")
     private String email;
 
     private String senha;

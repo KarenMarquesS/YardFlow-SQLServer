@@ -15,7 +15,7 @@ public interface YardflowRepositorio extends JpaRepository<Yardflow, Integer> {
 
     Optional<Yardflow> findBySerial(@Param("serial")String serial);
 
-    List<Yardflow> findByDtUltimoAcionamento(LocalDateTime dt_ultimo_acionamento);
+    List<Yardflow> findByDtUltimoAcionamento(LocalDateTime dtultimoacionamento);
 
 }
 

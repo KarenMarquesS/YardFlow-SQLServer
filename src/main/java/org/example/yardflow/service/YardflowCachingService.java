@@ -24,21 +24,21 @@ import java.util.Optional;
 public class YardflowCachingService {
 
     @Autowired
-    private YardflowRepositorio yfR;
+    private YardflowRepositorio yfRep;
 
     @Autowired
     private MotoRepositorio mtR;
 
     @CacheEvict(value = "yfCahe", allEntries = true)
     public Yardflow criarNovoYardFlow(Yardflow yf) {
-        return yfR.save(yf);
+        return yfRep.save(yf);
     }
 
 
     @Cacheable(value = "yfCache", key = "#ativar")
     public Yardflow ativarYardFlow(int idyf, int idmoto){
 
-        Yardflow yf = yfR.findById(idyf).orElseThrow(()-> new IllegalArgumentException("YardFlow não localizado"));
+        Yardflow yf = yfRep.findById(idyf).orElseThrow(()-> new IllegalArgumentException("YardFlow não localizado"));
 
         Moto moto = mtR.findById(idmoto).orElseThrow(()-> new IllegalArgumentException("Moto não localizada"));
 
@@ -48,24 +48,24 @@ public class YardflowCachingService {
 
         moto.setYardflow(yf);
         yf.setMoto(moto);
-        yf.setDt_ultimo_acionamento(LocalDate.now());
+        yf.setDtultimoacionamento(LocalDate.now());
 
-        return yfR.save(yf);
+        return yfRep.save(yf);
     }
 
     @Cacheable(value = "yfCache", key = "'serial' + #serial")
     public Optional<Yardflow> buscarSerial ( String serial) {
-        return yfR.findBySerial(serial);
+        return yfRep.findBySerial(serial);
     }
 
     @Cacheable(value = "yfCache", key = "'acionamento' + #dt_ultimo_acionamento")
     public List<Yardflow> buscarDtUltimoAcionamento (LocalDate dt_ultimo_acionamento) {
-        return yfR.findByDtUltimoAcionamento(LocalDateTime.from(dt_ultimo_acionamento));
+        return yfRep.findByDtUltimoAcionamento(LocalDateTime.from(dt_ultimo_acionamento));
     }
 
     @Cacheable(value = "yfCache", key = "#desativar")
     public Yardflow desativarYardFlow(int idyf){
-        Yardflow yf = yfR.findById(idyf).orElseThrow(()-> new IllegalArgumentException("YardFlow não encontrado"));
+        Yardflow yf = yfRep.findById(idyf).orElseThrow(()-> new IllegalArgumentException("YardFlow não encontrado"));
         Moto moto = yf.getMoto();
         if (moto == null){
             throw new IllegalArgumentException("YardFlow não esta associado a nenhuma moto");
@@ -74,22 +74,22 @@ public class YardflowCachingService {
         moto.setYardflow(null);
         yf.setMoto(null);
 
-        return yfR.save(yf);
+        return yfRep.save(yf);
     }
 
     @Cacheable(value = "yfCache", key = "#idyf")
     public Moto localizarMotoPorYardFlow(int idyf){
-        Yardflow yf = yfR.findById(idyf).orElseThrow(()-> new IllegalArgumentException("YardFlow não encontrado"));
+        Yardflow yf = yfRep.findById(idyf).orElseThrow(()-> new IllegalArgumentException("YardFlow não encontrado"));
 
         return yf.getMoto();
     }
 
     @CacheEvict(value = "yfCache", allEntries = true)
     public void removerYardFlow(int idyf){
-        if (!yfR.existsById(idyf)){
+        if (!yfRep.existsById(idyf)){
             throw new IllegalArgumentException("YardFlow não encontrado");
         }
-        yfR.deleteById(idyf);
+        yfRep.deleteById(idyf);
     }
 
     @CacheEvict(value = "yfCache", allEntries = true)

@@ -12,7 +12,7 @@ public class YardflowDTO {
 
     private long idyf;
     private String serial;
-    private LocalDate dt_ultimo_acionamento;
+    private LocalDate dtultimoacionamento;
     private Moto moto;
 
 
@@ -25,18 +25,18 @@ public class YardflowDTO {
     }
 
 
-    public YardflowDTO(long idyf, String serial, LocalDate dt_ultimo_acionamento, Moto moto) {
+    public YardflowDTO(long idyf, String serial, LocalDate dtultimoacionamento, Moto moto) {
         this.idyf = idyf;
         this.serial = serial;
-        this.dt_ultimo_acionamento = dt_ultimo_acionamento;
+        this.dtultimoacionamento = dtultimoacionamento;
         this.moto = moto;
     }
 
-    public long getId_yf() {
+    public long getIdyf() {
         return idyf;
     }
 
-    public void setId_yf(long idyf) {
+    public void setIdyf(long idyf) {
         this.idyf = idyf;
     }
 
@@ -48,12 +48,12 @@ public class YardflowDTO {
         this.serial = serial;
     }
 
-    public LocalDate getDt_ultimo_acionamento() {
-        return dt_ultimo_acionamento;
+    public LocalDate getDtultimoacionamento() {
+        return dtultimoacionamento;
     }
 
-    public void setDt_ultimo_acionamento(LocalDate dt_ultimo_acionamento) {
-        this.dt_ultimo_acionamento = dt_ultimo_acionamento;
+    public void setDtultimoacionamento(LocalDate dtultimoacionamento) {
+        this.dtultimoacionamento = dtultimoacionamento;
     }
 
     public Moto getMoto() {

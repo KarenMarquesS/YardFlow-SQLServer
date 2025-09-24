@@ -61,8 +61,8 @@ public class YardflowController {
     @GetMapping("{/dt_ultimo_acionamento}")
     public ResponseEntity<List<Yardflow>> buscarUltimoAcionamento(@RequestParam("data")
                                                                   @DateTimeFormat (iso = DateTimeFormat.ISO.DATE)
-                                                             LocalDate dt_ultimo_acionamento) {
-        List<Yardflow> yf = yfS.buscarDtUltimoAcionamento(dt_ultimo_acionamento);
+                                                             LocalDate dtultimoacionamento) {
+        List<Yardflow> yf = yfS.buscarDtUltimoAcionamento(dtultimoacionamento);
 
         if(yf == null || yf .isEmpty()) {
             return ResponseEntity.notFound().build();

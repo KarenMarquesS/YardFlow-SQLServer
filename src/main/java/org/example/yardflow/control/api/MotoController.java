@@ -70,13 +70,13 @@ public class MotoController {
         return ResponseEntity.created(location).body(createdMoto);
     }
 
-    @PutMapping("/{idmoto}")
+    @PutMapping("/atualizar/{idmoto}")
     public ResponseEntity<MotoDTO> atualizarRegistroMoto(@PathVariable Integer idmoto, @RequestBody @Valid MotoDTO motoDTO) {
         MotoDTO updatedMoto = mtS.atualizarRegistroMoto(idmoto, motoDTO);
         return ResponseEntity.ok(updatedMoto);
     }
 
-    @DeleteMapping("/{id_moto}")
+    @DeleteMapping("/deletar/{id_moto}")
     public ResponseEntity<Void> deletarRegistroMoto(@PathVariable Integer id_moto) {
         mtS.deletarRegistroMoto(id_moto);
         return ResponseEntity.noContent().build();

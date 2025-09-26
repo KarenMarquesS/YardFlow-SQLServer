@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,8 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-@Controller("/usuario")
+@Controller
+@RequestMapping("/usuario")
 public class UsuarioHTMLController {
 
 
@@ -33,9 +35,9 @@ public class UsuarioHTMLController {
     private PasswordEncoder encoder;
 
 
-    @GetMapping("/usuario/novo")
+    @GetMapping("/novo")
     public ModelAndView retornarCadUsuario() {
-        ModelAndView mv = new ModelAndView("/usuario/novo");
+        ModelAndView mv = new ModelAndView("cadastros/usuario");
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Optional<Usuario> op = usR.findBynome(auth.getName());
@@ -48,9 +50,9 @@ public class UsuarioHTMLController {
         return mv;
     }
 
-    @PostMapping("/insere_usuario")
+    @PostMapping("/inserir")
     public ModelAndView inserirUsuario(Usuario usuario,
-                                       @RequestParam(name = "idfuncao", required = false) Long idfuncao) {
+                                       @RequestParam(name = "id_funcao", required = false) Long idfuncao) {
         usuario.setSenha(encoder.encode(usuario.getSenha()));
 
         Set<Funcao> funcoes = new HashSet<>();
@@ -64,14 +66,14 @@ public class UsuarioHTMLController {
         return new ModelAndView("redirect:/index");
     }
 
-    @GetMapping("/usuario/lista")
+    @GetMapping("/lista")
     public ModelAndView listarUsuarios() {
         ModelAndView mv = new ModelAndView("/usuario/lista");
         mv.addObject("usuarios", usR.findAll());
         return mv;
     }
 
-    @GetMapping("/usuario/editar/{id}")
+    @GetMapping("/editar/{id}")
     public ModelAndView editarUsuario(@PathVariable Long id) {
         ModelAndView mv = new ModelAndView("/usuario/editar");
         Usuario usuario = usR.findById(id).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
@@ -80,7 +82,7 @@ public class UsuarioHTMLController {
         return mv;
     }
 
-    @PostMapping("/usuario/atualizar")
+    @PostMapping("/atualizar")
     public ModelAndView atualizarUsuario(Usuario usuario, @RequestParam(name = "id_funcao", required = false) Long id_funcao) {
         if (usuario.getSenha() != null && !usuario.getSenha().isBlank()) {
             usuario.setSenha(encoder.encode(usuario.getSenha()));
@@ -97,7 +99,7 @@ public class UsuarioHTMLController {
         return new ModelAndView("redirect:/usuario/lista");
     }
 
-    @GetMapping("/usuario/deletar/{id}")
+    @GetMapping("/deletar/{id}")
     public ModelAndView deletarUsuario(@PathVariable Long id) {
         usR.deleteById(id);
         return new ModelAndView("redirect:/usuario/lista");

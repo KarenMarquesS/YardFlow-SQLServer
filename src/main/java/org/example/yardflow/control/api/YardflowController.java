@@ -9,7 +9,7 @@ import org.example.yardflow.service.YardflowCachingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -17,8 +17,8 @@ import java.util.List;
 import java.util.Optional;
 
 
-@Controller
-@RequestMapping(value = "/YardFlow")
+@RestController
+@RequestMapping(value = "/apiyardflow")
 public class YardflowController {
 
     @Autowired
@@ -38,13 +38,13 @@ public class YardflowController {
         return ResponseEntity.ok(yf);
     }
 
-    @PostMapping("/ativar/{idyf}")
-    public ResponseEntity<Yardflow> ativarYardFlow(@RequestBody @Valid int idyf, @PathVariable int idmoto) {
+    @PostMapping("/ativar/{idyf}/{idmoto}")
+    public ResponseEntity<Yardflow> ativarYardFlow(@PathVariable int idyf, @PathVariable int idmoto) {
         return ResponseEntity.ok(yfS.ativarYardFlow(idyf, idmoto));
     }
 
     @PostMapping("/desativar/{idyf}")
-    public ResponseEntity<Yardflow> desativarYardFlow(@RequestBody @Valid int idyf) {
+    public ResponseEntity<Yardflow> desativarYardFlow(@PathVariable int idyf) {
         return ResponseEntity.ok(yfS.desativarYardFlow(idyf));
     }
 
@@ -53,15 +53,15 @@ public class YardflowController {
         return ResponseEntity.ok(yfS.localizarMotoPorYardFlow(idyf));
     }
 
-    @GetMapping("/{serial}")
+    @GetMapping("/serial/{serial}")
     public ResponseEntity<Optional<Yardflow>> localizarSerialYf(@PathVariable String serial) {
         return ResponseEntity.ok(yfS.buscarSerial(serial));
     }
 
-    @GetMapping("/{dtultimoacionamento}")
+    @GetMapping("/acionamento")
     public ResponseEntity<List<Yardflow>> buscarUltimoAcionamento(@RequestParam("data")
                                                                   @DateTimeFormat (iso = DateTimeFormat.ISO.DATE)
-                                                             LocalDate dtultimoacionamento) {
+                                                                  LocalDate dtultimoacionamento) {
         List<Yardflow> yf = yfS.buscarDtUltimoAcionamento(dtultimoacionamento);
 
         if(yf == null || yf .isEmpty()) {
@@ -70,7 +70,7 @@ public class YardflowController {
         return ResponseEntity.ok(yf);
     }
 
-    @DeleteMapping("/{idyf}")
+    @DeleteMapping("/deletar/{idyf}")
     public ResponseEntity<Void> removerYardFlow(@PathVariable int idyf) {
         yfS.removerYardFlow(idyf);
         return ResponseEntity.noContent().build();

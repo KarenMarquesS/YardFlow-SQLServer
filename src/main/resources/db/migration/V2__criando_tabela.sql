@@ -1,8 +1,15 @@
+-- Tabela: tb_yf_funcao
+CREATE TABLE tb_yf_funcao (
+  idfucao BIGINT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(50) NOT NULL
+);
+
 -- Tabela: tb_yf_usuario
 CREATE TABLE tb_yf_usuario (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255),
     email VARCHAR(255) NOT NULL,
+    senha VARCHAR(255) NOT NULL ,
     funcao VARCHAR(50) NOT NULL,
     CONSTRAINT uq_usuario_email UNIQUE (email)
 );
@@ -41,4 +48,10 @@ CREATE TABLE tb_yf_registro_check_in_out (
      setor VARCHAR(50) NOT NULL,
      idmoto BIGINT,
      CONSTRAINT fk_registro_moto FOREIGN KEY (idmoto) REFERENCES tb_yf_moto(idmoto)
+);
+
+-- Criar tabela de junção esperada pelo mapeamento @ManyToMany (Usuario <-> Funcao)
+CREATE TABLE IF NOT EXISTS usuario_funcao_tab (
+  id_usuario BIGINT NOT NULL,
+  id_funcao  BIGINT NOT NULL
 );

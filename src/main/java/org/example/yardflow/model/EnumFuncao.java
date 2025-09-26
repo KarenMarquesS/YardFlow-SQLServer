@@ -3,7 +3,7 @@ package org.example.yardflow.model;
 public enum EnumFuncao {
 
     MECANICO("Mecânico"), RECEPCAO("Recepção"), EXPEDICAO("Expedição"),
-    VENDEDOR("Vendedor"), GERENTE_PATIO("Gerente do Pátio"), ADMIN("Administrador"),
+    VENDEDOR("Vendedor"), GERENTE("Gerente"), GERENTE_PATIO("Gerente do Pátio"), ADMIN("Administrador"),
     A_DEFINIR("A definir");
 
 

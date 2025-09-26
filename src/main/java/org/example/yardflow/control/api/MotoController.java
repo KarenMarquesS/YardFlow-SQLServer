@@ -20,25 +20,27 @@ import java.util.NoSuchElementException;
 
 
 @RestController
-@RequestMapping(value="/moto")
+@RequestMapping(value="/apimoto")
 public class MotoController {
 
     @Autowired
     private MotoCachingService mtS;
 
+    @Autowired
     private ModelMapper mm;
 
 
+    // não fiz um endpoint - estou avaliando
     @GetMapping
     public ResponseEntity<Page<MotoDTO>> findAll(Pageable pageable) {
         Page<MotoDTO> motos = mtS.findAllPaginado(pageable);
         return ResponseEntity.ok(motos);
     }
 
-    @GetMapping("/{id_moto}")
-    public ResponseEntity<MotoDTO> findById(@PathVariable Integer id_moto) {
-        Moto moto = mtS.findById(id_moto)
-                .orElseThrow(() -> new NoSuchElementException("Moto não encontrada: " + id_moto));
+    @GetMapping("/{idmoto}")
+    public ResponseEntity<MotoDTO> findById(@PathVariable Integer idmoto) {
+        Moto moto = mtS.findById(idmoto)
+                .orElseThrow(() -> new NoSuchElementException("Moto não encontrada: " + idmoto));
         MotoDTO dto = mm.map(moto, MotoDTO.class);
         return ResponseEntity.ok(dto);
     }
@@ -58,7 +60,7 @@ public class MotoController {
         return ResponseEntity.ok(mtS.buscarHistorico(idmoto));
     }
 
-    @PostMapping
+    @PostMapping("/novamoto")
     public ResponseEntity<MotoDTO> criarNovaMoto(@RequestBody @Valid MotoDTO motoDTO) {
         MotoDTO createdMoto = mtS.criarNovaMoto(motoDTO);
 
@@ -76,9 +78,9 @@ public class MotoController {
         return ResponseEntity.ok(updatedMoto);
     }
 
-    @DeleteMapping("/deletar/{id_moto}")
-    public ResponseEntity<Void> deletarRegistroMoto(@PathVariable Integer id_moto) {
-        mtS.deletarRegistroMoto(id_moto);
+    @DeleteMapping("/deletar/{idmoto}")
+    public ResponseEntity<Void> deletarRegistroMoto(@PathVariable Integer idmoto) {
+        mtS.deletarRegistroMoto(idmoto);
         return ResponseEntity.noContent().build();
     }
 

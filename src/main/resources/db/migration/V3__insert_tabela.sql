@@ -34,9 +34,33 @@ INSERT INTO tb_yf_registro_check_in_out (entradapatio, saidapatio, periodo, seto
 INSERT INTO tb_yf_registro_check_in_out (entradapatio, saidapatio, periodo, setor, idmoto) VALUES (DATE '2025-05-04', DATE '2025-06-20', 46, 'DISPONIVEL_ALUGUEL', 7);
 
 
-INSERT INTO tb_yf_usuario (nome, email, funcao) VALUES ('Ana Souza', 'ana.souza@example.com', 'RECEPCAO');
-INSERT INTO tb_yf_usuario (nome, email, funcao) VALUES ('Carlos Oliveira', 'carlos.oliveira@example.com', 'GERENTE_PATIO');
-INSERT INTO tb_yf_usuario (nome, email, funcao) VALUES ('Fernanda Lima', 'fernanda.lima@example.com', 'RECEPCAO');
-INSERT INTO tb_yf_usuario (nome, email, funcao) VALUES ('João Pereira', 'joao.pereira@example.com', 'MECANICO');
-INSERT INTO tb_yf_usuario (nome, email, funcao) VALUES ('Mariana Santos', 'mariana.santos@example.com', 'EXPEDICAO');
+INSERT INTO tb_yf_usuario (nome, email, senha, funcao) VALUES ('Ana Souza', 'ana.souza@example.com', 'ADMIN', 'ADMIN');
+INSERT INTO tb_yf_usuario (nome, email, senha, funcao) VALUES ('Carlos Oliveira', 'carlos.oliveira@example.com', 'ADMIN','GERENTE_PATIO');
+INSERT INTO tb_yf_usuario (nome, email, senha, funcao) VALUES ('Fernanda Lima', 'fernanda.lima@example.com', 'ADMIN','RECEPCAO');
+INSERT INTO tb_yf_usuario (nome, email, senha, funcao) VALUES ('João Pereira', 'joao.pereira@example.com', 'ADMIN','MECANICO');
+INSERT INTO tb_yf_usuario (nome, email, senha, funcao) VALUES ('Mariana Santos', 'mariana.santos@example.com', 'ADMIN','EXPEDICAO');
 
+insert into tb_yf_funcao (nome) values ('ADMIN');
+insert into tb_yf_funcao (nome) values ('GERENTE');
+
+-- Garantir que todas as funções do Enum existam na tabela de função
+INSERT INTO tb_yf_funcao (nome)
+SELECT 'GERENTE_PATIO' WHERE NOT EXISTS (SELECT 1 FROM tb_yf_funcao WHERE nome = 'GERENTE_PATIO');
+INSERT INTO tb_yf_funcao (nome)
+SELECT 'RECEPCAO' WHERE NOT EXISTS (SELECT 1 FROM tb_yf_funcao WHERE nome = 'RECEPCAO');
+INSERT INTO tb_yf_funcao (nome)
+SELECT 'MECANICO' WHERE NOT EXISTS (SELECT 1 FROM tb_yf_funcao WHERE nome = 'MECANICO');
+INSERT INTO tb_yf_funcao (nome)
+SELECT 'EXPEDICAO' WHERE NOT EXISTS (SELECT 1 FROM tb_yf_funcao WHERE nome = 'EXPEDICAO');
+INSERT INTO tb_yf_funcao (nome)
+SELECT 'ADMIN' WHERE NOT EXISTS (SELECT 1 FROM tb_yf_funcao WHERE nome = 'ADMIN');
+
+-- Popular a tabela de junção a partir da coluna 'funcao' da tabela de usuários
+INSERT INTO usuario_funcao_tab (id_usuario, id_funcao)
+SELECT u.id, f.idfucao
+FROM tb_yf_usuario u
+         JOIN tb_yf_funcao f ON f.nome = u.funcao
+WHERE NOT EXISTS (
+    SELECT 1 FROM usuario_funcao_tab uf
+    WHERE uf.id_usuario = u.id AND uf.id_funcao = f.idfucao
+);

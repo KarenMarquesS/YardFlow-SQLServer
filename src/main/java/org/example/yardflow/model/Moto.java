@@ -24,6 +24,7 @@ public class Moto {
     private String historico;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "yardflow_idyf", referencedColumnName = "idyf")
     private Yardflow yardflow;
 
     @OneToMany(mappedBy = "moto", cascade = CascadeType.ALL)

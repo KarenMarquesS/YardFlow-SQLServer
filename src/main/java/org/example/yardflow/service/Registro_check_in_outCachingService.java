@@ -38,7 +38,7 @@
 //        Moto moto = mtR.findById(idmoto).orElseThrow(() ->
 //                new IllegalArgumentException("Moto não encontrada com id: " + idmoto));
 //
-//        rgR.findTopByMotoAndSaidapatioIsNullOrderByEntradapatioDesc(idmoto)
+//        rgR.findTopByMoto_IdmotoAndSaidapatioIsNullOrderByEntradapatioDesc(idmoto)
 //                .ifPresent(r -> { throw new IllegalStateException("Já existe um registro aberto para essa moto."); });
 //
 //        Registro_check_in_out reg = new Registro_check_in_out();
@@ -51,7 +51,7 @@
 //
 //    @CacheEvict(value = "registroCache", allEntries = true)
 //    public Registro_check_in_out inserirDataSaida(int idmoto, LocalDate saida) {
-//        Registro_check_in_out reg = rgR.findTopByMotoAndSaidapatioIsNullOrderByEntradapatioDesc(idmoto)
+//        Registro_check_in_out reg = rgR.findTopByMoto_IdmotoAndSaidapatioIsNullOrderByEntradapatioDesc(idmoto)
 //                .orElseThrow(() -> new IllegalArgumentException("Nenhum registro aberto encontrado para a moto id: " + idmoto));
 //
 //        if (saida.isBefore(reg.getEntradapatio())) {
@@ -79,8 +79,8 @@
 //    @Cacheable(value = "registroCache", key = "'permanencia:moto:' + #idmoto")
 //    public int calcularPermanenciaPorIdMoto(int idmoto) {
 //        // tenta primeiro registro aberto, senão o último registro existente
-//        Registro_check_in_out reg = rgR.findTopByMotoAndSaidapatioIsNullOrderByEntradapatioDesc(idmoto)
-//                .orElseGet(() -> rgR.findTopByMotoOrderByEntradapatioDesc(idmoto)
+//        Registro_check_in_out reg = rgR.findTopByMoto_IdmotoAndSaidapatioIsNullOrderByEntradapatioDesc(idmoto)
+//                .orElseGet(() -> rgR.findTopByMoto_IdmotoOrderByEntradapatioDesc(idmoto)
 //                        .orElseThrow(() -> new IllegalArgumentException("Registro não encontrado para moto id: " + idmoto)));
 //
 //        LocalDate saida = reg.getSaidapatio();
@@ -100,9 +100,14 @@
 //        List<RegistroPermanenciaDTO> all = rgR.findByEntradapatioIsNotNull().stream()
 //                .map(r -> {
 //                    int periodo = calcularPeriodoEntre(r.getEntradapatio(), r.getSaidapatio());
-//                    Integer idmoto = (r.getMoto() != null) ? r.getMoto().getIdmoto() : null;
-//                    String modelo = (r.getMoto() != null) ? r.getMoto().getModelo().getDescricao() : null;
-//                    return new RegistroPermanenciaDTO();
+//                    return new RegistroPermanenciaDTO(
+//                            0,
+//                            r.getMoto() != null ? r.getMoto().getIdmoto() : 0,
+//                            r.getMoto() != null ? r.getMoto().getModelo() : null,
+//                            r.getEntradapatio(),
+//                            r.getSaidapatio(),
+//                            periodo
+//                    );
 //                })
 //                .sorted(Comparator.comparingInt(RegistroPermanenciaDTO::getPeriodo).reversed())
 //                .collect(Collectors.toList());
@@ -121,6 +126,3 @@
 //
 //    }
 //}
-//
-//
-//

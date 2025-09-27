@@ -1,81 +1,66 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragmentos :: cabecalho('YardFlow - Lista de Motos')}"></head>
-
-
-
+<head>
+    <meta charset="UTF-8">
+    <title>YardFlow - Lista de Motos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
 <body class="bg-green-50 font-sans flex flex-col min-h-screen">
 
 <!-- Header com Logout -->
 <header class="bg-green-600 p-4 shadow-md flex justify-between items-center">
-  <h1 class="text-white text-xl font-bold">YardFlow</h1>
-  <div th:replace="~{fragmentos :: voltarHome}"></div>
-  <div th:replace="~{fragmentos :: form-logout}"></div>
+    <h1 class="text-white text-xl font-bold">YardFlow</h1>
+    <div th:replace="~{fragmentos :: voltarHome}"></div>
+    <div th:replace="~{fragmentos :: form-logout}"></div>
 </header>
 
 <!-- Conteúdo principal -->
 <main class="flex-grow py-10 px-6">
-  <div class="bg-white border border-green-700 rounded-2xl shadow-lg w-full max-w-6xl mx-auto p-6">
-    <h2 class="text-2xl font-bold text-center mb-6 text-green-800">Lista de Motos no Pátio</h2>
+    <div class="bg-white border border-green-700 rounded-2xl shadow-lg w-full max-w-6xl mx-auto p-6">
+        <h2 class="text-2xl font-bold text-center mb-6 text-green-800">Lista de Motos no Pátio</h2>
 
-    <!-- Tabela -->
-    <div class="overflow-x-auto">
-      <table class="min-w-full border border-green-700 rounded-lg overflow-hidden">
-        <thead class="bg-green-600 text-white">
-        <tr>
-          <th class="px-4 py-2 text-left">ID YF</th>
-          <th class="px-4 py-2 text-left">ID Moto</th>
-          <th class="px-4 py-2 text-left">Placa</th>
-          <th class="px-4 py-2 text-left">Data Entrada</th>
-          <th class="px-4 py-2 text-left">Data Saída</th>
-          <th class="px-4 py-2 text-left">Estadia</th>
-          <th class="px-4 py-2 text-center">Ações</th>
-        </tr>
-        </thead>
-        <tbody class="divide-y divide-green-200">
-        <tr th:each="m : ${motos}">
-          <td class="px-4 py-2 text-green-900" th:text="${m.id_yf}"></td>
-          <td class="px-4 py-2 text-green-900" th:text="${m.id_moto}"></td>
-          <td class="px-4 py-2 text-green-900" th:text="${m.placa}"></td>
-          <td class="px-4 py-2 text-green-900" th:text="${#temporals.format(m.dataEntrada, 'dd/MM/yyyy')}"></td>
-          <td class="px-4 py-2 text-green-900"
-              th:text="${m.dataSaida != null ? #temporals.format(m.dataSaida, 'dd/MM/yyyy') : '—'}"></td>
-          <td class="px-4 py-2 text-green-900 font-medium" th:text="${m.periodoEstadia} + ' dias'"></td>
-          <td class="px-4 py-2 text-center">
-            <div class="flex justify-center space-x-2">
-              <a th:href="@{/moto/editar/{id}(id=${m.id_moto})}" 
-                 class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition duration-200"
-                 title="Editar moto">
-                <i class="fas fa-edit"></i>
-              </a>
-              <a th:href="@{/moto/deletar/{id}(id=${m.id_moto})}" 
-                 class="px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded-lg transition duration-200"
-                 title="Excluir moto"
-                 onclick="return confirm('Tem certeza que deseja excluir esta moto?')">
-                <i class="fas fa-trash"></i>
-              </a>
-            </div>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
+        <!-- Tabela -->
+        <div class="overflow-x-auto">
+            <table class="min-w-full border border-green-700 rounded-lg overflow-hidden">
+                <thead class="bg-green-600 text-white">
+                <tr>
+                    <th class="px-4 py-2 text-left">ID YF</th>
+                    <th class="px-4 py-2 text-left">ID Moto</th>
+                    <th class="px-4 py-2 text-left">Placa</th>
+                    <th class="px-4 py-2 text-left">Data Entrada</th>
+                    <th class="px-4 py-2 text-left">Data Saída</th>
+                    <th class="px-4 py-2 text-left">Estadia</th>
+                </tr>
+                </thead>
+                <tbody class="divide-y divide-green-200">
+                <tr th:each="moto : ${motos}">
+                    <td class="px-4 py-2 text-green-900" th:text="${id_yf}"></td>
+                    <td class="px-4 py-2 text-green-900" th:text="${id_moto}"></td>
+                    <td class="px-4 py-2 text-green-900" th:text="${placa}"></td>
+                    <td class="px-4 py-2 text-green-900" th:text="${#temporals.format(dataEntrada, 'dd/MM/yyyy')}"></td>
+                    <td class="px-4 py-2 text-green-900"
+                        th:text="${dataSaida != null ? #temporals.format(dataSaida, 'dd/MM/yyyy') : '—'}"></td>
+                    <td class="px-4 py-2 text-green-900 font-medium" th:text="${periodoEstadia} + 'dias'"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
-    <!-- Paginação -->
-    <div class="flex justify-center items-center mt-6 space-x-2">
-      <a th:if="${currentPage > 0}"
-         th:href="@{/consultas/listaMoto(page=${currentPage - 1}, size=${size})}"
-         class="px-3 py-1 bg-green-600 hover:bg-green-700 rounded-lg text-white text-sm">Anterior</a>
+        <!-- Paginação -->
+        <div class="flex justify-center items-center mt-6 space-x-2">
+            <a th:if="${currentPage > 0}"
+               th:href="@{/motos/lista(page=${currentPage - 1}, size=10)}"
+               class="px-3 py-1 bg-green-600 hover:bg-green-700 rounded-lg text-white text-sm">Anterior</a>
 
-      <span class="text-green-900 font-medium">
+            <span class="text-green-900 font-medium">
                 Página <span th:text="${currentPage + 1}"></span> de <span th:text="${totalPages}"></span>
             </span>
 
-      <a th:if="${currentPage < totalPages - 1}"
-         th:href="@{/consultas/listaMoto(page=${currentPage + 1}, size=${size})}"
-         class="px-3 py-1 bg-green-600 hover:bg-green-700 rounded-lg text-white text-sm">Próxima</a>
+            <a th:if="${currentPage < totalPages - 1}"
+               th:href="@{/motos/lista(page=${currentPage + 1}, size=10)}"
+               class="px-3 py-1 bg-green-600 hover:bg-green-700 rounded-lg text-white text-sm">Próxima</a>
+        </div>
     </div>
-  </div>
 </main>
 
 <!-- Rodapé -->

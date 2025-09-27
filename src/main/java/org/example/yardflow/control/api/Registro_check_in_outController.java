@@ -18,7 +18,7 @@
 //import java.util.List;
 //
 //@RestController
-//@RequestMapping("/registrocheckinout")
+//@RequestMapping("/apiregistrocheckinout")
 //public class Registro_check_in_outController {
 //
 //    @Autowired
@@ -82,5 +82,3 @@
 //
 //
 //}
-//
-//

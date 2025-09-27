@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Pattern;
 import org.example.yardflow.model.EnumModelo;
 import org.example.yardflow.model.Yardflow;
 
+import java.time.LocalDateTime;
 
 
 public class MotoDTO {
@@ -27,6 +28,12 @@ public class MotoDTO {
     private String historico;
 
     private Yardflow yardflow;
+
+    // Campos usados na página de cadastro (view model)
+    private LocalDateTime entrada;
+    private LocalDateTime saida;
+    private Integer yFlowIoT;
+    private Boolean ativo;
 
 
     public MotoDTO() {
@@ -87,5 +94,37 @@ public class MotoDTO {
 
     public void setYardflow(Yardflow yardflow) {
         this.yardflow = yardflow;
+    }
+
+    public LocalDateTime getEntrada() {
+        return entrada;
+    }
+
+    public void setEntrada(LocalDateTime entrada) {
+        this.entrada = entrada;
+    }
+
+    public LocalDateTime getSaida() {
+        return saida;
+    }
+
+    public void setSaida(LocalDateTime saida) {
+        this.saida = saida;
+    }
+
+    public Integer getyFlowIoT() {
+        return yFlowIoT;
+    }
+
+    public void setyFlowIoT(Integer yFlowIoT) {
+        this.yFlowIoT = yFlowIoT;
+    }
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
     }
 }

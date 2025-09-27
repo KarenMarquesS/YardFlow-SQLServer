@@ -19,11 +19,10 @@ public class Yardflow {
     @Column(nullable = false, unique = true)
     private String serial;
 
-    @Column(name = "dt_ultimo_acionamento")
+    @Column(name = "dtultimoacionamento")
     private LocalDateTime dtUltimoAcionamento;
 
-    @OneToOne
-    @JoinColumn(name = "idmoto", referencedColumnName = "idmoto", nullable = false, unique = true)
+    @OneToOne(mappedBy = "yardflow")
     private Moto moto;
 
 

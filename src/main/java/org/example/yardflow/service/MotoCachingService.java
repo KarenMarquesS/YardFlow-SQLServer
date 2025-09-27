@@ -3,6 +3,7 @@ package org.example.yardflow.service;
 import jakarta.persistence.EntityNotFoundException;
 import org.example.yardflow.dto.MotoDTO;
 import org.example.yardflow.model.Moto;
+import org.example.yardflow.model.Yardflow;
 import org.example.yardflow.repository.MotoRepositorio;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,9 +86,23 @@ public class MotoCachingService {
 
 
     @CacheEvict(value = "motoCache", allEntries = true)
+    @Transactional
     public void deletarRegistroMoto(int idmoto) {
         Moto moto = mtRp.findById(idmoto)
                 .orElseThrow(() -> new EntityNotFoundException("Moto não encontrada: " + idmoto));
+        
+        // Desassociar o Yardflow se existir
+        if (moto.getYardflow() != null) {
+            Yardflow yardflow = moto.getYardflow();
+            yardflow.setMoto(null);
+            moto.setYardflow(null);
+        }
+        
+        // Limpar os registros de check-in/out associados
+        if (moto.getRegistrosCheckInOut() != null && !moto.getRegistrosCheckInOut().isEmpty()) {
+            moto.getRegistrosCheckInOut().clear();
+        }
+        
         mtRp.delete(moto);
     }
 

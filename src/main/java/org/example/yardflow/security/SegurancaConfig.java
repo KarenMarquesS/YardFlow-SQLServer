@@ -3,6 +3,7 @@ package org.example.yardflow.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -13,36 +14,25 @@ public class SegurancaConfig {
 
     @Bean
     public SecurityFilterChain chain(HttpSecurity http) throws Exception {
-        http
-                // regras de autorização
-                .authorizeHttpRequests(request -> request
-                        // libera estáticos
-                        .requestMatchers("/img/**", "/css/**").permitAll()
-                        // somente ADMIN pode acessar
+
+        http.authorizeHttpRequests( (request) -> request
+                        .requestMatchers("/login", "/login/**", "/css/**", "/img/**").permitAll()
                         .requestMatchers("/usuario/novo").hasAuthority("ADMIN")
-                        // todo o resto precisa estar autenticado
-                        .anyRequest().authenticated()
-                )
-                // login
-                .formLogin(login -> login
-                        .loginPage("/index")
+                        .anyRequest().authenticated() )
+                .formLogin( (login) -> login
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login")
+                        .usernameParameter("email")
+                        .passwordParameter("password")
                         .defaultSuccessUrl("/home", true)
                         .failureUrl("/login?falha=true")
-                        .permitAll()
-                )
-                // logout
-                .logout(logout -> logout
-                        .logoutUrl("/logout")
+                        .permitAll())
+                .logout((logout) -> logout
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "POST"))
                         .logoutSuccessUrl("/login?logout=true")
-                        .permitAll()
-                )
-                // tratamento de exceções
-                .exceptionHandling(exception -> exception
-                        .accessDeniedHandler((request, response, accessDeniedException) -> {
-                            response.sendRedirect("/acesso_negado");
-                        })
-                );
-
+                        .permitAll())
+                .exceptionHandling((exception) ->
+                        exception.accessDeniedHandler((request, response, ex) -> {response.sendRedirect("/login/acesso_negado");}) );
 
         return http.build();
 
@@ -50,9 +40,8 @@ public class SegurancaConfig {
 
     @Bean
     public PasswordEncoder encoder() {
-
-        return new BCryptPasswordEncoder();
+        // Dados seed (Flyway) usam senha em texto puro como "ADMIN". Para demo, usar NoOp.
+        return org.springframework.security.crypto.password.NoOpPasswordEncoder.getInstance();
     }
-
 
 }

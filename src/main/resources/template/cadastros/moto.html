@@ -23,8 +23,13 @@
             Registro de Entrada e Saída de Motos
         </h1>
 
+        <!-- Exibir erro se houver -->
+        <div th:if="${erro}" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+            <span th:text="${erro}"></span>
+        </div>
 
-        <form method="post" th:action="@{/moto/inserir}" th:object="${motoDTO}" enctype="multipart/form-data" class="space-y-6">
+
+        <form method="post" th:action="@{/moto/inserirMoto}" th:object="${motoDTO}" enctype="multipart/form-data" class="space-y-6">
 
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -7,12 +7,12 @@ import org.example.yardflow.model.Patio;
 
 public class PatioDTO {
 
-    private int idpatio;
+    private long idpatio;
 
     private String name;
 
     @Positive
-    private int qtdvagas;
+    private long qtdvagas;
 
 
     // Conversão de entidade em DTO
@@ -28,7 +28,7 @@ public class PatioDTO {
     public PatioDTO() {
     }
 
-    public PatioDTO(int idpatio, String name, int qtdvagas) {
+    public PatioDTO(long idpatio, String name, long qtdvagas) {
         this.idpatio = idpatio;
         this.name = name;
         this.qtdvagas = qtdvagas;
@@ -40,11 +40,11 @@ public class PatioDTO {
         this.qtdvagas = patio.getQtdvagas();
     }
 
-    public int getIdpatio() {
+    public long getIdpatio() {
         return idpatio;
     }
 
-    public void setId_patio(int idpatio) {
+    public void setId_patio(long idpatio) {
         this.idpatio = idpatio;
     }
 
@@ -57,11 +57,11 @@ public class PatioDTO {
     }
 
     @Positive
-    public int getQtdvagas() {
+    public long getQtdvagas() {
         return qtdvagas;
     }
 
-    public void setQtd_vagas(@Positive int qtdvagas) {
+    public void setQtd_vagas(@Positive long qtdvagas) {
         this.qtdvagas = qtdvagas;
     }
 }

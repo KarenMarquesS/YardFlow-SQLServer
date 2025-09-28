@@ -30,7 +30,7 @@ public class PatioController {
             tags = "Inserção de informação",
             summary = "Inserir novo pátio"
     )
-    @PostMapping("/inserir")
+    @PostMapping("/inserirNovo")
     public ResponseEntity<PatioDTO> inserirPatio(@Valid @RequestBody PatioDTO dto) {
         Patio salvo = ptS.inserirPatio(dto);
 
@@ -39,7 +39,7 @@ public class PatioController {
     }
 
     @PutMapping("/{idpatio}")
-    public ResponseEntity<PatioDTO> atualizarPatio(@PathVariable int idpatio, @Valid @RequestBody PatioDTO dto) {
+    public ResponseEntity<PatioDTO> atualizarPatio(@PathVariable long idpatio, @Valid @RequestBody PatioDTO dto) {
         Patio atualizado = ptS.atualizarPatio(idpatio, dto);
 
         return ResponseEntity.status(HttpStatus.OK).body(new PatioDTO(atualizado));
@@ -51,7 +51,7 @@ public class PatioController {
             summary = "Buscar pátio por ID"
     )
     @GetMapping("/{idpatio}")
-    public ResponseEntity<PatioDTO> buscarPorId(@PathVariable int idpatio) {
+    public ResponseEntity<PatioDTO> buscarPorId(@PathVariable long idpatio) {
         Optional<Patio> patio = ptS.buscarPatioPorId(idpatio);
 
         return patio.map(p-> ResponseEntity.ok(new PatioDTO(p))).orElseGet(() -> ResponseEntity.notFound().build());
@@ -75,7 +75,7 @@ public class PatioController {
             summary = "Buscar pátios por quantidade de vagas"
     )
     @GetMapping("/quantidadevagas/{idpatio}")
-    public ResponseEntity<Integer> mostrarQtdVagas(@PathVariable int idpatio) {
+    public ResponseEntity<Long> mostrarQtdVagas(@PathVariable long idpatio) {
         Optional<Patio> patio = ptS.buscarPatioPorId(idpatio);
 
         if (patio.isPresent()) {
@@ -87,7 +87,7 @@ public class PatioController {
 
 
     @DeleteMapping("/{idpatio}")
-    public ResponseEntity<Void> deletarPatio(@PathVariable int idpatio) {
+    public ResponseEntity<Void> deletarPatio(@PathVariable long idpatio) {
         ptS.deletarPatio(idpatio);
         return ResponseEntity.noContent().build();
     }

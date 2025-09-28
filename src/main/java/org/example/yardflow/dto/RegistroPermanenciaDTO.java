@@ -6,17 +6,17 @@ import java.time.LocalDate;
 
 public class RegistroPermanenciaDTO {
 
-    private int idpermanencia;
-    private int idmoto;
+    private long idpermanencia;
+    private long idmoto;
     private EnumModelo modelo;
     private LocalDate entradapatio;
     private LocalDate saidapatio;
-    private int periodo;
+    private long periodo;
 
     public RegistroPermanenciaDTO() {
     }
 
-    public RegistroPermanenciaDTO(int idpermanencia, int idmoto, EnumModelo modelo, LocalDate entradapatio, LocalDate saidapatio, int periodo) {
+    public RegistroPermanenciaDTO(long idpermanencia, long idmoto, EnumModelo modelo, LocalDate entradapatio, LocalDate saidapatio, long periodo) {
         this.idpermanencia = idpermanencia;
         this.idmoto = idmoto;
         this.modelo = modelo;
@@ -25,11 +25,11 @@ public class RegistroPermanenciaDTO {
         this.periodo = periodo;
     }
 
-    public int getPeriodo() {
+    public long getPeriodo() {
         return periodo;
     }
 
-    public void setPeriodo(int periodo) {
+    public void setPeriodo(long periodo) {
         this.periodo = periodo;
     }
 
@@ -57,19 +57,19 @@ public class RegistroPermanenciaDTO {
         this.modelo = modelo;
     }
 
-    public int getIdmoto() {
+    public long getIdmoto() {
         return idmoto;
     }
 
-    public void setIdmoto(int idmoto) {
+    public void setIdmoto(long idmoto) {
         this.idmoto = idmoto;
     }
 
-    public int getIdpermanencia() {
+    public long getIdpermanencia() {
         return idpermanencia;
     }
 
-    public void setIdpermanencia(int idpermanencia) {
+    public void setIdpermanencia(long idpermanencia) {
         this.idpermanencia = idpermanencia;
     }
 }

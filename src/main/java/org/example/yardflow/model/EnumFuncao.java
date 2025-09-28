@@ -9,7 +9,7 @@ public enum EnumFuncao {
 
     private final String descricao;
 
-    private EnumFuncao(String descricao) {
+    EnumFuncao(String descricao) {
         this.descricao = descricao;
     }
 

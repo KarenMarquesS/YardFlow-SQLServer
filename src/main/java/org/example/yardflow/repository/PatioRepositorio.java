@@ -8,10 +8,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface PatioRepositorio extends JpaRepository<Patio, Integer> {
+public interface PatioRepositorio extends JpaRepository<Patio, Long> {
 
     Patio findByName(String name);
 
-    List<Patio> findByQtdvagas(int qtdvagas);
+    List<Patio> findByQtdvagas(long qtdvagas);
 
 }

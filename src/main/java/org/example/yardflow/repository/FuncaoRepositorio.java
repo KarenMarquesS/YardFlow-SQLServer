@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface FuncaoRepositorio  extends JpaRepository<Funcao, Integer> {
+public interface FuncaoRepositorio  extends JpaRepository<Funcao, Long> {
     Optional<Funcao> findById(Long idfuncao);
 }

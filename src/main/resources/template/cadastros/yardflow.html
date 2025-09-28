@@ -24,21 +24,21 @@
       <tr>
         <th class="p-3 text-left">ID</th>
         <th class="p-3 text-left">Moto</th>
-        <th class="p-3 text-left">Data Entrada</th>
-        <th class="p-3 text-left">Data Saída</th>
+        <th class="p-3 text-left">Último Acionamento</th>
+        <th class="p-3 text-left">Serial</th>
         <th class="p-3 text-center">Ações</th>
       </tr>
       </thead>
       <tbody>
       <tr th:each="fluxo : ${yardflows}" class="border-b hover:bg-green-50">
-        <td class="p-3" th:text="${fluxo.id}"></td>
+        <td class="p-3" th:text="${fluxo.idyf}"></td>
         <td class="p-3" th:text="${fluxo.moto?.placa ?: 'N/A'}"></td>
-        <td class="p-3" th:text="${fluxo.dataEntrada ?: 'N/A'}"></td>
-        <td class="p-3" th:text="${fluxo.dataSaida ?: 'N/A'}"></td>
+        <td class="p-3" th:text="${fluxo.dtUltimoAcionamento ?: 'N/A'}"></td>
+        <td class="p-3" th:text="${fluxo.serial ?: 'N/A'}"></td>
         <td class="p-3 text-center space-x-2">
-          <a th:href="@{/yf/{id}/ativar/{idmoto}(id=${fluxo.id}, idmoto=${fluxo.moto?.idmoto})}"
+          <a th:href="@{/yardflow/editar/{id}(id=${fluxo.idyf})}"
              class="px-4 py-2 bg-green-600 hover:bg-green-800 text-white rounded-lg transition duration-200">Editar</a>
-          <a th:href="@{/yf/{id}/remover(id=${fluxo.id})}"
+          <a th:href="@{/yardflow/deletar/{id}(id=${fluxo.idyf})}"
              class="px-4 py-2 bg-gray-400 hover:bg-red-500 text-white rounded-lg transition duration-200">Excluir</a>
         </td>
       </tr>

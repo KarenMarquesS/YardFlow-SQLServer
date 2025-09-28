@@ -4,9 +4,6 @@ import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Past;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -19,7 +16,7 @@ public class Registro_check_in_out {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idregistro;
+    private long idregistro;
 
     @Past(message = "Data de Entrada inválida!")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
@@ -29,7 +26,7 @@ public class Registro_check_in_out {
     private LocalDate saidapatio;
 
     @Column(nullable = false)
-    private int periodo;
+    private long periodo;
 
     @Enumerated(EnumType.STRING)
     private EnumSetor setor;
@@ -54,13 +51,13 @@ public class Registro_check_in_out {
         }
 
         long dias = ChronoUnit.DAYS.between(entradapatio, dataSaida);
-        this.periodo = (int) Math.max(dias, 1 ); // mínimo 1 dia
+        this.periodo = (long) Math.max(dias, 1 ); // mínimo 1 dia
     }
 
     public Registro_check_in_out() {
     }
 
-    public Registro_check_in_out(int idregistro, LocalDate entradapatio, LocalDate saidapatio, int periodo, EnumSetor setor, Moto moto) {
+    public Registro_check_in_out(long idregistro, LocalDate entradapatio, LocalDate saidapatio, long periodo, EnumSetor setor, Moto moto) {
         this.idregistro = idregistro;
         this.entradapatio = entradapatio;
         this.saidapatio = saidapatio;
@@ -69,11 +66,11 @@ public class Registro_check_in_out {
         this.moto = moto;
     }
 
-    public int getIdregistro() {
+    public long getIdregistro() {
         return idregistro;
     }
 
-    public void setIdregistro(int idregistro) {
+    public void setIdregistro(long idregistro) {
         this.idregistro = idregistro;
     }
 
@@ -93,11 +90,11 @@ public class Registro_check_in_out {
         this.saidapatio = saidapatio;
     }
 
-    public int getPeriodo() {
+    public long getPeriodo() {
         return periodo;
     }
 
-    public void setPeriodo(int periodo) {
+    public void setPeriodo(long periodo) {
         this.periodo = periodo;
     }
 

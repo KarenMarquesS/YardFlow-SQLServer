@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 public class Yardflow {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int idyf;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long idyf;
 
     @Column(nullable = false, unique = true)
     private String serial;
@@ -29,18 +29,18 @@ public class Yardflow {
     public Yardflow() {
     }
 
-    public Yardflow(int idyf, String serial, LocalDateTime dtultimoacionamento, Moto moto) {
+    public Yardflow(long idyf, String serial, LocalDateTime dtultimoacionamento, Moto moto) {
         this.idyf = idyf;
         this.serial = serial;
         this.dtUltimoAcionamento = dtultimoacionamento;
         this.moto = moto;
     }
 
-    public int getIdyf() {
+    public long getIdyf() {
         return idyf;
     }
 
-    public void setIdyf(int idyf) {
+    public void setIdyf(long idyf) {
         this.idyf = idyf;
     }
 
@@ -52,12 +52,12 @@ public class Yardflow {
         this.serial = serial;
     }
 
-    public LocalDateTime getDtultimoacionamento() {
+    public LocalDateTime getDtUltimoAcionamento() {
         return dtUltimoAcionamento;
     }
 
-    public void setDtultimoacionamento(LocalDateTime dtultimoacionamento) {
-        this.dtUltimoAcionamento = dtultimoacionamento;
+    public void setDtUltimoAcionamento(LocalDateTime dtUltimoAcionamento) {
+        this.dtUltimoAcionamento = dtUltimoAcionamento;
     }
 
     public Moto getMoto() {

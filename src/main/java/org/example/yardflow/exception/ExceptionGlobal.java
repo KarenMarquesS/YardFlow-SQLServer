@@ -17,7 +17,8 @@ public class ExceptionGlobal {
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<String> handleRuntimeException(RuntimeException ex){
-        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(">> Erro Inesperado. Tente novamente mais tarde! <<" + ex.getMessage());
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(">> Erro Inesperado. Tente novamente" +
+                "mais tarde! <<" + ex.getMessage());
     }
 
     @ExceptionHandler(Exception.class)

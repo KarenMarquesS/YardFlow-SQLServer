@@ -12,6 +12,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.time.LocalDate;
@@ -29,14 +30,41 @@ public class YardflowCachingService {
     @Autowired
     private MotoRepositorio mtR;
 
-    @CacheEvict(value = "yfCahe", allEntries = true)
+    @CacheEvict(value = "yfCache", allEntries = true)
+    @Transactional
     public Yardflow criarNovoYardFlow(Yardflow yf) {
-        return yfRep.save(yf);
+        try {
+            // Validar dados obrigatórios
+            if (yf.getSerial() == null || yf.getSerial().trim().isEmpty()) {
+                throw new IllegalArgumentException("Serial é obrigatório");
+            }
+            
+            // Verificar se já existe um YardFlow com o mesmo serial
+            Optional<Yardflow> existingYf = yfRep.findBySerial(yf.getSerial());
+            if (existingYf.isPresent()) {
+                throw new IllegalArgumentException("Já existe um YardFlow com o serial: " + yf.getSerial());
+            }
+            
+            // Se há uma moto associada, verificar se ela já tem um YardFlow
+            if (yf.getMoto() != null) {
+                Moto moto = yf.getMoto();
+                if (moto.getYardflow() != null) {
+                    throw new IllegalArgumentException("A moto " + moto.getPlaca() + " já possui um YardFlow associado");
+                }
+                // Estabelecer o relacionamento bidirecional
+                moto.setYardflow(yf);
+                yf.setMoto(moto);
+            }
+            
+            return yfRep.save(yf);
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao criar novo YardFlow: " + e.getMessage(), e);
+        }
     }
 
 
     @Cacheable(value = "yfCache", key = "#ativar")
-    public Yardflow ativarYardFlow(int idyf, int idmoto){
+    public Yardflow ativarYardFlow(long idyf, long idmoto){
 
         Yardflow yf = yfRep.findById(idyf).orElseThrow(()-> new IllegalArgumentException("YardFlow não localizado"));
 
@@ -48,7 +76,7 @@ public class YardflowCachingService {
 
         moto.setYardflow(yf);
         yf.setMoto(moto);
-        yf.setDtultimoacionamento(LocalDateTime.from(LocalDate.now()));
+        yf.setDtUltimoAcionamento(LocalDateTime.now());
 
         return yfRep.save(yf);
     }
@@ -60,11 +88,13 @@ public class YardflowCachingService {
 
     @Cacheable(value = "yfCache", key = "'acionamento' + #dt_ultimo_acionamento")
     public List<Yardflow> buscarDtUltimoAcionamento (LocalDate dt_ultimo_acionamento) {
-        return yfRep.findByDtUltimoAcionamento(LocalDateTime.from(dt_ultimo_acionamento));
+        LocalDateTime startOfDay = dt_ultimo_acionamento.atStartOfDay();
+        LocalDateTime endOfDay = dt_ultimo_acionamento.atTime(23, 59, 59);
+        return yfRep.findByDtUltimoAcionamentoBetween(startOfDay, endOfDay);
     }
 
     @Cacheable(value = "yfCache", key = "#desativar")
-    public Yardflow desativarYardFlow(int idyf){
+    public Yardflow desativarYardFlow(long idyf){
         Yardflow yf = yfRep.findById(idyf).orElseThrow(()-> new IllegalArgumentException("YardFlow não encontrado"));
         Moto moto = yf.getMoto();
         if (moto == null){
@@ -78,17 +108,28 @@ public class YardflowCachingService {
     }
 
     @Cacheable(value = "yfCache", key = "#idyf")
-    public Moto localizarMotoPorYardFlow(int idyf){
+    public Moto localizarMotoPorYardFlow(long idyf){
         Yardflow yf = yfRep.findById(idyf).orElseThrow(()-> new IllegalArgumentException("YardFlow não encontrado"));
 
         return yf.getMoto();
     }
 
     @CacheEvict(value = "yfCache", allEntries = true)
-    public void removerYardFlow(int idyf){
-        if (!yfRep.existsById(idyf)){
-            throw new IllegalArgumentException("YardFlow não encontrado");
+    @Transactional
+    public void removerYardFlow(long idyf){
+        Yardflow yardflow = yfRep.findById(idyf)
+                .orElseThrow(() -> new IllegalArgumentException("YardFlow não encontrado"));
+        
+        // Desassociar todas as motos que referenciam este Yardflow
+        if (yardflow.getMoto() != null) {
+            Moto moto = yardflow.getMoto();
+            moto.setYardflow(null);
+            yardflow.setMoto(null);
+            // Salvar a moto para atualizar a referência
+            mtR.save(moto);
         }
+        
+        // Agora pode deletar o Yardflow sem problemas de constraint
         yfRep.deleteById(idyf);
     }
 

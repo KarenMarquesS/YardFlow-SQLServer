@@ -40,32 +40,32 @@ public class HomeHTMLController {
     @GetMapping("/home")
     public ModelAndView mostrarHome() {
         ModelAndView mv = new ModelAndView("home");
-        // soma de qtdvagas de todos os pátios
-        int vagasTotal = patioRepo.findAll().stream().mapToInt(p -> p.getQtdvagas()).sum();
-        // quantidade de registros com entradapatio != null e saidapatio == null
-        int vagasOcupadas = 0;
-        int motosMais5Dias = 0;
+
+        long vagasTotal = patioRepo.findAll().stream().mapToLong(p -> p.getQtdvagas()).sum();
+
+        long vagasOcupadas = 0;
+        long motosMais5Dias = 0;
         if (registroRepo != null) {
             var todos = registroRepo.findByEntradapatioIsNotNull();
-            // Apenas motos que ainda estão no pátio (saidapatio == null)
-            vagasOcupadas = (int) todos.stream()
+
+            vagasOcupadas = (long) todos.stream()
                     .filter(r -> r.getSaidapatio() == null)
                     .count();
 
-            motosMais5Dias = (int) todos.stream()
+            motosMais5Dias = (long) todos.stream()
                     .filter(r -> r.getSaidapatio() == null)
                     .filter(r -> r.getEntradapatio() != null)
                     .filter(r -> java.time.temporal.ChronoUnit.DAYS
                             .between(r.getEntradapatio(), LocalDate.now()) > 5)
                     .count();
         }
-        int vagasLivres = Math.max(vagasTotal - vagasOcupadas, 0);
+        long vagasLivres = Math.max(vagasTotal - vagasOcupadas, 0);
 
         mv.addObject("vagasTotal", vagasTotal);
         mv.addObject("vagasOcupadas", vagasOcupadas);
         mv.addObject("vagasLivres", vagasLivres);
         mv.addObject("motosMais5Dias", motosMais5Dias);
-        mv.addObject("nome", "Pátio Principal"); // Adicionar nome do pátio
+        mv.addObject("nome", "Pátio Principal");
         return mv;
     }
 

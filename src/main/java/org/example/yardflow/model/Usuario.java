@@ -69,11 +69,11 @@ public class Usuario {
         this.nome = nome;
     }
 
-    public @Pattern(regexp = "^(.+)@(.+)$", message = "Dgite um e-mail válido") String getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(@Pattern(regexp = "^(.+)@(.+)$", message = "Dgite um e-mail válido") String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 

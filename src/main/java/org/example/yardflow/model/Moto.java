@@ -12,7 +12,7 @@ public class Moto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idmoto;
+    private long idmoto;
 
     @Enumerated(EnumType.STRING)
     private EnumModelo modelo;
@@ -34,7 +34,7 @@ public class Moto {
     public Moto() {
     }
 
-    public Moto(int idmoto, EnumModelo modelo, String chassi, String placa, String historico, Yardflow yardflow, List<Registro_check_in_out> registrosCheckInOut) {
+    public Moto(long idmoto, EnumModelo modelo, String chassi, String placa, String historico, Yardflow yardflow, List<Registro_check_in_out> registrosCheckInOut) {
         this.idmoto = idmoto;
         this.modelo = modelo;
         this.chassi = chassi;
@@ -44,11 +44,11 @@ public class Moto {
         this.registrosCheckInOut = registrosCheckInOut;
     }
 
-    public int getIdmoto() {
+    public long getIdmoto() {
         return idmoto;
     }
 
-    public void setIdmoto(int idmoto) {
+    public void setIdmoto(long idmoto) {
         this.idmoto = idmoto;
     }
 

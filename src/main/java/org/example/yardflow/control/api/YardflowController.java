@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,14 +29,20 @@ public class YardflowController {
     public ResponseEntity<Yardflow> criarYardFlow(@RequestBody @Valid YardflowDTO yfDTO) {
         Yardflow yf = new Yardflow();
         yf.setSerial(yfDTO.getSerial());
-        return ResponseEntity.ok(yf);
+        Yardflow savedYf = yfS.criarNovoYardFlow(yf);
+        return ResponseEntity.ok(savedYf);
     }
 
     @PostMapping("/acionar")
     public ResponseEntity<Yardflow> acionarYardFlow(@RequestBody @Valid YardflowDTO yfDTO) {
-        Yardflow yf = new Yardflow();
-        yf.setSerial(yfDTO.getSerial());
-        return ResponseEntity.ok(yf);
+        Optional<Yardflow> yfOpt = yfS.buscarSerial(yfDTO.getSerial());
+        if (yfOpt.isPresent()) {
+            Yardflow yf = yfOpt.get();
+            yf.setDtUltimoAcionamento(java.time.LocalDateTime.now());
+            Yardflow updatedYf = yfS.criarNovoYardFlow(yf);
+            return ResponseEntity.ok(updatedYf);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @PostMapping("/ativar/{idyf}/{idmoto}")
@@ -60,9 +67,9 @@ public class YardflowController {
 
     @GetMapping("/acionamento")
     public ResponseEntity<List<Yardflow>> buscarUltimoAcionamento(@RequestParam("data")
-                                                                  @DateTimeFormat (iso = DateTimeFormat.ISO.DATE)
-                                                                  LocalDate dtultimoacionamento) {
-        List<Yardflow> yf = yfS.buscarDtUltimoAcionamento(dtultimoacionamento);
+                                                                  @DateTimeFormat (iso = DateTimeFormat.ISO.DATE_TIME)
+                                                                  LocalDateTime dtultimoacionamento) {
+        List<Yardflow> yf = yfS.buscarDtUltimoAcionamento(dtultimoacionamento.toLocalDate());
 
         if(yf == null || yf .isEmpty()) {
             return ResponseEntity.notFound().build();

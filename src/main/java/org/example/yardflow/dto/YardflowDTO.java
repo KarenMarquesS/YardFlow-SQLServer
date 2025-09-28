@@ -4,7 +4,7 @@ package org.example.yardflow.dto;
 import org.example.yardflow.model.Moto;
 
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 
@@ -12,7 +12,7 @@ public class YardflowDTO {
 
     private long idyf;
     private String serial;
-    private LocalDate dtultimoacionamento;
+    private LocalDateTime dtultimoacionamento;
     private Moto moto;
 
 
@@ -25,7 +25,7 @@ public class YardflowDTO {
     }
 
 
-    public YardflowDTO(long idyf, String serial, LocalDate dtultimoacionamento, Moto moto) {
+    public YardflowDTO(long idyf, String serial, LocalDateTime dtultimoacionamento, Moto moto) {
         this.idyf = idyf;
         this.serial = serial;
         this.dtultimoacionamento = dtultimoacionamento;
@@ -48,11 +48,11 @@ public class YardflowDTO {
         this.serial = serial;
     }
 
-    public LocalDate getDtultimoacionamento() {
+    public LocalDateTime getDtUltimoAcionamento() {
         return dtultimoacionamento;
     }
 
-    public void setDtultimoacionamento(LocalDate dtultimoacionamento) {
+    public void setDtUltimoAcionamento(LocalDateTime dtultimoacionamento) {
         this.dtultimoacionamento = dtultimoacionamento;
     }
 

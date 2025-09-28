@@ -9,28 +9,28 @@ public class Patio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idpatio;
+    private long idpatio;
 
     private String name;
 
     @Column(nullable = false)
-    private int qtdvagas;
+    private long qtdvagas;
 
 
     public Patio() {
     }
 
-    public Patio(int idpatio, String name, int qtdvagas) {
+    public Patio(long idpatio, String name, long qtdvagas) {
         this.idpatio = idpatio;
         this.name = name;
         this.qtdvagas = qtdvagas;
     }
 
-    public int getIdpatio() {
+    public long getIdpatio() {
         return idpatio;
     }
 
-    public void setIdpatio(int idpatio) {
+    public void setIdpatio(long idpatio) {
         this.idpatio = idpatio;
     }
 
@@ -42,11 +42,11 @@ public class Patio {
         this.name = name;
     }
 
-    public int getQtdvagas() {
+    public long getQtdvagas() {
         return qtdvagas;
     }
 
-    public void setQtdvagas(int qtdvagas) {
+    public void setQtdvagas(long qtdvagas) {
         this.qtdvagas = qtdvagas;
     }
 }

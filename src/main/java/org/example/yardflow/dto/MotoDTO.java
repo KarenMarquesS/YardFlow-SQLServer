@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.Pattern;
 
 import org.example.yardflow.model.EnumModelo;
+import org.example.yardflow.model.Moto;
 import org.example.yardflow.model.Yardflow;
 
 import java.time.LocalDateTime;
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 
 public class MotoDTO {
 
-    private int idmoto;
+    private long idmoto;
 
     private EnumModelo modelo;
 
@@ -23,23 +24,29 @@ public class MotoDTO {
     @Pattern(regexp = "^[A-Z]{3}[0-9][0-9A-Z][0-9]{2}$", message = "Placa inválida. Use o formato ABC1D23.")
     private String placa;
 
-    @NotBlank(message = "Registre o motivo da moto entrar no pátio, 500 caracteres")
-    @Size(min = 200, max = 500, message = "Registre o motivo")
+    @NotBlank(message = "Registre o motivo da moto entrar no pátio")
+    @Size(max = 500, message = "Histórico deve ter no máximo 500 caracteres")
     private String historico;
 
     private Yardflow yardflow;
 
-    // Campos usados na página de cadastro (view model)
+    // campos para pagina de cadastro
     private LocalDateTime entrada;
     private LocalDateTime saida;
     private Integer yFlowIoT;
     private Boolean ativo;
+    
+    // campos para lista
+    private Long idyf;
+    private LocalDateTime dataEntrada;
+    private LocalDateTime dataSaida;
+    private Long periodoEstadia;
 
 
     public MotoDTO() {
     }
 
-    public MotoDTO(int idmoto, EnumModelo modelo, String chassi, String placa, String historico, Yardflow yardflow) {
+    public MotoDTO(long idmoto, EnumModelo modelo, String chassi, String placa, String historico, Yardflow yardflow) {
         this.idmoto = idmoto;
         this.modelo = modelo;
         this.chassi = chassi;
@@ -48,11 +55,12 @@ public class MotoDTO {
         this.yardflow = yardflow;
     }
 
-    public int getIdmoto() {
+
+    public long getIdmoto() {
         return idmoto;
     }
 
-    public void setIdmoto(int idmoto) {
+    public void setIdmoto(long idmoto) {
         this.idmoto = idmoto;
     }
 
@@ -64,27 +72,27 @@ public class MotoDTO {
         this.modelo = modelo;
     }
 
-    public @Size(min = 17, max = 17, message = "Chassi deve ter 17 caracteres") String getChassi() {
+    public String getChassi() {
         return chassi;
     }
 
-    public void setChassi(@Size(min = 17, max = 17, message = "Chassi deve ter 17 caracteres") String chassi) {
+    public void setChassi(String chassi) {
         this.chassi = chassi;
     }
 
-    public @Size(min = 6, max = 7, message = "Placa deverá ter 7 caracteres") @Pattern(regexp = "^[A-Z]{3}[0-9][0-9A-Z][0-9]{2}$", message = "Placa inválida. Use o formato ABC1D23.") String getPlaca() {
+    public String getPlaca() {
         return placa;
     }
 
-    public void setPlaca(@Size(min = 6, max = 7, message = "Placa deverá ter 7 caracteres") @Pattern(regexp = "^[A-Z]{3}[0-9][0-9A-Z][0-9]{2}$", message = "Placa inválida. Use o formato ABC1D23.") String placa) {
+    public void setPlaca(String placa) {
         this.placa = placa;
     }
 
-    public @NotBlank(message = "Registre o motivo da moto entrar no pátio, 500 caracteres") @Size(min = 200, max = 500, message = "Registre o motivo") String getHistorico() {
+    public String getHistorico() {
         return historico;
     }
 
-    public void setHistorico(@NotBlank(message = "Registre o motivo da moto entrar no pátio, 500 caracteres") @Size(min = 200, max = 500, message = "Registre o motivo") String historico) {
+    public void setHistorico(String historico) {
         this.historico = historico;
     }
 
@@ -126,5 +134,37 @@ public class MotoDTO {
 
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
+    }
+
+    public Long getIdyf() {
+        return idyf;
+    }
+
+    public void setIdyf(Long idyf) {
+        this.idyf = idyf;
+    }
+
+    public LocalDateTime getDataEntrada() {
+        return dataEntrada;
+    }
+
+    public void setDataEntrada(LocalDateTime dataEntrada) {
+        this.dataEntrada = dataEntrada;
+    }
+
+    public LocalDateTime getDataSaida() {
+        return dataSaida;
+    }
+
+    public void setDataSaida(LocalDateTime dataSaida) {
+        this.dataSaida = dataSaida;
+    }
+
+    public Long getPeriodoEstadia() {
+        return periodoEstadia;
+    }
+
+    public void setPeriodoEstadia(Long periodoEstadia) {
+        this.periodoEstadia = periodoEstadia;
     }
 }

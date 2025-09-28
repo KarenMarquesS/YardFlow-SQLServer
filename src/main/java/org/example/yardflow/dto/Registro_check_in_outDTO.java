@@ -9,10 +9,10 @@ import java.time.LocalDate;
 
 public class Registro_check_in_outDTO {
 
-    private int idregistro;
+    private long idregistro;
     private LocalDate entradapatio;
     private LocalDate saidapatio;
-    private int periodo;
+    private long periodo;
     private EnumSetor setor;
     private MotoDTO motoDTO;
 
@@ -38,7 +38,7 @@ public class Registro_check_in_outDTO {
     public Registro_check_in_outDTO() {
     }
 
-    public Registro_check_in_outDTO(int idregistro, LocalDate entradapatio, LocalDate saidapatio, int periodo,
+    public Registro_check_in_outDTO(long idregistro, LocalDate entradapatio, LocalDate saidapatio, long periodo,
                                     EnumSetor setor, MotoDTO motoDTO) {
         this.idregistro = idregistro;
         this.entradapatio = entradapatio;
@@ -48,11 +48,11 @@ public class Registro_check_in_outDTO {
         this.motoDTO = motoDTO;
     }
 
-    public int getIdregistro() {
+    public long getIdregistro() {
         return idregistro;
     }
 
-    public void setIdregistro(int idregistro) {
+    public void setIdregistro(long idregistro) {
         this.idregistro = idregistro;
     }
 
@@ -72,11 +72,11 @@ public class Registro_check_in_outDTO {
         this.saidapatio = saidapatio;
     }
 
-    public int getPeriodo() {
+    public long getPeriodo() {
         return periodo;
     }
 
-    public void setPeriodo(int periodo) {
+    public void setPeriodo(long periodo) {
         this.periodo = periodo;
     }
 

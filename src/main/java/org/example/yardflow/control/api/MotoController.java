@@ -38,26 +38,45 @@ public class MotoController {
     }
 
     @GetMapping("/{idmoto}")
-    public ResponseEntity<MotoDTO> findById(@PathVariable Integer idmoto) {
-        Moto moto = mtS.findById(idmoto)
-                .orElseThrow(() -> new NoSuchElementException("Moto não encontrada: " + idmoto));
-        MotoDTO dto = mm.map(moto, MotoDTO.class);
-        return ResponseEntity.ok(dto);
+    public ResponseEntity<MotoDTO> findById(@PathVariable Long idmoto) {
+        try {
+            Moto moto = mtS.findById(idmoto)
+                    .orElseThrow(() -> new NoSuchElementException("Moto não encontrada: " + idmoto));
+            MotoDTO dto = mm.map(moto, MotoDTO.class);
+            return ResponseEntity.ok(dto);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/placa/{placa}")
     public ResponseEntity<MotoDTO> findByPlaca(@PathVariable String placa) {
-        return ResponseEntity.ok(mtS.findByPlaca(placa));
+        try {
+            MotoDTO dto = mtS.findByPlaca(placa);
+            return ResponseEntity.ok(dto);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/chassi/{chassi}")
     public ResponseEntity<MotoDTO> findByChassi(@PathVariable String chassi) {
-        return ResponseEntity.ok(mtS.findByChassi(chassi));
+        try {
+            MotoDTO dto = mtS.findByChassi(chassi);
+            return ResponseEntity.ok(dto);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/historico/{idmoto}")
-    public ResponseEntity<MotoDTO> buscarHistoricoPorMoto(@PathVariable Integer idmoto) {
-        return ResponseEntity.ok(mtS.buscarHistorico(idmoto));
+    public ResponseEntity<MotoDTO> buscarHistoricoPorMoto(@PathVariable Long idmoto) {
+        try {
+            MotoDTO dto = mtS.buscarHistorico(idmoto);
+            return ResponseEntity.ok(dto);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping("/novamoto")
@@ -73,15 +92,15 @@ public class MotoController {
     }
 
     @PutMapping("/atualizar/{idmoto}")
-    public ResponseEntity<MotoDTO> atualizarRegistroMoto(@PathVariable Integer idmoto, @RequestBody @Valid MotoDTO motoDTO) {
+    public ResponseEntity<MotoDTO> atualizarRegistroMoto(@PathVariable Long idmoto, @RequestBody @Valid MotoDTO motoDTO) {
         MotoDTO updatedMoto = mtS.atualizarRegistroMoto(idmoto, motoDTO);
         return ResponseEntity.ok(updatedMoto);
     }
 
     @DeleteMapping("/deletar/{idmoto}")
-    public ResponseEntity<Void> deletarRegistroMoto(@PathVariable Integer idmoto) {
-        mtS.deletarRegistroMoto(idmoto);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Void> deletarRegistroMoto(@PathVariable Long idmoto) {
+        boolean ok = mtS.deletarRegistroMoto(idmoto);
+        return ok ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/cache/limpar")

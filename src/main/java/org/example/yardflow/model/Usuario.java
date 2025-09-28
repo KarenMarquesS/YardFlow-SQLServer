@@ -27,8 +27,8 @@ public class Usuario {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "usuario_funcao_tab",
-            joinColumns = @JoinColumn(name = "id_usuario"),
-            inverseJoinColumns = @JoinColumn(name = "id_funcao"))
+            joinColumns = @JoinColumn(name = "id"),
+            inverseJoinColumns = @JoinColumn(name = "idfuncao"))
     private Set<Funcao> funcoes = new HashSet<Funcao>();
 
 

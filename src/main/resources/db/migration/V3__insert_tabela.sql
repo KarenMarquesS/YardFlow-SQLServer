@@ -56,11 +56,11 @@ INSERT INTO tb_yf_funcao (nome)
 SELECT 'ADMIN' WHERE NOT EXISTS (SELECT 1 FROM tb_yf_funcao WHERE nome = 'ADMIN');
 
 -- Popular a tabela de junção a partir da coluna 'funcao' da tabela de usuários
-INSERT INTO usuario_funcao_tab (id_usuario, id_funcao)
-SELECT u.id, f.idfucao
+INSERT INTO usuario_funcao_tab (id, idfuncao)
+SELECT u.id, f.idfuncao
 FROM tb_yf_usuario u
          JOIN tb_yf_funcao f ON f.nome = u.funcao
 WHERE NOT EXISTS (
     SELECT 1 FROM usuario_funcao_tab uf
-    WHERE uf.id_usuario = u.id AND uf.id_funcao = f.idfucao
+    WHERE uf.id = u.id AND uf.idfuncao = f.idfuncao
 );

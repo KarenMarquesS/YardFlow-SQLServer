@@ -1,7 +1,7 @@
 -- Tabela: tb_yf_funcao
 CREATE TABLE tb_yf_funcao (
-  idfucao BIGINT AUTO_INCREMENT PRIMARY KEY,
-  nome VARCHAR(50) NOT NULL
+    idfuncao BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL
 );
 
 -- Tabela: tb_yf_usuario
@@ -16,9 +16,9 @@ CREATE TABLE tb_yf_usuario (
 
 -- Tabela: tb_yf_patio
 CREATE TABLE tb_yf_patio (
-     idpatio BIGINT AUTO_INCREMENT PRIMARY KEY,
-     name VARCHAR(255),
-     qtdvagas BIGINT NOT NULL
+    idpatio BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255),
+    qtdvagas BIGINT NOT NULL
 );
 
 -- Tabela: tb_yf_moto (sem FK por enquanto)
@@ -29,7 +29,7 @@ CREATE TABLE tb_yf_moto (
     placa VARCHAR(20),
     historico TEXT,
     idyf BIGINT
-);
+    );
 
 -- Tabela: tb_yf_IoT (sem FK por enquanto)
 CREATE TABLE tb_yf_IoT (
@@ -41,17 +41,17 @@ CREATE TABLE tb_yf_IoT (
 
 -- Tabela: tb_yf_registro_check_in_out
 CREATE TABLE tb_yf_registro_check_in_out (
-     idregistro BIGINT AUTO_INCREMENT PRIMARY KEY,
-     entradapatio DATE,
-     saidapatio DATE,
-     periodo BIGINT NOT NULL,
-     setor VARCHAR(50) NOT NULL,
-     idmoto BIGINT,
-     CONSTRAINT fk_registro_moto FOREIGN KEY (idmoto) REFERENCES tb_yf_moto(idmoto)
+    idregistro BIGINT AUTO_INCREMENT PRIMARY KEY,
+    entradapatio DATE,
+    saidapatio DATE,
+    periodo BIGINT NOT NULL,
+    setor VARCHAR(50) NOT NULL,
+    idmoto BIGINT,
+    CONSTRAINT fk_registro_moto FOREIGN KEY (idmoto) REFERENCES tb_yf_moto(idmoto)
 );
 
 -- Criar tabela de junção esperada pelo mapeamento @ManyToMany (Usuario <-> Funcao)
 CREATE TABLE IF NOT EXISTS usuario_funcao_tab (
-  id_usuario BIGINT NOT NULL,
-  id_funcao  BIGINT NOT NULL
+    id BIGINT NOT NULL,
+    idfuncao  BIGINT NOT NULL
 );

@@ -10,6 +10,7 @@ public class Funcao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idfuncao")
     private long idfuncao;
 
     @Enumerated(EnumType.STRING)

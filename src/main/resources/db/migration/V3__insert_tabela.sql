@@ -64,3 +64,19 @@ WHERE NOT EXISTS (
     SELECT 1 FROM usuario_funcao_tab uf
     WHERE uf.id = u.id AND uf.idfuncao = f.idfuncao
 );
+
+
+-- Funções
+INSERT INTO tb_yf_funcao (nome) VALUES ('ADMIN');
+INSERT INTO tb_yf_funcao (nome) VALUES ('USER');
+
+-- Usuário inicial
+INSERT INTO tb_yf_usuario (nome, email, senha)
+VALUES ('Administrador', 'admin@yardflow.com', 'admin123');
+
+-- Associação do usuário ADMIN
+INSERT INTO usuario_funcao_tab (id, idfuncao)
+SELECT u.id, f.idfuncao
+FROM tb_yf_usuario u
+         JOIN tb_yf_funcao f ON f.nome = 'ADMIN'
+WHERE u.email = 'admin@yardflow.com';

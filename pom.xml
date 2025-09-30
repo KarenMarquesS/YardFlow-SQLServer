@@ -54,7 +54,6 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
-
         <!-- Desenvolvimento -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -94,14 +93,6 @@
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.flywaydb/flyway-core -->
-        <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-            <version>10.17.2</version>
-        </dependency>
-
 
         <!-- HATEOAS -->
         <!-- https://mvnrepository.com/artifact/org.springframework.hateoas/spring-hateoas -->
